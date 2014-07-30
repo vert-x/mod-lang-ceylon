@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
 
@@ -35,9 +34,7 @@ public class BasicTest {
     }
   }
 
-  @Test
-  public void testCompile() {
-
+  private void run(String module, String version) {
     File sourcePath = new File("src/test/resources");
     assertTrue(sourcePath.exists());
     assertTrue(sourcePath.isDirectory());
@@ -59,23 +56,23 @@ public class BasicTest {
     options.setSystemRepository(systemRepo.getAbsolutePath());
 //    options.setVerbose(true);
 
-    scan(options, sourcePath);
+    scan(options, new File(sourcePath, module));
 
     Compiler compiler = CeylonToolProvider.getCompiler(Backend.Java);
     boolean compiled = compiler.compile(options, new CompilationListener() {
       @Override
       public void error(File file, long l, long l2, String s) {
-        System.out.println("ERROR " + s);
+        System.out.println("Error " + s);
       }
 
       @Override
       public void warning(File file, long l, long l2, String s) {
-        System.out.println("WARNING " + s);
+        System.out.println("Warning " + s);
       }
 
       @Override
       public void moduleCompiled(String s, String s2) {
-        System.out.println("COMPILED " + s + " " + s2);
+        System.out.println("Compiled " + s + " " + s2);
       }
     });
 
@@ -85,9 +82,23 @@ public class BasicTest {
     runtimeOptions.setSystemRepository(systemRepo.getAbsolutePath());
     runtimeOptions.addUserRepository(modules.getAbsolutePath());
 
-    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runtimeOptions, "sdk", "1.0.0");
+    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runtimeOptions, module, version);
     runner.run();
+  }
 
+  @Test
+  public void testCompile() {
+    run("helloworld", "1.0.0");
+  }
+
+  @Test
+  public void testSDK() {
+    run("sdk", "1.0.0");
+  }
+
+  @Test
+  public void testOverride() {
+    run("override", "1.0.0");
   }
 
 }
