@@ -57,7 +57,7 @@ public class BasicTest {
     options.setSourcePath(Collections.singletonList(sourcePath));
     options.setOutputRepository(modules.getAbsolutePath());
     options.setSystemRepository(systemRepo.getAbsolutePath());
-    // options.setVerbose(true);
+//    options.setVerbose(true);
 
     scan(options, sourcePath);
 
@@ -85,7 +85,7 @@ public class BasicTest {
     runtimeOptions.setSystemRepository(systemRepo.getAbsolutePath());
     runtimeOptions.addUserRepository(modules.getAbsolutePath());
 
-    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runtimeOptions, "helloworld", "1.0.0");
+    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runtimeOptions, "sdk", "1.0.0");
     runner.run();
 
   }

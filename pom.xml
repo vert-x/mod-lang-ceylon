@@ -83,6 +83,13 @@
       <scope>system</scope>
       <systemPath>${ceylon.home}/repo/org/antlr/runtime/3.4/org.antlr.runtime-3.4.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>ceylon</groupId>
+      <artifactId>txtmark</artifactId>
+      <version>1.1.0</version>
+      <scope>system</scope>
+      <systemPath>${ceylon.home}/repo/com/github/rjeschke/txtmark/0.8.0.c0dcd373ce/com.github.rjeschke.txtmark-0.8.0.c0dcd373ce.jar</systemPath>
+    </dependency>
 
     <dependency>
       <groupId>io.vertx</groupId>
