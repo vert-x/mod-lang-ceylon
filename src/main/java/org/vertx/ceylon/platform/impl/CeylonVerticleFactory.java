@@ -24,6 +24,7 @@ public class CeylonVerticleFactory implements VerticleFactory {
     this.cl = cl;
     this.container = container;
     this.cl = cl;
+    this.vertx = vertx;
   }
 
   @Override
@@ -36,13 +37,13 @@ public class CeylonVerticleFactory implements VerticleFactory {
       File userRepo = File.createTempFile("vertx", ".repo");
       userRepo.delete();
       userRepo.mkdir();
+      userRepo.deleteOnExit();
       ArrayList<File> sources = new ArrayList<>();
       scan(sources, moduleSrc.getParentFile());
-      CeylonVerticle verticle = new CeylonVerticle(sourcePath, userRepo, sources);
+      CeylonVerticle verticle = new CeylonVerticle(cl, sourcePath, userRepo, sources);
       verticle.setVertx(vertx);
       verticle.setContainer(container);
       return verticle;
-
     }
 
     throw new UnsupportedOperationException("Implement create verticle " + main);

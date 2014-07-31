@@ -46,7 +46,7 @@ public class VertxTest {
     }
 
     //
-    manager.deployVerticle("helloworld/module.ceylon", new JsonObject().putString("systemRepo", systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
+    manager.deployVerticle("noopverticle/module.ceylon", new JsonObject().putString("systemRepo", systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
       @Override
       public void handle(AsyncResult<String> result) {
         queue.add(result);

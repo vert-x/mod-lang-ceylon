@@ -139,8 +139,8 @@ public class BasicTest {
     JavaRunner runner = runner(options, "io.vertx.ceylon", "0.4.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
-    Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", String.class);
-    List<Verticle> verticles = (List<Verticle>) introspector.invoke(null, "noopverticle");
+    Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", List.class);
+    List<Verticle> verticles = (List<Verticle>) introspector.invoke(null, Collections.singletonList("noopverticle"));
     assertEquals(1, verticles.size());
     assertTrue(verticles.get(0) instanceof Verticle);
   }
