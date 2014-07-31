@@ -8,6 +8,7 @@ import com.redhat.ceylon.compiler.java.runtime.tools.JavaRunner;
 import com.redhat.ceylon.compiler.java.runtime.tools.Runner;
 import com.redhat.ceylon.compiler.java.runtime.tools.RunnerOptions;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
+import org.junit.Before;
 import org.junit.Test;
 import org.vertx.java.core.Vertx;
 
@@ -22,6 +23,28 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class BasicTest {
+
+  File modules;
+  File sourcePath;
+  File systemRepo;
+
+  @Before
+  public void before() {
+    sourcePath = new File("src/test/resources");
+    assertTrue(sourcePath.exists());
+    assertTrue(sourcePath.isDirectory());
+
+    modules = new File("target/modules");
+    if (!modules.exists()) {
+      assertTrue(modules.mkdirs());
+    } else {
+      assertTrue(modules.isDirectory());
+    }
+
+    systemRepo = new File("target/system-repo");
+    assertTrue(systemRepo.isDirectory());
+    assertTrue(systemRepo.exists());
+  }
 
   private void scan(CompilerOptions options, File file) {
     if (file.exists()) {
@@ -38,21 +61,7 @@ public class BasicTest {
     }
   }
 
-  private JavaRunner runner(String module, String version) {
-    File sourcePath = new File("src/test/resources");
-    assertTrue(sourcePath.exists());
-    assertTrue(sourcePath.isDirectory());
-
-    File modules = new File("target/modules");
-    if (!modules.exists()) {
-      assertTrue(modules.mkdirs());
-    } else {
-      assertTrue(modules.isDirectory());
-    }
-
-    File systemRepo = new File("target/system-repo");
-    assertTrue(systemRepo.isDirectory());
-    assertTrue(systemRepo.exists());
+  private void assertCompile(String module) {
 
     CompilerOptions options = new CompilerOptions();
     options.setSourcePath(Collections.singletonList(sourcePath));
@@ -81,6 +90,9 @@ public class BasicTest {
     });
 
     assertTrue(compiled);
+  }
+
+  private JavaRunner runner(String module, String version) {
 
     RunnerOptions runnerOptions = new RunnerOptions();
     runnerOptions.setSystemRepository(systemRepo.getAbsolutePath());
@@ -91,16 +103,19 @@ public class BasicTest {
 
   @Test
   public void testCompile() {
+    assertCompile("helloworld");
     runner("helloworld", "1.0.0").run();
   }
 
   @Test
   public void testSDK() {
+    assertCompile("sdk");
     runner("sdk", "1.0.0").run();
   }
 
   @Test
   public void testOverride() throws Exception {
+    assertCompile("override");
     JavaRunner runner = runner("override", "1.0.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();

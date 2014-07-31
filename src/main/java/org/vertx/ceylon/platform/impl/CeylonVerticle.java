@@ -81,8 +81,9 @@ public class CeylonVerticle extends Verticle {
       RunnerOptions runnerOptions = new RunnerOptions();
       runnerOptions.setSystemRepository(systemRepo);
       runnerOptions.addUserRepository(userRepo.getAbsolutePath());
-      Runner runner = CeylonToolProvider.getRunner(Backend.Java, runnerOptions, modules.get(0)[0], modules.get(0)[1]);
-      runner.run();
+      JavaRunner runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, modules.get(0)[0], modules.get(0)[1]);
+
+      //
 
       // Ok
       startedResult.setResult(null);
