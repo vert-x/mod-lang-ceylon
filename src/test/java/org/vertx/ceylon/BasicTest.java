@@ -5,7 +5,7 @@ import com.redhat.ceylon.compiler.java.runtime.tools.CeylonToolProvider;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilationListener;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilerOptions;
 import com.redhat.ceylon.compiler.java.runtime.tools.Runner;
-import com.redhat.ceylon.compiler.java.runtime.tools.RuntimeOptions;
+import com.redhat.ceylon.compiler.java.runtime.tools.RunnerOptions;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.junit.Test;
 
@@ -78,11 +78,11 @@ public class BasicTest {
 
     assertTrue(compiled);
 
-    RuntimeOptions runtimeOptions = new RuntimeOptions();
-    runtimeOptions.setSystemRepository(systemRepo.getAbsolutePath());
-    runtimeOptions.addUserRepository(modules.getAbsolutePath());
+    RunnerOptions runnerOptions = new RunnerOptions();
+    runnerOptions.setSystemRepository(systemRepo.getAbsolutePath());
+    runnerOptions.addUserRepository(modules.getAbsolutePath());
 
-    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runtimeOptions, module, version);
+    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runnerOptions, module, version);
     runner.run();
   }
 

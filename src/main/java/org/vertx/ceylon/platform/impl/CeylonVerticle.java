@@ -78,10 +78,10 @@ public class CeylonVerticle extends Verticle {
       }
 
       //
-      RuntimeOptions runtimeOptions = new RuntimeOptions();
-      runtimeOptions.setSystemRepository(systemRepo);
-      runtimeOptions.addUserRepository(userRepo.getAbsolutePath());
-      Runner runner = CeylonToolProvider.getRunner(Backend.Java, runtimeOptions, modules.get(0)[0], modules.get(0)[1]);
+      RunnerOptions runnerOptions = new RunnerOptions();
+      runnerOptions.setSystemRepository(systemRepo);
+      runnerOptions.addUserRepository(userRepo.getAbsolutePath());
+      Runner runner = CeylonToolProvider.getRunner(Backend.Java, runnerOptions, modules.get(0)[0], modules.get(0)[1]);
       runner.run();
 
       // Ok
