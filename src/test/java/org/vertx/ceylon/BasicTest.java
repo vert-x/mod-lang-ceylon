@@ -10,10 +10,13 @@ import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.junit.Before;
 import org.junit.Test;
 import org.vertx.java.core.Vertx;
+import org.vertx.java.platform.Verticle;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -126,6 +129,20 @@ public class BasicTest {
     Vertx vertx = (Vertx) loader.loadClass("override.tester_").getDeclaredMethod("tester").invoke(null);
     ArrayList<String> p = (ArrayList<String>) loader.loadClass("override.lister_").getDeclaredMethod("lister").invoke(null);
     assertTrue(p.contains("helloworld"));
+  }
+
+  @Test
+  public void testVerticleDiscovery() throws Exception {
+    assertCompile("noopverticle");
+    RunnerOptions options = new RunnerOptions();
+    options.addExtraModule("noopverticle", "1.0.0");
+    JavaRunner runner = runner(options, "io.vertx.ceylon", "0.4.0");
+    runner.run();
+    ClassLoader loader = runner.getModuleClassLoader();
+    Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", String.class);
+    List<Verticle> verticles = (List<Verticle>) introspector.invoke(null, "noopverticle");
+    assertEquals(1, verticles.size());
+    assertTrue(verticles.get(0) instanceof Verticle);
   }
 
 }
