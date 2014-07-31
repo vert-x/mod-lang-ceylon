@@ -5,7 +5,6 @@ import com.redhat.ceylon.compiler.java.runtime.tools.CeylonToolProvider;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilationListener;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilerOptions;
 import com.redhat.ceylon.compiler.java.runtime.tools.JavaRunner;
-import com.redhat.ceylon.compiler.java.runtime.tools.Runner;
 import com.redhat.ceylon.compiler.java.runtime.tools.RunnerOptions;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.junit.Before;
@@ -13,8 +12,7 @@ import org.junit.Test;
 import org.vertx.java.core.Vertx;
 
 import java.io.File;
-import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.junit.Assert.*;
@@ -93,11 +91,12 @@ public class BasicTest {
   }
 
   private JavaRunner runner(String module, String version) {
+    return runner(new RunnerOptions(), module, version);
+  }
 
-    RunnerOptions runnerOptions = new RunnerOptions();
+  private JavaRunner runner(RunnerOptions runnerOptions, String module, String version) {
     runnerOptions.setSystemRepository(systemRepo.getAbsolutePath());
     runnerOptions.addUserRepository(modules.getAbsolutePath());
-
     return (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, module, version);
   }
 
@@ -115,16 +114,18 @@ public class BasicTest {
 
   @Test
   public void testOverride() throws Exception {
+    assertCompile("helloworld");
     assertCompile("override");
-    JavaRunner runner = runner("override", "1.0.0");
+    RunnerOptions options = new RunnerOptions();
+    options.addExtraModule("helloworld", "1.0.0");
+    JavaRunner runner = runner(options, "override", "1.0.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
     Class<?> vertxClass = loader.loadClass(Vertx.class.getName());
     assertEquals(Vertx.class, vertxClass);
-
-    Class testerClass = loader.loadClass("override.tester_");
-    Method m = testerClass.getDeclaredMethod("tester");
-    Vertx o = (Vertx) m.invoke(null);
+    Vertx vertx = (Vertx) loader.loadClass("override.tester_").getDeclaredMethod("tester").invoke(null);
+    ArrayList<String> p = (ArrayList<String>) loader.loadClass("override.lister_").getDeclaredMethod("lister").invoke(null);
+    assertTrue(p.contains("helloworld"));
   }
 
 }

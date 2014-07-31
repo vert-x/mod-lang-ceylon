@@ -10,3 +10,5 @@ nul
 .classpath
 .project
 
+/classes
+/.exploded
