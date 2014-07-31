@@ -38,21 +38,39 @@ public class CeylonVerticle extends Verticle {
         config = new JsonObject();
       }
 
-      //
+      // Use provided system repo / auto guess system repo
       String systemRepo = config.getString("systemRepo", null);
+      String systemPrefix = "";
       if (systemRepo == null) {
-        // Auto guess system repo
         URL jarURL = Compiler.class.getProtectionDomain().getCodeSource().getLocation();
         File jarFile = new File(jarURL.toURI());
         systemRepo = jarFile.getParentFile().getAbsolutePath();
+        systemPrefix = "flat:";
       }
+
+      // java.class.path work around hack
+      StringBuffer javaClassPath = new StringBuffer();
+      String previous = System.getProperty("java.class.path");
+      if (previous != null) {
+        javaClassPath.append(previous);
+      }
+      File[] children = new File(systemRepo).listFiles();
+      if (children != null) {
+        for (File child : children) {
+          if (javaClassPath.length() > 0) {
+            javaClassPath.append(':');
+          }
+          javaClassPath.append(child.getAbsolutePath());
+        }
+      }
+      System.setProperty("java.class.path", "" + javaClassPath);
 
       //
       CompilerOptions compilerOptions = new CompilerOptions();
       compilerOptions.setSourcePath(Collections.singletonList(sourcePath));
       compilerOptions.setOutputRepository(userRepo.getCanonicalPath());
       compilerOptions.setFiles(sources);
-      compilerOptions.setSystemRepository(systemRepo);
+      compilerOptions.setSystemRepository(systemPrefix + systemRepo);
       compilerOptions.setVerbose(config.getBoolean("verbose", false));
 
       //
@@ -75,13 +93,14 @@ public class CeylonVerticle extends Verticle {
           runnerOptions.addExtraModule(s, s2);
         }
       });
+      System.setProperty("java.class.path", previous); // Restore
       if (!compiled) {
         throw new Exception("Could not compile");
       }
 
       //
-      runnerOptions.setDelegateClassLoader(delegatLoader);
-      runnerOptions.setSystemRepository(systemRepo);
+      runnerOptions.setDelegateClassLoader(CeylonVerticle.class.getClassLoader());
+      runnerOptions.setSystemRepository(systemPrefix + systemRepo);
       runnerOptions.addUserRepository(userRepo.getAbsolutePath());
       JavaRunner runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
       runner.run();

@@ -67,7 +67,7 @@ public class BasicTest {
     CompilerOptions options = new CompilerOptions();
     options.setSourcePath(Collections.singletonList(sourcePath));
     options.setOutputRepository(modules.getAbsolutePath());
-    options.setSystemRepository(systemRepo.getAbsolutePath());
+    options.setSystemRepository("flat:" + systemRepo.getAbsolutePath());
 //    options.setVerbose(true);
 
     scan(options, new File(sourcePath, module));
@@ -98,7 +98,7 @@ public class BasicTest {
   }
 
   private JavaRunner runner(RunnerOptions runnerOptions, String module, String version) {
-    runnerOptions.setSystemRepository(systemRepo.getAbsolutePath());
+    runnerOptions.setSystemRepository("flat:" + systemRepo.getAbsolutePath());
     runnerOptions.addUserRepository(modules.getAbsolutePath());
     return (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, module, version);
   }

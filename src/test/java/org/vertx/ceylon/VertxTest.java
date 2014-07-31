@@ -46,13 +46,13 @@ public class VertxTest {
     }
 
     //
-    manager.deployVerticle("noopverticle/module.ceylon", new JsonObject().putString("systemRepo", systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
+    manager.deployVerticle("noopverticle/module.ceylon", new JsonObject().putString("systemRepo", "flat:" + systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
       @Override
       public void handle(AsyncResult<String> result) {
         queue.add(result);
       }
     });
-    a = queue.poll(10, TimeUnit.SECONDS);
+    a = queue.poll(10000000, TimeUnit.SECONDS);
     if (a.failed()) {
       AssertionFailedError afe = new AssertionFailedError();
       afe.initCause(a.cause());
