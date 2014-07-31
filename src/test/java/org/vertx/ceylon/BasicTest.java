@@ -4,12 +4,16 @@ import com.redhat.ceylon.compiler.java.runtime.tools.Backend;
 import com.redhat.ceylon.compiler.java.runtime.tools.CeylonToolProvider;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilationListener;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilerOptions;
+import com.redhat.ceylon.compiler.java.runtime.tools.JavaRunner;
 import com.redhat.ceylon.compiler.java.runtime.tools.Runner;
 import com.redhat.ceylon.compiler.java.runtime.tools.RunnerOptions;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.junit.Test;
+import org.vertx.java.core.Vertx;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.Assert.*;
@@ -34,7 +38,7 @@ public class BasicTest {
     }
   }
 
-  private void run(String module, String version) {
+  private JavaRunner runner(String module, String version) {
     File sourcePath = new File("src/test/resources");
     assertTrue(sourcePath.exists());
     assertTrue(sourcePath.isDirectory());
@@ -82,23 +86,30 @@ public class BasicTest {
     runnerOptions.setSystemRepository(systemRepo.getAbsolutePath());
     runnerOptions.addUserRepository(modules.getAbsolutePath());
 
-    Runner runner = CeylonToolProvider.getRunner(Backend.Java, runnerOptions, module, version);
-    runner.run();
+    return (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, module, version);
   }
 
   @Test
   public void testCompile() {
-    run("helloworld", "1.0.0");
+    runner("helloworld", "1.0.0").run();
   }
 
   @Test
   public void testSDK() {
-    run("sdk", "1.0.0");
+    runner("sdk", "1.0.0").run();
   }
 
   @Test
-  public void testOverride() {
-    run("override", "1.0.0");
+  public void testOverride() throws Exception {
+    JavaRunner runner = runner("override", "1.0.0");
+    runner.run();
+    ClassLoader loader = runner.getModuleClassLoader();
+    Class<?> vertxClass = loader.loadClass(Vertx.class.getName());
+    assertEquals(Vertx.class, vertxClass);
+
+    Class testerClass = loader.loadClass("override.tester_");
+    Method m = testerClass.getDeclaredMethod("tester");
+    Vertx o = (Vertx) m.invoke(null);
   }
 
 }
