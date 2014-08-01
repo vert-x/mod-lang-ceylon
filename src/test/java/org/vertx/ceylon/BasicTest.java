@@ -26,74 +26,8 @@ import static org.junit.Assert.*;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class BasicTest {
+public class BasicTest extends AbstractTest {
 
-  File modules;
-  File sourcePath;
-  File systemRepo;
-
-  @Before
-  public void before() {
-    sourcePath = new File("src/test/resources");
-    assertTrue(sourcePath.exists());
-    assertTrue(sourcePath.isDirectory());
-
-    modules = new File("target/modules");
-    if (!modules.exists()) {
-      assertTrue(modules.mkdirs());
-    } else {
-      assertTrue(modules.isDirectory());
-    }
-
-    systemRepo = new File("target/system-repo");
-    assertTrue(systemRepo.isDirectory());
-    assertTrue(systemRepo.exists());
-  }
-
-  private void scan(CompilerOptions options, File file) {
-    if (file.exists()) {
-      if (file.isDirectory()) {
-        File[] children = file.listFiles();
-        if (children != null) {
-          for (File child : children) {
-            scan(options, child);
-          }
-        }
-      } else if (file.isFile() && file.getName().endsWith(".ceylon")) {
-        options.addFile(file);
-      }
-    }
-  }
-
-  private void assertCompile(String module) {
-
-    CompilerOptions options = new CompilerOptions();
-    options.setSourcePath(Collections.singletonList(sourcePath));
-    options.setOutputRepository(modules.getAbsolutePath());
-    options.setSystemRepository("flat:" + systemRepo.getAbsolutePath());
-
-    scan(options, new File(sourcePath, module));
-
-    Compiler compiler = CeylonToolProvider.getCompiler(Backend.Java);
-    boolean compiled = compiler.compile(options, new CompilationListener() {
-      @Override
-      public void error(File file, long l, long l2, String s) {
-        System.out.println("Error " + s);
-      }
-
-      @Override
-      public void warning(File file, long l, long l2, String s) {
-        System.out.println("Warning " + s);
-      }
-
-      @Override
-      public void moduleCompiled(String s, String s2) {
-        System.out.println("Compiled " + s + " " + s2);
-      }
-    });
-
-    assertTrue(compiled);
-  }
 
   private JavaRunner runner(String module, String version) {
     return runner(new RunnerOptions(), module, version);

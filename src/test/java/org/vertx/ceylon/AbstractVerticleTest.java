@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public abstract class AbstractVerticleTest {
+public abstract class AbstractVerticleTest extends AbstractTest {
 
   private PlatformManager manager;
 
@@ -46,7 +46,11 @@ public abstract class AbstractVerticleTest {
   }
 
   public String assertDeploy(String modulePath) throws Exception {
-    AsyncResult<String> result = deploy(modulePath);
+    return assertDeploy(modulePath, new JsonObject());
+  }
+
+  public String assertDeploy(String modulePath, JsonObject config) throws Exception {
+    AsyncResult<String> result = deploy(modulePath, config);
     if (result.failed()) {
       AssertionFailedError afe = new AssertionFailedError();
       afe.initCause(result.cause());
@@ -57,7 +61,11 @@ public abstract class AbstractVerticleTest {
   }
 
   public Throwable assertFailedDeploy(String modulePath) throws Exception {
-    AsyncResult<String> result = deploy(modulePath);
+    return assertFailedDeploy(modulePath, new JsonObject());
+  }
+
+  public Throwable assertFailedDeploy(String modulePath, JsonObject config) throws Exception {
+    AsyncResult<String> result = deploy(modulePath, config);
     if (result.succeeded()) {
       throw new AssertionFailedError("Was expecting deployment of " + modulePath + " to fail");
     } else {
@@ -65,12 +73,12 @@ public abstract class AbstractVerticleTest {
     }
   }
 
-  public AsyncResult<String> deploy(String modulePath) throws Exception {
-    File systemRepo = new File("target/system-repo");
-    assertTrue(systemRepo.isDirectory());
-    assertTrue(systemRepo.exists());
+  public AsyncResult<String> deploy(String modulePath, JsonObject config) throws Exception {
+    if (!config.containsField("systemRepo")) {
+      config.putString("systemRepo", "flat:" + systemRepo.getAbsolutePath());
+    }
     final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
-    getManager().deployVerticle(modulePath, new JsonObject().putString("systemRepo", "flat:" + systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
+    getManager().deployVerticle(modulePath, config, new URL[0], 1, null, new Handler<AsyncResult<String>>() {
       @Override
       public void handle(AsyncResult<String> result) {
         queue.add(result);

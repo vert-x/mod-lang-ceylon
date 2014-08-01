@@ -16,24 +16,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class CeylonVerticle extends Verticle {
 
-  final ClassLoader delegatLoader;
-  final File sourcePath;
-  final File userRepo;
-  final List<File> sources;
+  final String main;
+  final ClassLoader delegateLoader;
   private Verticle verticle;
   private JavaRunner runner;
 
-  public CeylonVerticle(ClassLoader delegatLoader, File sourcePath, File userRepo, List<File> sources) {
-    this.delegatLoader = delegatLoader;
-    this.sourcePath = sourcePath;
-    this.userRepo = userRepo;
-    this.sources = sources;
+  public CeylonVerticle(String main, ClassLoader delegateLoader) {
+    this.main = main;
+    this.delegateLoader = delegateLoader;
     this.verticle = null;
   }
 
@@ -43,6 +41,19 @@ public class CeylonVerticle extends Verticle {
       JsonObject config = container.config();
       if (config == null) {
         config = new JsonObject();
+      }
+
+      // Verbose
+      boolean verbose = config.getBoolean("verbose", false);
+
+      // User repo
+      String userRepo = config.getString("userRepo", null);
+      if (userRepo == null) {
+        File tmpUserRepo = File.createTempFile("vertx", ".repo");
+        tmpUserRepo.delete();
+        tmpUserRepo.mkdir();
+        tmpUserRepo.deleteOnExit();
+        userRepo = tmpUserRepo.getAbsolutePath();
       }
 
       // Use provided system repo / auto guess system repo
@@ -55,62 +66,82 @@ public class CeylonVerticle extends Verticle {
         systemPrefix = "flat:";
       }
 
-      // java.class.path work around hack
-      StringBuffer javaClassPath = new StringBuffer();
-      String previous = System.getProperty("java.class.path");
-      if (previous != null) {
-        javaClassPath.append(previous);
-      }
-      File[] children = new File(systemRepo).listFiles();
-      if (children != null) {
-        for (File child : children) {
-          if (javaClassPath.length() > 0) {
-            javaClassPath.append(':');
-          }
-          javaClassPath.append(child.getAbsolutePath());
-        }
-      }
-      System.setProperty("java.class.path", "" + javaClassPath);
-
-      //
-      CompilerOptions compilerOptions = new CompilerOptions();
-      compilerOptions.setSourcePath(Collections.singletonList(sourcePath));
-      compilerOptions.setOutputRepository(userRepo.getCanonicalPath());
-      compilerOptions.setFiles(sources);
-      compilerOptions.setSystemRepository(systemPrefix + systemRepo);
-      compilerOptions.setVerbose(config.getBoolean("verbose", false));
-
       //
       final JavaRunnerOptions runnerOptions = new JavaRunnerOptions();
-      Compiler compiler = CeylonToolProvider.getCompiler(Backend.Java);
       final HashSet<String> modules = new HashSet<>();
-      boolean compiled = compiler.compile(compilerOptions, new CompilationListener() {
-        @Override
-        public void error(File file, long line, long column, String message) {
-          container.logger().error("Compilation error at (" + line + "," + column + ") in " +
-              file.getAbsolutePath() + ":" + message);
+      if (main.endsWith(".ceylon")) {
+        File sourcePath = new File(delegateLoader.getResource("").toURI());
+        File moduleSrc = new File(delegateLoader.getResource(main).toURI());
+        ArrayList<File> sources = new ArrayList<>();
+        scan(sources, moduleSrc.getParentFile());
+
+        // java.class.path work around hack
+        StringBuffer javaClassPath = new StringBuffer();
+        String previous = System.getProperty("java.class.path");
+        if (previous != null) {
+          javaClassPath.append(previous);
         }
-        @Override
-        public void warning(File file, long line, long column, String message) {
-          container.logger().warn("Compilation warning at (" + line + "," + column + ") in " +
-              file.getAbsolutePath() + ":" + message);
+        File[] children = new File(systemRepo).listFiles();
+        if (children != null) {
+          for (File child : children) {
+            if (javaClassPath.length() > 0) {
+              javaClassPath.append(':');
+            }
+            javaClassPath.append(child.getAbsolutePath());
+          }
         }
-        @Override
-        public void moduleCompiled(String module, String version) {
-          container.logger().info("Compiled module " + module + "/" + version);
-          modules.add(module);
+        System.setProperty("java.class.path", "" + javaClassPath);
+
+        //
+        CompilerOptions compilerOptions = new CompilerOptions();
+        compilerOptions.setSourcePath(Collections.singletonList(sourcePath));
+        compilerOptions.setOutputRepository(userRepo);
+        compilerOptions.setFiles(sources);
+        compilerOptions.setSystemRepository(systemPrefix + systemRepo);
+        compilerOptions.setVerbose(verbose);
+
+        //
+        Compiler compiler = CeylonToolProvider.getCompiler(Backend.Java);
+        boolean compiled = compiler.compile(compilerOptions, new CompilationListener() {
+          @Override
+          public void error(File file, long line, long column, String message) {
+            container.logger().error("Compilation error at (" + line + "," + column + ") in " +
+                file.getAbsolutePath() + ":" + message);
+          }
+          @Override
+          public void warning(File file, long line, long column, String message) {
+            container.logger().warn("Compilation warning at (" + line + "," + column + ") in " +
+                file.getAbsolutePath() + ":" + message);
+          }
+          @Override
+          public void moduleCompiled(String module, String version) {
+            container.logger().info("Compiled module " + module + "/" + version);
+            modules.add(module);
+            runnerOptions.addExtraModule(module, version);
+          }
+        });
+        System.setProperty("java.class.path", previous); // Restore
+        if (!compiled) {
+          throw new Exception("Could not compile");
+        }
+      } else {
+        Pattern pattern = Pattern.compile("([\\p{Alpha}.]+)/([\\p{Alnum}.]+)");
+        Matcher matcher = pattern.matcher(main);
+        if (matcher.matches()) {
+          String module = matcher.group(1);
+          String version = matcher.group(2);
           runnerOptions.addExtraModule(module, version);
+          modules.add(module);
+        } else {
+          throw new Exception("Invalid module " + main + " should be module/version");
         }
-      });
-      System.setProperty("java.class.path", previous); // Restore
-      if (!compiled) {
-        throw new Exception("Could not compile");
       }
 
       //
       runnerOptions.setDelegateClassLoader(CeylonVerticle.class.getClassLoader());
       runnerOptions.setSystemRepository(systemPrefix + systemRepo);
-      runnerOptions.addUserRepository(userRepo.getAbsolutePath());
+      runnerOptions.addUserRepository(userRepo);
+      runnerOptions.setVerbose(verbose);
       runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
       runner.run();
       ClassLoader loader = runner.getModuleClassLoader();
@@ -142,5 +173,20 @@ public class CeylonVerticle extends Verticle {
       runner.cleanup();
     }
     Metamodel.resetModuleManager();
+  }
+
+  private void scan(List<File> sources, File file) {
+    if (file.exists()) {
+      if (file.isDirectory()) {
+        File[] children = file.listFiles();
+        if (children != null) {
+          for (File child : children) {
+            scan(sources, child);
+          }
+        }
+      } else if (file.isFile() && file.getName().endsWith(".ceylon")) {
+        sources.add(file);
+      }
+    }
   }
 }
