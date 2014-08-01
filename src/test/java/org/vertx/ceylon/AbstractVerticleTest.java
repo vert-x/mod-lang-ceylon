@@ -11,6 +11,7 @@ import org.vertx.java.platform.PlatformManager;
 import java.io.File;
 import java.net.URL;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
@@ -20,12 +21,38 @@ import static org.junit.Assert.assertTrue;
  */
 public abstract class AbstractVerticleTest {
 
-  public void assertDeploy(String modulePath) throws Exception {
+  private PlatformManager manager;
+
+  private PlatformManager getManager() throws Exception {
+    if (manager == null) {
+      System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
+      PlatformManager manager = PlatformLocator.factory.createPlatformManager();
+      final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
+      manager.deployModuleFromClasspath("io.vertx~lang-ceylon~1.0.0-SNAPSHOT", new JsonObject(), 1, new URL[0], new Handler<AsyncResult<String>>() {
+        @Override
+        public void handle(AsyncResult<String> result) {
+          queue.add(result);
+        }
+      });
+      AsyncResult<String> result = queue.poll(30, TimeUnit.SECONDS);
+      if (result.failed()) {
+        AssertionFailedError afe = new AssertionFailedError();
+        afe.initCause(result.cause());
+        throw afe;
+      }
+      this.manager = manager;
+    }
+    return manager;
+  }
+
+  public String assertDeploy(String modulePath) throws Exception {
     AsyncResult<String> result = deploy(modulePath);
     if (result.failed()) {
       AssertionFailedError afe = new AssertionFailedError();
       afe.initCause(result.cause());
       throw afe;
+    } else {
+      return result.result();
     }
   }
 
@@ -42,27 +69,24 @@ public abstract class AbstractVerticleTest {
     File systemRepo = new File("target/system-repo");
     assertTrue(systemRepo.isDirectory());
     assertTrue(systemRepo.exists());
-    System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
-    PlatformManager manager = PlatformLocator.factory.createPlatformManager();
     final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
-    manager.deployModuleFromClasspath("io.vertx~lang-ceylon~1.0.0-SNAPSHOT", new JsonObject(), 1, new URL[0], new Handler<AsyncResult<String>>() {
-      @Override
-      public void handle(AsyncResult<String> result) {
-        queue.add(result);
-      }
-    });
-    AsyncResult<String> result = queue.poll(30, TimeUnit.SECONDS);
-    if (result.failed()) {
-      AssertionFailedError afe = new AssertionFailedError();
-      afe.initCause(result.cause());
-      throw afe;
-    }
-    manager.deployVerticle(modulePath, new JsonObject().putString("systemRepo", "flat:" + systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
+    getManager().deployVerticle(modulePath, new JsonObject().putString("systemRepo", "flat:" + systemRepo.getAbsolutePath()), new URL[0], 1, null, new Handler<AsyncResult<String>>() {
       @Override
       public void handle(AsyncResult<String> result) {
         queue.add(result);
       }
     });
     return queue.poll(30, TimeUnit.SECONDS);
+  }
+
+  public void undeploy(String deploymentId) throws Exception {
+    final CountDownLatch latch = new CountDownLatch(1);
+    getManager().undeploy(deploymentId, new Handler<AsyncResult<Void>>() {
+      @Override
+      public void handle(AsyncResult<Void> event) {
+        latch.countDown();
+      }
+    });
+    latch.await(30, TimeUnit.SECONDS);
   }
 }

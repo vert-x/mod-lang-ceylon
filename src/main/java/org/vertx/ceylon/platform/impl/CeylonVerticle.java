@@ -22,12 +22,14 @@ public class CeylonVerticle extends Verticle {
   final File sourcePath;
   final File userRepo;
   final List<File> sources;
+  private Verticle verticle;
 
   public CeylonVerticle(ClassLoader delegatLoader, File sourcePath, File userRepo, List<File> sources) {
     this.delegatLoader = delegatLoader;
     this.sourcePath = sourcePath;
     this.userRepo = userRepo;
     this.sources = sources;
+    this.verticle = null;
   }
 
   @Override
@@ -112,7 +114,7 @@ public class CeylonVerticle extends Verticle {
       } else if (verticles.size() > 1) {
         throw new Exception("Too many verticles found " + verticles + " in " + modules);
       }
-      Verticle verticle = verticles.get(0);
+      verticle = verticles.get(0);
       verticle.setContainer(container);
       verticle.setVertx(vertx);
       verticle.start();
@@ -126,6 +128,8 @@ public class CeylonVerticle extends Verticle {
 
   @Override
   public void stop() {
-    // Implement me
+    if (verticle != null) {
+      verticle.stop();
+    }
   }
 }
