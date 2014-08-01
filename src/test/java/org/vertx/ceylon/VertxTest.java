@@ -38,7 +38,7 @@ public class VertxTest {
         queue.add(result);
       }
     });
-    AsyncResult<String> a = queue.poll(10, TimeUnit.SECONDS);
+    AsyncResult<String> a = queue.poll(30, TimeUnit.SECONDS);
     if (a.failed()) {
       AssertionFailedError afe = new AssertionFailedError();
       afe.initCause(a.cause());
@@ -52,7 +52,7 @@ public class VertxTest {
         queue.add(result);
       }
     });
-    a = queue.poll(10000000, TimeUnit.SECONDS);
+    a = queue.poll(30, TimeUnit.SECONDS);
     if (a.failed()) {
       AssertionFailedError afe = new AssertionFailedError();
       afe.initCause(a.cause());
