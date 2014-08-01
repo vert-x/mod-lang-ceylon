@@ -106,13 +106,17 @@ public class BasicTest {
   @Test
   public void testCompile() {
     assertCompile("helloworld");
-    runner("helloworld", "1.0.0").run();
+    JavaRunner runner = runner("helloworld", "1.0.0");
+    runner.run();
+    runner.cleanup();
   }
 
   @Test
   public void testSDK() {
     assertCompile("sdk");
-    runner("sdk", "1.0.0").run();
+    JavaRunner runner = runner("sdk", "1.0.0");
+    runner.run();
+    runner.cleanup();
   }
 
   @Test
@@ -129,6 +133,7 @@ public class BasicTest {
     Vertx vertx = (Vertx) loader.loadClass("override.tester_").getDeclaredMethod("tester").invoke(null);
     ArrayList<String> p = (ArrayList<String>) loader.loadClass("override.lister_").getDeclaredMethod("lister").invoke(null);
     assertTrue(p.contains("helloworld"));
+    runner.cleanup();
   }
 
   @Test
@@ -142,7 +147,7 @@ public class BasicTest {
     Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", List.class);
     List<Verticle> verticles = (List<Verticle>) introspector.invoke(null, Collections.singletonList("noopverticle"));
     assertEquals(1, verticles.size());
-    assertTrue(verticles.get(0) instanceof Verticle);
+    assertTrue(Verticle.class.isInstance(verticles.get(0)));
+    runner.cleanup();
   }
-
 }

@@ -123,4 +123,9 @@ public class CeylonVerticle extends Verticle {
       startedResult.setFailure(e);
     }
   }
+
+  @Override
+  public void stop() {
+    // Implement me
+  }
 }

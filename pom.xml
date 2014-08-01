@@ -128,6 +128,8 @@
             <execution>
               <id>default-test</id>
               <configuration>
+                <!-- We use fork mode always as work around for runner classloading issues -->
+                <forkMode>always</forkMode>
                 <systemPropertyVariables>
                   <java.util.logging.config.file>src/test/resources/logging.properties</java.util.logging.config.file>
                 </systemPropertyVariables>
