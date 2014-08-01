@@ -1,5 +1,6 @@
 package org.vertx.ceylon;
 
+import com.redhat.ceylon.compiler.java.runtime.metamodel.Metamodel;
 import com.redhat.ceylon.compiler.java.runtime.tools.Backend;
 import com.redhat.ceylon.compiler.java.runtime.tools.CeylonToolProvider;
 import com.redhat.ceylon.compiler.java.runtime.tools.CompilationListener;
@@ -68,7 +69,6 @@ public class BasicTest {
     options.setSourcePath(Collections.singletonList(sourcePath));
     options.setOutputRepository(modules.getAbsolutePath());
     options.setSystemRepository("flat:" + systemRepo.getAbsolutePath());
-//    options.setVerbose(true);
 
     scan(options, new File(sourcePath, module));
 
@@ -109,6 +109,7 @@ public class BasicTest {
     JavaRunner runner = runner("helloworld", "1.0.0");
     runner.run();
     runner.cleanup();
+    Metamodel.resetModuleManager();
   }
 
   @Test
@@ -117,6 +118,7 @@ public class BasicTest {
     JavaRunner runner = runner("sdk", "1.0.0");
     runner.run();
     runner.cleanup();
+    Metamodel.resetModuleManager();
   }
 
   @Test
@@ -134,6 +136,7 @@ public class BasicTest {
     ArrayList<String> p = (ArrayList<String>) loader.loadClass("override.lister_").getDeclaredMethod("lister").invoke(null);
     assertTrue(p.contains("helloworld"));
     runner.cleanup();
+    Metamodel.resetModuleManager();
   }
 
   @Test
@@ -149,5 +152,6 @@ public class BasicTest {
     assertEquals(1, verticles.size());
     assertTrue(Verticle.class.isInstance(verticles.get(0)));
     runner.cleanup();
+    Metamodel.resetModuleManager();
   }
 }

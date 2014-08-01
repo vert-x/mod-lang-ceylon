@@ -1,5 +1,6 @@
 package org.vertx.ceylon.platform.impl;
 
+import com.redhat.ceylon.compiler.java.runtime.metamodel.Metamodel;
 import com.redhat.ceylon.compiler.java.runtime.tools.*;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.vertx.java.core.Future;
@@ -137,5 +138,6 @@ public class CeylonVerticle extends Verticle {
     if (runner != null) {
       runner.cleanup();
     }
+    Metamodel.resetModuleManager();
   }
 }
