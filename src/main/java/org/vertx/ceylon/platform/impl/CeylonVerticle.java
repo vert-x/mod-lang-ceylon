@@ -12,7 +12,10 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -80,7 +83,7 @@ public class CeylonVerticle extends Verticle {
       //
       final JavaRunnerOptions runnerOptions = new JavaRunnerOptions();
       Compiler compiler = CeylonToolProvider.getCompiler(Backend.Java);
-      final ArrayList<String> modules = new ArrayList<>();
+      final HashSet<String> modules = new HashSet<>();
       boolean compiled = compiler.compile(compilerOptions, new CompilationListener() {
         @Override
         public void error(File file, long line, long column, String message) {
@@ -111,14 +114,14 @@ public class CeylonVerticle extends Verticle {
       runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
       runner.run();
       ClassLoader loader = runner.getModuleClassLoader();
-      Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", List.class);
-      List<Verticle> verticles = (List<Verticle>) introspector.invoke(null, modules);
-      if (verticles.size() == 0) {
+      Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
+      List<Callable<Verticle>> factories = (List<Callable<Verticle>>) introspector.invoke(null, modules);
+      if (factories.size() == 0) {
         throw new Exception("No verticle found in modules " + modules);
-      } else if (verticles.size() > 1) {
-        throw new Exception("Too many verticles found " + verticles + " in " + modules);
+      } else if (factories.size() > 1) {
+        throw new Exception("Too many verticles found " + factories + " in " + modules);
       }
-      verticle = verticles.get(0);
+      verticle = factories.get(0).call();
       verticle.setContainer(container);
       verticle.setVertx(vertx);
       verticle.start();

@@ -18,6 +18,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 import static org.junit.Assert.*;
 
@@ -147,10 +149,11 @@ public class BasicTest {
     JavaRunner runner = runner(options, "io.vertx.ceylon", "0.4.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
-    Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", List.class);
-    List<Verticle> verticles = (List<Verticle>) introspector.invoke(null, Collections.singletonList("noopverticle"));
-    assertEquals(1, verticles.size());
-    assertTrue(Verticle.class.isInstance(verticles.get(0)));
+    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.metamodel.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
+    List<Callable<Verticle>> factories = (List<Callable<Verticle>>) findVerticlesMethod.invoke(null, Collections.singleton("noopverticle"));
+    assertEquals(1, factories.size());
+    Verticle verticle = factories.get(0).call();
+    assertTrue(Verticle.class.isInstance(verticle));
     runner.cleanup();
     Metamodel.resetModuleManager();
   }
