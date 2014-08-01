@@ -3,6 +3,6 @@ import io.vertx.ceylon.platform {
 }
 
 
-shared class NoopVerticle() extends Verticle() {
+shared class VerticleImpl1() extends Verticle() {
 	
 }
