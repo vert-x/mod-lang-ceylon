@@ -29,6 +29,15 @@ public abstract class AbstractVerticleTest {
     }
   }
 
+  public Throwable assertFailedDeploy(String modulePath) throws Exception {
+    AsyncResult<String> result = deploy(modulePath);
+    if (result.succeeded()) {
+      throw new AssertionFailedError("Was expecting deployment of " + modulePath + " to fail");
+    } else {
+      return result.cause();
+    }
+  }
+
   public AsyncResult<String> deploy(String modulePath) throws Exception {
     File systemRepo = new File("target/system-repo");
     assertTrue(systemRepo.isDirectory());

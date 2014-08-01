@@ -5,10 +5,10 @@ import org.junit.Test;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class VertxTest extends AbstractVerticleTest {
+public class NoVerticleTest extends AbstractVerticleTest {
 
   @Test
   public void testDeploy() throws Exception {
-    assertDeploy("noopverticle/module.ceylon");
+    assertFailedDeploy("noverticle/module.ceylon");
   }
 }
