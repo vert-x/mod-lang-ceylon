@@ -23,6 +23,7 @@ public class CeylonVerticle extends Verticle {
   final File userRepo;
   final List<File> sources;
   private Verticle verticle;
+  private JavaRunner runner;
 
   public CeylonVerticle(ClassLoader delegatLoader, File sourcePath, File userRepo, List<File> sources) {
     this.delegatLoader = delegatLoader;
@@ -81,18 +82,20 @@ public class CeylonVerticle extends Verticle {
       final ArrayList<String> modules = new ArrayList<>();
       boolean compiled = compiler.compile(compilerOptions, new CompilationListener() {
         @Override
-        public void error(File file, long l, long l2, String s) {
-          System.out.println("Error " + s);
+        public void error(File file, long line, long column, String message) {
+          container.logger().error("Compilation error at (" + line + "," + column + ") in " +
+              file.getAbsolutePath() + ":" + message);
         }
         @Override
-        public void warning(File file, long l, long l2, String s) {
-          System.out.println("Warning " + s);
+        public void warning(File file, long line, long column, String message) {
+          container.logger().warn("Compilation warning at (" + line + "," + column + ") in " +
+              file.getAbsolutePath() + ":" + message);
         }
         @Override
-        public void moduleCompiled(String s, String s2) {
-          System.out.println("Compiled module " + s + "/" + s2);
-          modules.add(s);
-          runnerOptions.addExtraModule(s, s2);
+        public void moduleCompiled(String module, String version) {
+          container.logger().info("Compiled module " + module + "/" + version);
+          modules.add(module);
+          runnerOptions.addExtraModule(module, version);
         }
       });
       System.setProperty("java.class.path", previous); // Restore
@@ -104,7 +107,7 @@ public class CeylonVerticle extends Verticle {
       runnerOptions.setDelegateClassLoader(CeylonVerticle.class.getClassLoader());
       runnerOptions.setSystemRepository(systemPrefix + systemRepo);
       runnerOptions.addUserRepository(userRepo.getAbsolutePath());
-      JavaRunner runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
+      runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
       runner.run();
       ClassLoader loader = runner.getModuleClassLoader();
       Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.introspector_").getDeclaredMethod("introspector", List.class);
@@ -130,6 +133,9 @@ public class CeylonVerticle extends Verticle {
   public void stop() {
     if (verticle != null) {
       verticle.stop();
+    }
+    if (runner != null) {
+      runner.cleanup();
     }
   }
 }

@@ -13,8 +13,8 @@
 
   <properties>
     <!-- Can be overriden via command line -->
-    <!--<ceylon.home>${env.CEYLON_HOME}</ceylon.home>-->
-    <ceylon.home>/Users/julien/java/ceylon/ceylon-dist/dist/</ceylon.home>
+    <ceylon.home>${env.CEYLON_HOME}</ceylon.home>
+    <!--<ceylon.home>/Users/julien/java/ceylon/ceylon-dist/dist/</ceylon.home>-->
   </properties>
 
   <dependencies>

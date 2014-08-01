@@ -51,7 +51,7 @@ public class CeylonVerticleFactory implements VerticleFactory {
 
   @Override
   public void reportException(Logger logger, Throwable t) {
-
+    logger.error("Exception in Ceylon verticle", t);
   }
 
   @Override
