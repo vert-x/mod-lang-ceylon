@@ -19,3 +19,8 @@ and run the Ceylon module file, example
 cd src/test/resources
 vertx run httpserververticle/module.ceylon
 ~~~~
+
+## Todo
+
+- run Ceylon files with automatic import of the `io.vertx.ceylon` module
+- deploy precompiled Ceylon modules
