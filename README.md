@@ -42,5 +42,6 @@ such repository does not exist, mod-lang-ceylon will create a temporary reposito
 
 ## Todo
 
-- run Ceylon files with automatic import of the `io.vertx.ceylon` module
+- run Ceylon files with automatic import of the `io.vertx.ceylon` module (either using a Compiler option or cheating
+by creating a module structure and a predefined module.properties)
 - Ceylon verticle/module mod zip packaging
