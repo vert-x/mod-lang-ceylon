@@ -1,4 +1,6 @@
 
 [compiler]
-source=./source
-resource=./resource
+source=./src/test/resources
+
+[defaults]
+encoding=UTF-8
