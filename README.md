@@ -2,13 +2,19 @@
 
 ## How to build
 
-- Build a snapshot of Ceylon 1.1: instructions here https://github.com/ceylon/ceylon-dist
-- Deploy a snapshot of the Vert.x Api for Ceylon in your local Ceylon repository
+- build a snapshot of Ceylon 1.1: instructions here https://github.com/ceylon/ceylon-dist
+- deploy a snapshot of the Vert.x Api for Ceylon in your local Ceylon repository
     - checkout https://github.com/vietj/ceylon-vertx
     - `ant install`
-- Deploy a snapshot of the Ceylon lang module for Vert.x in your Maven repository
+- deploy a snapshot of the Ceylon lang module for Vert.x in your Maven repository
     - mvn install
 
+## Installation
+
+Edit the file $VERTX_HOME/conf/langs.properties
+
+- declare the Ceylon Verticle Factory with `ceylon=io.vertx~lang-ceylon~1.0.0-alpha1-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
+- declare the file mapping with `.ceylon=ceylon`
 
 ## Running a module
 

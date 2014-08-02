@@ -25,10 +25,10 @@ public abstract class AbstractVerticleTest extends AbstractTest {
 
   private PlatformManager getManager() throws Exception {
     if (manager == null) {
-      System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
+      System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-alpha-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
       PlatformManager manager = PlatformLocator.factory.createPlatformManager();
       final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
-      manager.deployModuleFromClasspath("io.vertx~lang-ceylon~1.0.0-SNAPSHOT", new JsonObject(), 1, new URL[0], new Handler<AsyncResult<String>>() {
+      manager.deployModuleFromClasspath("io.vertx~lang-ceylon~1.0.0-alpha-SNAPSHOT", new JsonObject(), 1, new URL[0], new Handler<AsyncResult<String>>() {
         @Override
         public void handle(AsyncResult<String> result) {
           queue.add(result);

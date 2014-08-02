@@ -9,7 +9,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>lang-ceylon</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0-alpha1-SNAPSHOT</version>
 
   <properties>
     <!-- Can be overriden from command line -->
@@ -235,7 +235,7 @@
             <configuration>
               <descriptor>src/main/assembly/mod.xml</descriptor>
               <appendAssemblyId>false</appendAssemblyId>
-              <finalName>io.vertx~lang-ceylon~1.0.0-SNAPSHOT</finalName>
+              <finalName>io.vertx~lang-ceylon~1.0.0-alpha1-SNAPSHOT</finalName>
             </configuration>
           </execution>
         </executions>
