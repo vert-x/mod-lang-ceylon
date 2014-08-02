@@ -7,7 +7,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.vertx</groupId>
+  <groupId>vietj</groupId>
   <artifactId>lang-ceylon</artifactId>
   <version>1.0.0-alpha1-SNAPSHOT</version>
 
@@ -235,7 +235,8 @@
             <configuration>
               <descriptor>src/main/assembly/mod.xml</descriptor>
               <appendAssemblyId>false</appendAssemblyId>
-              <finalName>io.vertx~lang-ceylon~${version}</finalName>
+              <!-- Bintray name -->
+              <finalName>lang-ceylon-${version}</finalName>
             </configuration>
           </execution>
         </executions>

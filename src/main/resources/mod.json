@@ -5,5 +5,5 @@
     "licenses": ["The Apache Software License Version 2.0"],
     "author": "Julien Viet",
     "keywords": ["ceylon", "language"],
-    "homepage": "https://github.com/vietj/vertx-ceylon"
+    "homepage": "https://github.com/vietj/mod-lang-ceylon"
 }

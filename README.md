@@ -1,19 +1,10 @@
-# Ceylon lang module for Vert.x 2.x and Ceylon 1.1
-
-## How to build
-
-- build a snapshot of Ceylon 1.1: instructions here https://github.com/ceylon/ceylon-dist
-- deploy a snapshot of the Vert.x Api for Ceylon in your local Ceylon repository
-    - checkout https://github.com/vietj/ceylon-vertx
-    - `ant install`
-- deploy a snapshot of the Ceylon lang module for Vert.x in your Maven repository
-    - mvn install
+# Ceylon lang module for Vert.x 2.1.2 and Ceylon 1.1
 
 ## Installation
 
 Edit the file $VERTX_HOME/conf/langs.properties
 
-- declare the Ceylon Verticle Factory with `ceylon=io.vertx~lang-ceylon~1.0.0-alpha1-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
+- declare the Ceylon Verticle Factory with `ceylon=vietj~lang-ceylon~1.0.0-alpha1:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
 - declare the file mapping with `.ceylon=ceylon`
 
 ## Running a module
@@ -52,3 +43,13 @@ such repository does not exist, mod-lang-ceylon will create a temporary reposito
 - run Ceylon files with automatic import of the `io.vertx.ceylon` module (either using a Compiler option or cheating
 by creating a module structure and a predefined module.properties)
 - Ceylon verticle/module mod zip packaging
+
+## Build instructions
+
+- build a snapshot of Ceylon 1.1: instructions here https://github.com/ceylon/ceylon-dist
+- deploy a snapshot of the Vert.x Api for Ceylon in your local Ceylon repository
+    - checkout https://github.com/vietj/ceylon-vertx
+    - `ant install`
+- deploy a snapshot of the Ceylon lang module for Vert.x in your Maven repository
+    - mvn install
+
