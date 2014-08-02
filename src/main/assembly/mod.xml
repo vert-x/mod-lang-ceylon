@@ -9,16 +9,48 @@
   <includeBaseDirectory>true</includeBaseDirectory>
   <baseDirectory>/</baseDirectory>
 
+  <!-- vertx repo files are either in user.repo or in user.cache -->
   <fileSets>
     <fileSet>
       <directory>${project.build.outputDirectory}</directory>
       <outputDirectory>/</outputDirectory>
     </fileSet>
+    <fileSet>
+      <directory>${user.repo}</directory>
+      <includes>
+        <include>ceylon/file/**</include>
+        <include>ceylon/json/**</include>
+        <include>ceylon/collection/**</include>
+        <include>ceylon/promise/**</include>
+        <include>ceylon/io/**</include>
+        <include>ceylon/interop/java/**</include>
+        <include>io/vertx/**</include>
+        <include>io/netty/**</include>
+        <include>com/fasterxml/**</include>
+      </includes>
+      <outputDirectory>/repo</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${user.cache}</directory>
+      <includes>
+        <include>ceylon/file/**</include>
+        <include>ceylon/json/**</include>
+        <include>ceylon/collection/**</include>
+        <include>ceylon/promise/**</include>
+        <include>ceylon/io/**</include>
+        <include>ceylon/interop/java/**</include>
+        <include>io/vertx/**</include>
+        <include>io/netty/**</include>
+        <include>com/fasterxml/**</include>
+      </includes>
+      <outputDirectory>/repo</outputDirectory>
+    </fileSet>
   </fileSets>
 
+  <!-- system repo -->
   <dependencySets>
     <dependencySet>
-      <scope>test</scope>
+      <scope>system</scope>
       <includes>
         <include>system-repo:*</include>
       </includes>

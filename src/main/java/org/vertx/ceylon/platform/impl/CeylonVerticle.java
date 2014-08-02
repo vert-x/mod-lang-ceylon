@@ -60,10 +60,23 @@ public class CeylonVerticle extends Verticle {
       String systemRepo = config.getString("systemRepo", null);
       String systemPrefix = "";
       if (systemRepo == null) {
-        URL jarURL = Compiler.class.getProtectionDomain().getCodeSource().getLocation();
-        File jarFile = new File(jarURL.toURI());
-        systemRepo = jarFile.getParentFile().getAbsolutePath();
+        URL systemRepoURL = Compiler.class.getClassLoader().getResource("lib/");
+        if (systemRepoURL == null || !systemRepoURL.getProtocol().equals("file")) {
+          throw new Exception("Can't rutn without system repo");
+        }
+        systemRepo = new File(systemRepoURL.toURI()).getAbsolutePath();
         systemPrefix = "flat:";
+      }
+
+      // Vert.x repo in packaged mod contains SDK + io.vertx.ceylon
+      URL vertxRepoURL = Compiler.class.getClassLoader().getResource("repo/");
+      String vertxRepo;
+      if (vertxRepoURL != null && vertxRepoURL.getProtocol().equals("file")) {
+        vertxRepo = new File(vertxRepoURL.toURI()).getAbsolutePath();
+        container.logger().debug("Using vertxRepo " + vertxRepo);
+      } else {
+        vertxRepo = null;
+        container.logger().debug("No vertxRepo found");
       }
 
       //
@@ -95,8 +108,11 @@ public class CeylonVerticle extends Verticle {
         //
         CompilerOptions compilerOptions = new CompilerOptions();
         compilerOptions.setSourcePath(Collections.singletonList(sourcePath));
-        compilerOptions.setOutputRepository(userRepo);
         compilerOptions.setFiles(sources);
+        compilerOptions.setOutputRepository(userRepo);
+        if (vertxRepo != null) {
+          compilerOptions.addUserRepository(vertxRepo);
+        }
         compilerOptions.setSystemRepository(systemPrefix + systemRepo);
         compilerOptions.setVerbose(verbose);
 
@@ -141,6 +157,9 @@ public class CeylonVerticle extends Verticle {
       runnerOptions.setDelegateClassLoader(CeylonVerticle.class.getClassLoader());
       runnerOptions.setSystemRepository(systemPrefix + systemRepo);
       runnerOptions.addUserRepository(userRepo);
+      if (vertxRepo != null) {
+        runnerOptions.addUserRepository(vertxRepo);
+      }
       runnerOptions.setVerbose(verbose);
       runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
       runner.run();

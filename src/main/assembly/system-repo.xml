@@ -9,7 +9,7 @@
   <baseDirectory>/</baseDirectory>
   <dependencySets>
     <dependencySet>
-      <scope>test</scope>
+      <scope>system</scope>
       <includes>
         <include>system-repo:*</include>
       </includes>
