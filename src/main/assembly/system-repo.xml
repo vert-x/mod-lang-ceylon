@@ -11,7 +11,7 @@
     <dependencySet>
       <scope>test</scope>
       <includes>
-        <include>ceylon:*</include>
+        <include>system-repo:*</include>
       </includes>
     </dependencySet>
   </dependencySets>

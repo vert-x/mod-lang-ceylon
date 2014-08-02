@@ -13,84 +13,85 @@
 
   <properties>
     <!-- Can be overriden via command line -->
-    <ceylon.home>${env.CEYLON_HOME}</ceylon.home>
+    <system.repo>${env.CEYLON_HOME}/repo</system.repo>
     <!--<ceylon.home>/Users/julien/java/ceylon/ceylon-dist/dist/</ceylon.home>-->
   </properties>
 
   <dependencies>
-    <!-- Ceylon dependencies only used for building, at runtime CEYLON_HOME is used -->
+
+    <!-- System repository -->
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon-common</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/com/redhat/ceylon/common/1.1.0/com.redhat.ceylon.common-1.1.0.jar</systemPath>
+      <systemPath>${system.repo}/com/redhat/ceylon/common/1.1.0/com.redhat.ceylon.common-1.1.0.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon.module-resolver</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/com/redhat/ceylon/module-resolver/1.1.0/com.redhat.ceylon.module-resolver-1.1.0.jar</systemPath>
+      <systemPath>${system.repo}/com/redhat/ceylon/module-resolver/1.1.0/com.redhat.ceylon.module-resolver-1.1.0.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon.typechecker</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/com/redhat/ceylon/typechecker/1.1.0/com.redhat.ceylon.typechecker-1.1.0.jar</systemPath>
+      <systemPath>${system.repo}/com/redhat/ceylon/typechecker/1.1.0/com.redhat.ceylon.typechecker-1.1.0.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon.compiler</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/com/redhat/ceylon/compiler/java/1.1.0/com.redhat.ceylon.compiler.java-1.1.0.jar</systemPath>
+      <systemPath>${system.repo}/com/redhat/ceylon/compiler/java/1.1.0/com.redhat.ceylon.compiler.java-1.1.0.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon.runtime</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/ceylon/runtime/1.1.0/ceylon.runtime-1.1.0.jar</systemPath>
+      <systemPath>${system.repo}/ceylon/runtime/1.1.0/ceylon.runtime-1.1.0.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon.language</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/ceylon/language/1.1.0/ceylon.language-1.1.0.car</systemPath>
+      <systemPath>${system.repo}/ceylon/language/1.1.0/ceylon.language-1.1.0.car</systemPath>
     </dependency>
-
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>jboss.modules</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/org/jboss/modules/1.3.3.Final/org.jboss.modules-1.3.3.Final.jar</systemPath>
+      <systemPath>${system.repo}/org/jboss/modules/1.3.3.Final/org.jboss.modules-1.3.3.Final.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>jboss.jandex</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/org/jboss/jandex/1.0.3.Final/org.jboss.jandex-1.0.3.Final.jar</systemPath>
+      <systemPath>${system.repo}/org/jboss/jandex/1.0.3.Final/org.jboss.jandex-1.0.3.Final.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>antlr.runtime</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/org/antlr/runtime/3.4/org.antlr.runtime-3.4.jar</systemPath>
+      <systemPath>${system.repo}/org/antlr/runtime/3.4/org.antlr.runtime-3.4.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>ceylon</groupId>
+      <groupId>system-repo</groupId>
       <artifactId>txtmark</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
-      <systemPath>${ceylon.home}/repo/com/github/rjeschke/txtmark/0.8.0.c0dcd373ce/com.github.rjeschke.txtmark-0.8.0.c0dcd373ce.jar</systemPath>
+      <systemPath>${system.repo}/com/github/rjeschke/txtmark/0.8.0.c0dcd373ce/com.github.rjeschke.txtmark-0.8.0.c0dcd373ce.jar</systemPath>
     </dependency>
 
+    <!-- Vert.x dependencies -->
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
