@@ -239,6 +239,18 @@
               <finalName>lang-ceylon-${version}</finalName>
             </configuration>
           </execution>
+          <execution>
+            <id>package-examples</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptor>src/main/assembly/examples.xml</descriptor>
+              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>lang-ceylon-examples-${version}</finalName>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
