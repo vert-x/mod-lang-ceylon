@@ -10,6 +10,9 @@ import org.vertx.java.platform.Verticle;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -83,8 +86,47 @@ public class CeylonVerticle extends Verticle {
       final JavaRunnerOptions runnerOptions = new JavaRunnerOptions();
       final HashSet<String> modules = new HashSet<>();
       if (main.endsWith(".ceylon")) {
-        File sourcePath = new File(delegateLoader.getResource("").toURI());
-        File moduleSrc = new File(delegateLoader.getResource(main).toURI());
+
+        URL mainResource = delegateLoader.getResource(main);
+        if (mainResource == null) {
+          throw new Exception("Cannot resolve " + main);
+        }
+        if (!mainResource.getProtocol().equals("file")) {
+          throw new Exception("Unsupported main url " + mainResource);
+        }
+        File moduleSrc = new File(mainResource.toURI());
+        if (!moduleSrc.isFile()) {
+          throw new Exception("Main " + main + " is not a file");
+        }
+
+        File sourcePath;
+        if (moduleSrc.getName().equals("module.ceylon")) {
+          sourcePath = new File(delegateLoader.getResource("").toURI());
+        } else {
+          sourcePath = File.createTempFile("vertx", "ceylon");
+          if (!sourcePath.delete() || !sourcePath.mkdir()) {
+            throw new Exception("Could not create temp dir " + sourcePath.getCanonicalPath());
+          }
+          container.logger().info("Create temporary source path " + sourcePath.getAbsolutePath() + " for " +
+              moduleSrc.getAbsolutePath());
+          sourcePath.deleteOnExit();
+          File moduleDir = new File(sourcePath, "app");
+          moduleDir.mkdir();
+          Files.copy(moduleSrc.toPath(), new File(moduleDir, moduleSrc.getName()).toPath());
+          moduleSrc = new File(moduleDir, "module.ceylon");
+          moduleSrc.createNewFile();
+          Files.write(moduleSrc.toPath(), (
+              "module app \"1.0.0\" {\n" +
+              "shared import io.vertx.ceylon \"0.4.0\";\n" +
+              "}\n"
+          ).getBytes());
+          File packageSrc = new File(moduleDir, "package.ceylon");
+          packageSrc.createNewFile();
+          Files.write(packageSrc.toPath(), (
+              "shared package app;\n"
+          ).getBytes());
+        }
+
         ArrayList<File> sources = new ArrayList<>();
         scan(sources, moduleSrc.getParentFile());
 
