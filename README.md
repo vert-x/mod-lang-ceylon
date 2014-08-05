@@ -9,7 +9,7 @@
 
 We suppose `$VERTX_HOME` points to Vert.x 2.1.2. Edit `$VERTX_HOME/conf/langs.properties` lang configuration:
 
-- declare the Ceylon Verticle Factory with `ceylon=vietj~lang-ceylon~1.0.0-alpha1:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
+- declare the Ceylon Verticle Factory with `ceylon=vietj~lang-ceylon~1.0.0-alpha2:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
 - declare the file mapping with `.ceylon=ceylon`
 
 Note that the Vert.x lang mod comes with the Ceylon language out of the box. If you want to install Ceylon 1.1
@@ -48,15 +48,16 @@ Run it with the `vertx` command:
 
 ~~~~
 % vertx run HelloWorldServer.ceylon
-Downloading vietj~lang-ceylon~1.0.0-alpha1. Please wait...
+Downloading vietj~lang-ceylon~1.0.0-alpha2. Please wait...
 Downloading 100%
-Module vietj~lang-ceylon~1.0.0-alpha1 successfully installed
+Module vietj~lang-ceylon~1.0.0-alpha2 successfully installed
 Create temporary source path /var/folders/87/1zztskkd20s8hqvkbn5dy0l00000gn/T/vertx4242384732878054860ceylon for /Users/julien/HelloWorldServer.ceylon
 Compiled module app/1.0.0
 Succeeded in deploying verticle
 ~~~~
 
-You can download more [examples](http://www.julienviet.com/mod-lang-ceylon/lang-ceylon-examples.zip).
+You can download more [examples](http://www.julienviet.com/mod-lang-ceylon/lang-ceylon-examples.zip) or view them
+[here](https://github.com/vietj/mod-lang-ceylon/tree/master/src/test/resources/examples).
 
 
 ### from a Ceylon module containing a Verticle
