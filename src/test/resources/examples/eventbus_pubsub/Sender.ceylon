@@ -5,9 +5,6 @@ import io.vertx.ceylon.platform {
 import io.vertx.ceylon {
   Vertx
 }
-import io.vertx.ceylon.eventbus {
-  Message
-}
 shared class Sender() extends Verticle() {
   
   shared actual void start(Vertx vertx, Container container) {
