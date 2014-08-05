@@ -24,7 +24,7 @@ default to 0.0.0.0 which means it will listen at all available interfaces. Note 
 listen has returned. If you want to be notified when the server is actually listening you can use
 the <code>Promise&lt;HttpServer&gt;</code> returned by the <code>listen</code> method. For example:</p>
 <pre>server.listen(8080, "myhost").
-   then_(
+   onComplete(
      (HttpServer server) =&gt; print("Listen succeeded"),
      (Exception e) =&gt; print("Listen failed")
    );
@@ -106,7 +106,7 @@ This method returns a <code>Promise&lt;Body&gt;</code> that will be resolved whe
 <pre>value server = vertx.createHttpServer();
 void handle(HttpServerRequest request) {
   Promise&lt;ByteBuffer&gt; p = request.parseBody(binaryBody);
-  p.then_((ByteBuffer body) =&gt; print("I received ``body.size`` bytes"));
+  p.onComplete((ByteBuffer body) =&gt; print("I received ``body.size`` bytes"));
 }
 server.requestHandler(handle).listen(8080, "localhost");
 </pre>
@@ -136,7 +136,7 @@ the body type object, in the future this will likely evolve to provide a finer g
 <p>If the request corresponds to an HTML form that was submitted you can use the <a class='link' href='../http/HttpServerRequest.type.html#formAttributes' title='Go to io.vertx.ceylon.http::HttpServerRequest.formAttributes'>HttpServerRequest.formAttributes</a> promise to access
 the form attributes. This promise is resolved after all of the request has been read - this is because form attributes are encoded
 in the request body not in the request headers.</p>
-<pre>req.formAttributes.then_((Map&lt;String, {String+}&gt; formAttributes) =&gt; print("Do something with them"));
+<pre>req.formAttributes.onComplete((Map&lt;String, {String+}&gt; formAttributes) =&gt; print("Do something with them"));
 </pre>
 <p>When the request does not have form attributes the <code>formAttributes</code> promise is rejected.</p>
 <h3>HTTP Server Responses</h3>
@@ -209,8 +209,8 @@ whose size is not known in advance.</p>
 <h4>Serving files directly from disk</h4>
 <p>Not yet implemented.</p>
 <h4>Pumping Responses</h4>
-<p>The <a class='link' href='../http/HttpServerResponse.type.html#stream' title='Go to io.vertx.ceylon.http::HttpServerResponse.stream'>HttpServerResponse.stream</a> provides a <a class='link' href='../WriteStream.type.html' title='Go to io.vertx.ceylon::WriteStream'>io.vertx.ceylon::WriteStream</a> you can pump to it from any
-<a class='link' href='../ReadStream.type.html' title='Go to io.vertx.ceylon::ReadStream'>io.vertx.ceylon::ReadStream</a>, e.g. an AsyncFile (todo), NetSocket (todo), WebSocket (todo) or <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.http::HttpServerRequest'>HttpServerRequest</a>.</p>
+<p>The <a class='link' href='../http/HttpServerResponse.type.html#stream' title='Go to io.vertx.ceylon.http::HttpServerResponse.stream'>HttpServerResponse.stream</a> provides a <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.stream::WriteStream'>io.vertx.ceylon.stream::WriteStream</a> you can pump to it from any
+<a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.stream::ReadStream'>io.vertx.ceylon.stream::ReadStream</a>, e.g. an AsyncFile (todo), NetSocket (todo), WebSocket (todo) or <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.http::HttpServerRequest'>HttpServerRequest</a>.</p>
 <p>Here's an example which echoes HttpRequest headers and body back in the HttpResponse. It uses a pump for the body,
 so it will work even if the HTTP request body is much larger than can fit in memory at any one time:</p>
 <pre>HttpServer server = vertx.createHttpServer();
@@ -270,7 +270,7 @@ it explicitly you can:</p>
 <p>For example, to make a <code>POST</code> request:</p>
 <pre>value client = vertx.createHttpClient{ host = "foo.com" };
 HttpClientRequest request = client.post("/some-path"/);
-request.response.then_((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
+request.response.onComplete((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
 request.end();
 </pre>
 <p>To make a PUT request use the <a class='link' href='../http/HttpClient.type.html#put' title='Go to io.vertx.ceylon.http::HttpClient.put'>HttpClient.put</a> method, to make a GET request use the <a class='link' href='../http/HttpClient.type.html#get' title='Go to io.vertx.ceylon.http::HttpClient.get'>HttpClient.get</a> method, etc.</p>
@@ -284,13 +284,13 @@ method is called, so the promise will be resolved by the Vert.x thread.</p>
 <p><em>Please note that the domain/port that the client connects to is determined by <a class='link' href='../http/HttpClient.type.html#port' title='Go to io.vertx.ceylon.http::HttpClient.port'>HttpClient.port</a> and <a class='link' href='../http/HttpClient.type.html#host' title='Go to io.vertx.ceylon.http::HttpClient.host'>HttpClient.host</a>, and is not parsed
 from the uri.</em></p>
 <p>The return value from the appropriate request method is an instance of <a class='link' href='../http/HttpClientRequest.type.html' title='Go to io.vertx.ceylon.http::HttpClientRequest'>HttpClientRequest</a>. You can use this to add headers to the request,
-and to write to the request body. The request object implements <a class='link' href='../WriteStream.type.html' title='Go to io.vertx.ceylon::WriteStream'>io.vertx.ceylon::WriteStream</a>.</p>
+and to write to the request body. The request object implements <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.stream::WriteStream'>io.vertx.ceylon.stream::WriteStream</a>.</p>
 <p>Once you have finished with the request you must call the <a class='link' href='../http/HttpClientRequest.type.html#end' title='Go to io.vertx.ceylon.http::HttpClientRequest.end'>HttpClientRequest.end</a> method.</p>
 <p>If you don't know the name of the request method in advance there is a general <a class='link' href='../http/HttpClient.type.html#request' title='Go to io.vertx.ceylon.http::HttpClient.request'>HttpClient.request</a> method which takes the HTTP
 method as a parameter:</p>
 <pre>value client = vertx.createHttpClient{ host = "foo.com" };
 value request = client.request(post, "/some-path/");
-request.response.then_((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
+request.response.onComplete((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
 request.end();
 </pre>
 <h5>Handling exceptions</h5>
@@ -325,7 +325,7 @@ same as calling write with a string or Buffer followed by calling <code>end</cod
 <p>To write headers to the request, add them using the <a class='link' href='../http/HttpClientRequest.type.html#headers' title='Go to io.vertx.ceylon.http::HttpClientRequest.headers'>HttpClientRequest.headers</a> method:</p>
 <pre>value client = vertx.createHttpClient{ host = "foo.com" };
 value request = client.request(post, "/some-path/");
-request.response.then_((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
+request.response.onComplete((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
 request.headers { "Some-Header"-&gt;"Some-Value" };
 request.end();
 </pre>
@@ -343,16 +343,17 @@ whose size is not known in advance.</p>
 <h4>HTTP Client Responses</h4>
 <p>Client responses are received as an argument to the response handler that is passed into one of the request methods on the HTTP client.</p>
 <p>The response object provides a <a class='link' href='../http/HttpClientResponse.type.html#stream' title='Go to io.vertx.ceylon.http::HttpClientResponse.stream'>HttpClientResponse.stream</a> attribute, so it can be pumped to a
-<a class='link' href='../WriteStream.type.html' title='Go to io.vertx.ceylon::WriteStream'>io.vertx.ceylon::WriteStream</a> like any other <a class='link' href='../ReadStream.type.html' title='Go to io.vertx.ceylon::ReadStream'>io.vertx.ceylon::ReadStream</a>.</p>
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.stream::WriteStream'>io.vertx.ceylon.stream::WriteStream</a> like any other <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.stream::ReadStream'>io.vertx.ceylon.stream::ReadStream</a>.</p>
 <p>To query the status code of the response use the <a class='link' href='../http/HttpClientResponse.type.html#statusMessage' title='Go to io.vertx.ceylon.http::HttpClientResponse.statusMessage'>HttpClientResponse.statusMessage</a> attribute. The
 <a class='link' href='../http/HttpClientResponse.type.html#statusMessage' title='Go to io.vertx.ceylon.http::HttpClientResponse.statusMessage'>HttpClientResponse.statusMessage</a> attribute contains the status message. For example:</p>
 <pre>value client = vertx.createHttpClient{ host = "foo.com" };
 value request = client.request(post, "/some-path/");
-void handle(HttpClientResponse resp) {
-  print("server returned status code: ``resp.statusCode``");
-  print("server returned status message: ``resp.statusMessage``");
-}
-request.response.then_(handle);
+request.response.onComplete {
+  void onFulfilled(HttpClientResponse resp) {
+    print("server returned status code: ``resp.statusCode``");
+    print("server returned status message: ``resp.statusMessage``");
+  }
+};
 request.end();
 </pre>
 <h5>Reading Data from the Response Body</h5>
@@ -363,11 +364,11 @@ is resolved when all the response headers have arrived, not when the entire resp
 that is resolved when the response body has been parsed. Here's an example:</p>
 <pre>value client = vertx.createHttpClient{ host = "foo.com" };
 value request = client.request(post, "/some-path/");
-request.then_((HttpClientResponse resp) =&gt; resp.parseBody(binaryBody).then_((ByteBuffer body) =&gt; print("I received  + ``body.size`` + bytes")));
+request.response.onComplete((HttpClientResponse resp) =&gt; resp.parseBody(binaryBody).onComplete((ByteBuffer body) =&gt; print("I received  + ``body.size`` + bytes")));
 request.end();
 </pre>
 <p>The response object provides the <a class='link' href='../http/HttpClientResponse.type.html#stream' title='Go to io.vertx.ceylon.http::HttpClientResponse.stream'>HttpClientResponse.stream</a> interface so you can pump the response body to a
-<a class='link' href='../WriteStream.type.html' title='Go to io.vertx.ceylon::WriteStream'>io.vertx.ceylon::WriteStream</a>. See the chapter on streams and pump for a detailed explanation.</p>
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.stream::WriteStream'>io.vertx.ceylon.stream::WriteStream</a>. See the chapter on streams and pump for a detailed explanation.</p>
 <h5>Reading cookies</h5>
 <p>You can read the list of cookies from the response using the <a class='link' href='../http/HttpClientResponse.type.html#cookies' title='Go to io.vertx.ceylon.http::HttpClientResponse.cookies'>HttpClientResponse.cookies</a> attribute.</p>
 <h4>100-Continue Handling</h4>
@@ -375,7 +376,7 @@ request.end();
 <h4>HTTP Compression</h4>
 <p>Not provided by the 2.0 API</p>
 <h3>Pumping Requests and Responses</h3>
-<p>The HTTP client and server requests and responses all implement either <a class='link' href='../ReadStream.type.html' title='Go to io.vertx.ceylon::ReadStream'>io.vertx.ceylon::ReadStream</a> or <a class='link' href='../ReadStream.type.html' title='Go to io.vertx.ceylon::ReadStream'>io.vertx.ceylon::ReadStream</a>.
+<p>The HTTP client and server requests and responses all implement either <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.stream::ReadStream'>io.vertx.ceylon.stream::ReadStream</a> or <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.stream::ReadStream'>io.vertx.ceylon.stream::ReadStream</a>.
 This means you can pump between them and any other read and write streams.</p>
 <h3>HTTPS Servers</h3>
 <p>todo</p>
@@ -491,7 +492,7 @@ part of the body is written, whichever occurs first.</p>
 <pre>HttpClientRequest req = client.
   request(post, "/some-url").
   headers { "some-header"-&gt;"hello", "Content-Length"-&gt;"5" };
-req.promise.then_((HttpClientResponse resp) =&gt; print("Got response ``resp.status``"));
+req.response.onComplete((HttpClientResponse resp) =&gt; print("Got response ``resp.status``"));
 req.end("hello");
 </pre>
 <p>Instances of HttpClientRequest are not thread-safe.</p>
@@ -505,6 +506,7 @@ always be called on that same event loop. If an instance is instantiated from so
 arbitrary Java thread then an event loop will be assigned to the instance and used when
 any of its handlers are called.</p>
 <p>Instances of HttpServer are thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpServerFileUpload' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServerFileUpload.type.html'>HttpServerFileUpload</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServerFileUpload'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServerFileUpload.type.html' title='Go to io.vertx.ceylon.http::HttpServerFileUpload'>HttpServerFileUpload</a></div><div class='description'><div class='doc section'><p>Represents an upload from an HTML form.</p>
 </div></div></td></tr><tr><td id='HttpServerRequest' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServerRequest.type.html'>HttpServerRequest</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServerRequest'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.http::HttpServerRequest'>HttpServerRequest</a></div><div class='description'><div class='doc section'><p>Represents a server-side HTTP request. Each instance of this class is associated with a corresponding
 <a class='link' href='../http/HttpServerResponse.type.html' title='Go to io.vertx.ceylon.http::HttpServerResponse'>HttpServerResponse</a> instance via the <code>response</code> field. Instances of this class are not thread-safe.</p>
 </div></div></td></tr><tr><td id='HttpServerResponse' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServerResponse.type.html'>HttpServerResponse</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServerResponse'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServerResponse.type.html' title='Go to io.vertx.ceylon.http::HttpServerResponse'>HttpServerResponse</a></div><div class='description'><div class='doc section'><p>Represents a server-side HTTP response. Instances of this class are created and associated to every instance of
