@@ -113,7 +113,7 @@ such repository does not exist, mod-lang-ceylon will create a temporary reposito
 
 - Allow to resolve maven repositories ?
 - Ceylon verticle/module mod zip packaging
-- Increaqse Ceylon-vertx API coverage
+- Increase Ceylon-vertx API coverage
 
 ## Build instructions
 
