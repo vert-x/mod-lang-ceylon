@@ -13,7 +13,8 @@
 
   <properties>
     <!-- Can be overriden from command line -->
-    <system.repo>${env.CEYLON_HOME}/repo</system.repo>
+    <!--<system.repo>${env.CEYLON_HOME}/repo</system.repo>-->
+    <system.repo>/Users/julien/java/ceylon/ceylon-dist/dist/repo</system.repo>
     <user.repo>${user.home}/.ceylon/repo</user.repo>
     <user.cache>${user.home}/.ceylon/cache</user.cache>
   </properties>
@@ -101,30 +102,30 @@
     <dependency>
       <groupId>system-repo</groupId>
       <artifactId>com.github.rjeschke.txtmark</artifactId>
-      <version>0.8.0.c0dcd373ce</version>
+      <version>0.11</version>
       <scope>system</scope>
-      <systemPath>${system.repo}/com/github/rjeschke/txtmark/0.8.0.c0dcd373ce/com.github.rjeschke.txtmark-0.8.0.c0dcd373ce.jar</systemPath>
+      <systemPath>${system.repo}/com/github/rjeschke/txtmark/0.11/com.github.rjeschke.txtmark-0.11.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>system-repo</groupId>
-      <artifactId>com.googlecode.sardine</artifactId>
-      <version>314</version>
+      <artifactId>com.github.lookfirst.sardine</artifactId>
+      <version>5.1</version>
       <scope>system</scope>
-      <systemPath>${system.repo}/com/googlecode/sardine/314/com.googlecode.sardine-314.jar</systemPath>
+      <systemPath>${system.repo}/com/github/lookfirst/sardine/5.1/com.github.lookfirst.sardine-5.1.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>system-repo</groupId>
       <artifactId>org.apache.httpcomponents.httpclient</artifactId>
-      <version>4.1.1</version>
+      <version>4.3.2</version>
       <scope>system</scope>
-      <systemPath>${system.repo}/org/apache/httpcomponents/httpclient/4.1.1/org.apache.httpcomponents.httpclient-4.1.1.jar</systemPath>
+      <systemPath>${system.repo}/org/apache/httpcomponents/httpclient/4.3.2/org.apache.httpcomponents.httpclient-4.3.2.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>system-repo</groupId>
       <artifactId>org.apache.httpcomponents.httpcore</artifactId>
-      <version>4.1.1</version>
+      <version>4.3.2</version>
       <scope>system</scope>
-      <systemPath>${system.repo}/org/apache/httpcomponents/httpcore/4.1.1/org.apache.httpcomponents.httpcore-4.1.1.jar</systemPath>
+      <systemPath>${system.repo}/org/apache/httpcomponents/httpcore/4.3.2/org.apache.httpcomponents.httpcore-4.3.2.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>system-repo</groupId>
@@ -136,9 +137,9 @@
     <dependency>
       <groupId>system-repo</groupId>
       <artifactId>org.apache.commons.codec</artifactId>
-      <version>1.4</version>
+      <version>1.8</version>
       <scope>system</scope>
-      <systemPath>${system.repo}/org/apache/commons/codec/1.4/org.apache.commons.codec-1.4.jar</systemPath>
+      <systemPath>${system.repo}/org/apache/commons/codec/1.8/org.apache.commons.codec-1.8.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>system-repo</groupId>
@@ -247,8 +248,7 @@
             </goals>
             <configuration>
               <descriptor>src/main/assembly/examples.xml</descriptor>
-              <appendAssemblyId>false</appendAssemblyId>
-              <finalName>lang-ceylon-examples-${version}</finalName>
+              <finalName>lang-ceylon-${version}</finalName>
             </configuration>
           </execution>
         </executions>
