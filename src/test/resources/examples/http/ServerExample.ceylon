@@ -12,7 +12,7 @@ shared class ServerExample() extends Verticle() {
 
   shared actual void start(Vertx vertx, Container container) {
     vertx.createHttpServer().requestHandler {
-      void handle(HttpServerRequest req) {
+      void onRequest(HttpServerRequest req) {
         print("Got request ``req.uri``");
         print("Headers are: ");
         for (header in req.headers) {

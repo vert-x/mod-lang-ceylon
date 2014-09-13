@@ -14,7 +14,7 @@ shared class SimpleFormUploadServer() extends Verticle() {
   shared actual void start(Vertx vertx, Container container) {
     
     vertx.createHttpServer().requestHandler {
-      void handle(HttpServerRequest req) {
+      void onRequest(HttpServerRequest req) {
         if (req.uri == "/") {
           req.response.sendFile("simpleformupload/index.html");
         } else if (req.uri.startsWith("/form")) {
