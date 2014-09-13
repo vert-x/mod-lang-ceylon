@@ -9,6 +9,6 @@ derby.log
 nul
 .classpath
 .project
-
+/modules
 /classes
 /.exploded
