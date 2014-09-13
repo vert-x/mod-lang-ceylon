@@ -1,7 +1,7 @@
 import io.vertx.ceylon.platform { Verticle, Container }
 import io.vertx.ceylon { Vertx }
 import io.vertx.ceylon.http { HttpClientResponse }
-import org.vertx.java.core.buffer { Buffer }
+
 shared class ClientExample() extends Verticle() {
   
   shared actual void start(Vertx vertx, Container container) {
