@@ -212,6 +212,51 @@
     </pluginManagement>
     <plugins>
       <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>test-compile</phase>
+            <configuration>
+              <target>
+                <property environment="env"/>
+                <property name="ceylon.home" value="${env.CEYLON_HOME}"/>
+                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
+                <property name="source.encoding" value="UTF-8"/>
+                <property name="source.version" value="0.4.0"/>
+                <path id="ant-tasks">
+                  <pathelement location="${ceylon.ant.lib}"/>
+                </path>
+                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+                <ceylon-compile src="src/examples/ceylon" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
+                  <rep url="target/modules/"/>
+                  <module name="examples.echo"/>
+                  <module name="examples.eventbus_pointtopoint"/>
+                  <module name="examples.eventbus_pubsub"/>
+                  <module name="examples.eventbusbridge"/>
+                  <module name="examples.fanout"/>
+                  <module name="examples.http"/>
+                  <module name="examples.httphelloworld"/>
+                  <module name="examples.https"/>
+                  <module name="examples.proxyserver"/>
+                  <module name="examples.route_match"/>
+                  <module name="examples.sendfile"/>
+                  <module name="examples.simpleform"/>
+                  <module name="examples.simpleformupload"/>
+                  <module name="examples.sockjs"/>
+                  <module name="examples.ssl"/>
+                  <module name="examples.upload"/>
+                  <module name="examples.websockets"/>
+                </ceylon-compile>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.4</version>
         <executions>

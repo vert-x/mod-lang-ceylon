@@ -12,7 +12,7 @@
   <fileSets>
     <fileSet>
       <outputDirectory>/</outputDirectory>
-      <directory>${project.build.directory}/test-classes</directory>
+      <directory>src/examples/ceylon</directory>
       <includes>
         <include>examples/**/*</include>
       </includes>
