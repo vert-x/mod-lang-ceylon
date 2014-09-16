@@ -5,6 +5,7 @@ import com.redhat.ceylon.compiler.java.runtime.tools.*;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.vertx.java.core.Future;
 import org.vertx.java.core.json.JsonObject;
+import org.vertx.java.core.logging.Logger;
 import org.vertx.java.platform.Verticle;
 
 import java.io.File;
@@ -163,13 +164,26 @@ public class CeylonVerticle extends Verticle {
         boolean compiled = compiler.compile(compilerOptions, new CompilationListener() {
           @Override
           public void error(File file, long line, long column, String message) {
-            container.logger().error("Compilation error at (" + line + "," + column + ") in " +
-                file.getAbsolutePath() + ":" + message);
+            Logger logger = container.logger();
+            String msg;
+            if (file != null) {
+              msg = "Compilation error at (" + line + "," + column + ") in " +
+                  file.getAbsolutePath() + ":" + message;
+            } else {
+              msg = "Compilation error:" + message;
+            }
+            logger.error(msg);
           }
           @Override
           public void warning(File file, long line, long column, String message) {
-            container.logger().warn("Compilation warning at (" + line + "," + column + ") in " +
-                file.getAbsolutePath() + ":" + message);
+            String msg;
+            if (file != null) {
+              msg = "Compilation warning at (" + line + "," + column + ") in " +
+                  file.getAbsolutePath() + ":" + message;
+            } else {
+              msg = "Compilation warning:" + message;
+            }
+            container.logger().warn(msg);
           }
           @Override
           public void moduleCompiled(String module, String version) {

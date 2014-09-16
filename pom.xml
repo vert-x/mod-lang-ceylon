@@ -273,7 +273,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>package-mod</id>
+            <id>package-modzip</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
@@ -281,8 +281,23 @@
             <configuration>
               <descriptor>src/main/assembly/mod.xml</descriptor>
               <appendAssemblyId>false</appendAssemblyId>
+              <formats><format>zip</format></formats>
               <!-- Bintray name -->
               <finalName>lang-ceylon-${version}</finalName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>package-moddir</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptor>src/main/assembly/mod.xml</descriptor>
+              <appendAssemblyId>false</appendAssemblyId>
+              <formats><format>dir</format></formats>
+              <!-- Bintray name -->
+              <finalName>io.vertx~lang-ceylon~${version}</finalName>
             </configuration>
           </execution>
           <execution>
@@ -294,6 +309,33 @@
             <configuration>
               <descriptor>src/main/assembly/examples.xml</descriptor>
               <finalName>lang-ceylon-${version}</finalName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.3.2</version>
+        <dependencies>
+          <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>org.vertx.ceylon.IntegrationTester</mainClass>
+              <additionalClasspathElements>
+                <additionalClasspathElement>target/test-classes</additionalClasspathElement>
+              </additionalClasspathElements>
+              <includePluginDependencies>true</includePluginDependencies>
             </configuration>
           </execution>
         </executions>

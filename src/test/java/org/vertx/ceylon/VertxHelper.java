@@ -1,7 +1,6 @@
 package org.vertx.ceylon;
 
 import junit.framework.AssertionFailedError;
-import org.junit.Test;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;
@@ -19,9 +18,24 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public abstract class AbstractVerticleTest extends AbstractTest {
+public class VertxHelper {
+
+  public static File assertSystemRepo() {
+    File systemRepo = new File("target/system-repo");
+    assertTrue(systemRepo.isDirectory());
+    assertTrue(systemRepo.exists());
+    return systemRepo;
+  }
 
   private PlatformManager manager;
+
+  public VertxHelper() {
+    this(null);
+  }
+
+  public VertxHelper(PlatformManager manager) {
+    this.manager = manager;
+  }
 
   private PlatformManager getManager() throws Exception {
     if (manager == null) {
@@ -75,7 +89,7 @@ public abstract class AbstractVerticleTest extends AbstractTest {
 
   public AsyncResult<String> deploy(String modulePath, JsonObject config) throws Exception {
     if (!config.containsField("systemRepo")) {
-      config.putString("systemRepo", "flat:" + systemRepo.getAbsolutePath());
+      config.putString("systemRepo", "flat:" + assertSystemRepo().getAbsolutePath());
     }
     final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
     getManager().deployVerticle(modulePath, config, new URL[0], 1, null, new Handler<AsyncResult<String>>() {
@@ -97,4 +111,5 @@ public abstract class AbstractVerticleTest extends AbstractTest {
     });
     latch.await(30, TimeUnit.SECONDS);
   }
+
 }

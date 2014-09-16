@@ -16,6 +16,7 @@ public class AbstractTest {
   File modules;
   File sourcePath;
   File systemRepo;
+  VertxHelper helper;
 
   @Before
   public void before() {
@@ -30,9 +31,8 @@ public class AbstractTest {
       assertTrue(modules.isDirectory());
     }
 
-    systemRepo = new File("target/system-repo");
-    assertTrue(systemRepo.isDirectory());
-    assertTrue(systemRepo.exists());
+    systemRepo = VertxHelper.assertSystemRepo();
+    helper = new VertxHelper();
   }
 
   private void scan(CompilerOptions options, File file) {
