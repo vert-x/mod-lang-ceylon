@@ -139,6 +139,7 @@ This module will be resolved in the default module repository of the platform. T
 - Allow to resolve maven repositories ?
 - SharedMap and SharedSet : inherit Ceylon stuff again
 - test a module deployed in a repository
+- config a particular Verticle as a Ceylon module could contain several Verticle
 
 ## Build instructions
 
