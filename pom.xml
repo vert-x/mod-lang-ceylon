@@ -216,10 +216,49 @@
         <version>1.7</version>
         <executions>
           <execution>
+            <id>copy-modules</id>
             <goals>
               <goal>run</goal>
             </goals>
-            <phase>test-compile</phase>
+            <phase>prepare-package</phase>
+            <configuration>
+              <target>
+                <exec executable="ceylon">
+                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon/0.4.0"/>
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compile-verticle</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>pre-integration-test</phase>
+            <configuration>
+              <target>
+                <property environment="env"/>
+                <property name="ceylon.home" value="${env.CEYLON_HOME}"/>
+                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
+                <property name="source.encoding" value="UTF-8"/>
+                <property name="source.version" value="0.4.0"/>
+                <path id="ant-tasks">
+                  <pathelement location="${ceylon.ant.lib}"/>
+                </path>
+                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+                <ceylon-compile src="src/test/resources" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
+                  <rep url="target/modules/"/>
+                  <module name="lifecycleverticle"/>
+                </ceylon-compile>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>verify-samples</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>verify</phase>
             <configuration>
               <target>
                 <property environment="env"/>

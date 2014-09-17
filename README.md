@@ -16,7 +16,7 @@ Note that the Vert.x lang mod comes with the Ceylon language out of the box. If 
 you can easily build it from the [sources](https://github.com/ceylon/ceylon-dist/) as well as
 [Ceylon IDE](https://github.com/ceylon/ceylon-ide-eclipse).
 
-## Running a module
+## Running a Verticle
 
 ### from a Verticle source
 
@@ -89,7 +89,7 @@ Compiled module httpserververticle/1.0.0
 Succeeded in deploying verticle
 ~~~~
 
-### a precompiled module
+### a precompiled Verticle
 
 In the previous examples, Vert.x was compiling the module for you, `mod-lang-ceylon` can also run compiled modules
 from your Ceylon repository. This means you have compiled this module with the `ceylon compile` command or Ceylon IDE
@@ -109,11 +109,36 @@ When running a module, options can be specified, mod-lang-ceylon defines two con
 such repository does not exist, mod-lang-ceylon will create a temporary repository
 - `verbose`: activate Ceylon verbose option, useful for debugging
 
+## Creating a module
+
+A module is a Ceylon verticle packaged in a zip file with a `mod.json` descriptor at the root of the zip. Usually
+a module packages the various libraries required by the module in a `lib` directory. Ceylon has its own module system
+and works best with it, therefore for Ceylon only the `mod.json` file is required and its `main` entry should contain the
+name of the Ceylon module prefixed by `ceylon`, like the precompiled Verticle seen before.
+
+~~~~
+{
+   "main": "ceylon:httpserververticle/1.0.0"
+}
+~~~~
+
+~~~~
+% vertx runmod my~httpserververticle~1.0.0
+~~~~
+
+This module will be resolved in the default module repository of the platform. The `userRepo` configuration can be
+ used for resolving the module from this location instead, note this is specified at run time:
+
+~~~~
+% echo '{ "userRepo":"/modules" }' > conf.json
+% vertx runmod my~httpserververticle~1.0.0 -conf conf.json
+~~~~
+
 ## Todo
 
 - Allow to resolve maven repositories ?
-- Ceylon verticle/module mod zip packaging
-- Increaqse Ceylon-vertx API coverage
+- SharedMap and SharedSet : inherit Ceylon stuff again
+- test a module deployed in a repository
 
 ## Build instructions
 

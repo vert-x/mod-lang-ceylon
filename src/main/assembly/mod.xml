@@ -13,40 +13,14 @@
     </file>
   </files>
 
-  <!-- vertx repo files are either in user.repo or in user.cache -->
+  <!-- Vertx repo -->
   <fileSets>
     <fileSet>
       <directory>${project.build.outputDirectory}</directory>
       <outputDirectory>/</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>${user.repo}</directory>
-      <includes>
-        <include>ceylon/file/**</include>
-        <include>ceylon/json/**</include>
-        <include>ceylon/collection/**</include>
-        <include>ceylon/promise/**</include>
-        <include>ceylon/io/**</include>
-        <include>ceylon/interop/java/**</include>
-        <include>io/vertx/**</include>
-        <include>io/netty/**</include>
-        <include>com/fasterxml/**</include>
-      </includes>
-      <outputDirectory>/repo</outputDirectory>
-    </fileSet>
-    <fileSet>
-      <directory>${user.cache}</directory>
-      <includes>
-        <include>ceylon/file/**</include>
-        <include>ceylon/json/**</include>
-        <include>ceylon/collection/**</include>
-        <include>ceylon/promise/**</include>
-        <include>ceylon/io/**</include>
-        <include>ceylon/interop/java/**</include>
-        <include>io/vertx/**</include>
-        <include>io/netty/**</include>
-        <include>com/fasterxml/**</include>
-      </includes>
+      <directory>target/vertx-repo</directory>
       <outputDirectory>/repo</outputDirectory>
     </fileSet>
   </fileSets>

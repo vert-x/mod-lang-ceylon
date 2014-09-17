@@ -9,6 +9,6 @@ public class TooManyVerticlesTest extends AbstractTest {
 
   @Test
   public void testDeploy() throws Exception {
-    helper.assertFailedDeploy("toomanyverticles/module.ceylon");
+    helper.assertFailedDeploy(DeployKind.VERTICLE, "toomanyverticles/module.ceylon");
   }
 }

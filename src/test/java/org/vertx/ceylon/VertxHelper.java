@@ -7,25 +7,15 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.PlatformLocator;
 import org.vertx.java.platform.PlatformManager;
 
-import java.io.File;
 import java.net.URL;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class VertxHelper {
-
-  public static File assertSystemRepo() {
-    File systemRepo = new File("target/system-repo");
-    assertTrue(systemRepo.isDirectory());
-    assertTrue(systemRepo.exists());
-    return systemRepo;
-  }
 
   private PlatformManager manager;
 
@@ -59,12 +49,12 @@ public class VertxHelper {
     return manager;
   }
 
-  public String assertDeploy(String modulePath) throws Exception {
-    return assertDeploy(modulePath, new JsonObject());
+  public String assertDeploy(DeployKind deployKind, String path) throws Exception {
+    return assertDeploy(deployKind, path, new JsonObject());
   }
 
-  public String assertDeploy(String modulePath, JsonObject config) throws Exception {
-    AsyncResult<String> result = deploy(modulePath, config);
+  public String assertDeploy(DeployKind deployKind, String path, JsonObject config) throws Exception {
+    AsyncResult<String> result = deploy(deployKind, path, config);
     if (result.failed()) {
       AssertionFailedError afe = new AssertionFailedError();
       afe.initCause(result.cause());
@@ -74,30 +64,38 @@ public class VertxHelper {
     }
   }
 
-  public Throwable assertFailedDeploy(String modulePath) throws Exception {
-    return assertFailedDeploy(modulePath, new JsonObject());
+  public Throwable assertFailedDeploy(DeployKind deployKind, String path) throws Exception {
+    return assertFailedDeploy(deployKind, path, new JsonObject());
   }
 
-  public Throwable assertFailedDeploy(String modulePath, JsonObject config) throws Exception {
-    AsyncResult<String> result = deploy(modulePath, config);
+  public Throwable assertFailedDeploy(DeployKind deployKind, String path, JsonObject config) throws Exception {
+    AsyncResult<String> result = deploy(deployKind, path, config);
     if (result.succeeded()) {
-      throw new AssertionFailedError("Was expecting deployment of " + modulePath + " to fail");
+      throw new AssertionFailedError("Was expecting deployment of " + path + " to fail");
     } else {
       return result.cause();
     }
   }
 
-  public AsyncResult<String> deploy(String modulePath, JsonObject config) throws Exception {
+  public AsyncResult<String> deploy(DeployKind deployKind, String path, JsonObject config) throws Exception {
     if (!config.containsField("systemRepo")) {
-      config.putString("systemRepo", "flat:" + assertSystemRepo().getAbsolutePath());
+      config.putString("systemRepo", "flat:" + Helper.assertSystemRepo().getAbsolutePath());
     }
     final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
-    getManager().deployVerticle(modulePath, config, new URL[0], 1, null, new Handler<AsyncResult<String>>() {
+    Handler<AsyncResult<String>> done = new Handler<AsyncResult<String>>() {
       @Override
       public void handle(AsyncResult<String> result) {
         queue.add(result);
       }
-    });
+    };
+    switch (deployKind) {
+      case MOD_ZIP:
+        getManager().deployModuleFromZip(path, config, 1, done);
+        break;
+      case VERTICLE:
+        getManager().deployVerticle(path, config, new URL[0], 1, null, done);
+        break;
+    }
     return queue.poll(30, TimeUnit.SECONDS);
   }
 

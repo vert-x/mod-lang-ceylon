@@ -9,6 +9,6 @@ public class UncompilableVerticleTest extends AbstractTest {
 
   @Test
   public void testDeploy() throws Exception {
-    helper.assertFailedDeploy("uncompilableverticle/module.ceylon");
+    helper.assertFailedDeploy(DeployKind.VERTICLE, "uncompilableverticle/module.ceylon");
   }
 }
