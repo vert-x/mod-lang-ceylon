@@ -15,8 +15,6 @@
     <!-- Can be overriden from command line -->
     <!--<system.repo>${env.CEYLON_HOME}/repo</system.repo>-->
     <system.repo>/Users/julien/java/ceylon/ceylon-dist/dist/repo</system.repo>
-    <user.repo>${user.home}/.ceylon/repo</user.repo>
-    <user.cache>${user.home}/.ceylon/cache</user.cache>
   </properties>
 
   <dependencies>
