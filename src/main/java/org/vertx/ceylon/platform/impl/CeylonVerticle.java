@@ -11,9 +11,7 @@ import org.vertx.java.platform.Verticle;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -131,23 +129,6 @@ public class CeylonVerticle extends Verticle {
         ArrayList<File> sources = new ArrayList<>();
         scan(sources, moduleSrc.getParentFile());
 
-        // java.class.path work around hack
-        StringBuffer javaClassPath = new StringBuffer();
-        String previous = System.getProperty("java.class.path");
-        if (previous != null) {
-          javaClassPath.append(previous);
-        }
-        File[] children = new File(systemRepo).listFiles();
-        if (children != null) {
-          for (File child : children) {
-            if (javaClassPath.length() > 0) {
-              javaClassPath.append(':');
-            }
-            javaClassPath.append(child.getAbsolutePath());
-          }
-        }
-        System.setProperty("java.class.path", "" + javaClassPath);
-
         //
         CompilerOptions compilerOptions = new CompilerOptions();
         compilerOptions.setSourcePath(Collections.singletonList(sourcePath));
@@ -192,7 +173,6 @@ public class CeylonVerticle extends Verticle {
             runnerOptions.addExtraModule(module, version);
           }
         });
-        System.setProperty("java.class.path", previous); // Restore
         if (!compiled) {
           throw new Exception("Could not compile");
         }
