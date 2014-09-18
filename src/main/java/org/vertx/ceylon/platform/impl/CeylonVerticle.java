@@ -215,13 +215,11 @@ public class CeylonVerticle extends Verticle {
       verticle = factories.get(0).call();
       verticle.setContainer(container);
       verticle.setVertx(vertx);
-      verticle.start();
-
-      // Ok
-      startedResult.setResult(null);
     } catch (Exception e) {
       startedResult.setFailure(e);
+      return;
     }
+    verticle.start(startedResult);
   }
 
   @Override

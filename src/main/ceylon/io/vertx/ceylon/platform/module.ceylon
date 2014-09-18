@@ -4,6 +4,12 @@ import io.vertx.ceylon.core.net {
 import io.vertx.ceylon.core.stream {
   Pump
 }
+import ceylon.promise {
+  Promise
+}
+import io.vertx.ceylon.core {
+  Vertx
+}
 """# Writing Verticles
    
    As was described in the [main manual](http://vertx.io/manual.html#verticle), a verticle is the execution unit of Vert.x.
@@ -64,9 +70,18 @@ import io.vertx.ceylon.core.stream {
    _In the rest of this manual we'll assume the code snippets are running inside a verticle._
    
    ## Asynchronous start
+  
+   In some cases your Verticle has to do some other stuff asynchronously in its [[Verticle.start]] method, e.g. start
+   other verticles, and the verticle shouldn't be considered started until those other actions are complete.
    
+   If this is the case for your verticle you can implement the asynchronous version [[Verticle.asyncStart]] method:
    
-   
+   ~~~
+   shared actual Promise<Anything> asyncStart(Vertx vertx, Container container) {
+     return container.deployVerticle("foo.js");
+   }
+   ~~~
+
    """
 
 by("Julien Viet")

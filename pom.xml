@@ -293,6 +293,7 @@
                 <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
                 <ceylon-compile src="src/examples/ceylon" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
                   <rep url="target/vertx-repo"/>
+                  <module name="examples.asyncstart"/>
                   <module name="examples.echo"/>
                   <module name="examples.eventbus_pointtopoint"/>
                   <module name="examples.eventbus_pubsub"/>
