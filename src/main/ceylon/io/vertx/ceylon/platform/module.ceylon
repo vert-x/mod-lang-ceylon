@@ -69,7 +69,61 @@
      return container.deployVerticle("foo.js");
    }
    ~~~
+   
+   ## Verticle clean-up
+   
+   Servers, clients, event bus handlers and timers will be automatically closed / cancelled when the verticle is
+   stopped. However, if you have any other clean-up logic that you want to execute when the verticle is stopped,
+   you can implement a [[Verticle.stop]] method which will be called when the verticle is undeployed.
 
+   ## The `container` object
+   
+   When the verticle starts it gets a [[Container]] instance. This represents the Verticle's view of the container in which it is running.
+   
+   The container object contains methods for deploying and undeploying verticle and modules, and also allows config,
+   environment variables and a logger to be accessed.
+   
+   ## The `vertx` object
+   
+   When the verticle starts it gets a the [[io.vertx.ceylon.core::Vertx]] object. This provides access to the Vert.x core API.
+   You'll use the Core API to do most things in Vert.x including TCP, HTTP, file system access, event bus, timers etc.
+   
+   ## Getting Configuration in a Verticle
+   
+   You can pass configuration to a module or verticle from the command line using the `-conf option, for example:
+   
+   ~~~
+   vertx runmod com.mycompany~my-mod~1.0 -conf myconf.json
+   ~~~
+
+   or for a raw verticle
+   
+   ~~~
+   vertx run foo.js -conf myconf.json
+   ~~~
+   
+   The argument to `-conf` is the name of a text file containing a valid JSON object.
+   
+   That configuration is available inside your verticle by calling the [[Container.config]] method on the container member variable
+   of the verticle:
+         
+   ~~~
+   value config = container.config;
+   
+   print("Config is ``config``");
+   ~~~
+   
+   The config returned is an instance of [[ceylon.json::Object]], which is a class which represents JSON
+   objects (unsurprisingly!). You can use this object to configure the verticle.
+  
+   Allowing verticles to be configured in a consistent way like this allows configuration to be easily passed
+   to them irrespective of the language that deploys the verticle.
+  
+   ## Logging from a Verticle
+   
+   
+
+   
    """
 
 by("Julien Viet")
