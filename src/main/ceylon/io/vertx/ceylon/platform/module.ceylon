@@ -76,14 +76,14 @@
    stopped. However, if you have any other clean-up logic that you want to execute when the verticle is stopped,
    you can implement a [[Verticle.stop]] method which will be called when the verticle is undeployed.
 
-   ## The `container` object
+   ## The container object
    
    When the verticle starts it gets a [[Container]] instance. This represents the Verticle's view of the container in which it is running.
    
    The container object contains methods for deploying and undeploying verticle and modules, and also allows config,
    environment variables and a logger to be accessed.
    
-   ## The `vertx` object
+   ## The vertx object
    
    When the verticle starts it gets a the [[io.vertx.ceylon.core::Vertx]] object. This provides access to the Vert.x core API.
    You'll use the Core API to do most things in Vert.x including TCP, HTTP, file system access, event bus, timers etc.

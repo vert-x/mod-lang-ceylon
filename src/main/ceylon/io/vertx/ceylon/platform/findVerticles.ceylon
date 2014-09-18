@@ -22,7 +22,8 @@ Boolean isVerticle(OpenType classDecl) {
 	return false;
 }
 
-"Find the verticles among the known modules and return a list of verticle factories"
+"Find the verticles among the known modules and return a list of verticle factories. This method is called
+ by the Vert.x module to discover the existing Verticles and is somewhat reserved for internal use."
 shared List_<Callable_<Verticle_>> findVerticles("The set of module names" Set_<String_> moduleNames) {
 	value verticles = ArrayList_<Callable_<Verticle_>>();
 	value mods = modules.list.filter((Module elem) => moduleNames.contains(String_(elem.name)));
