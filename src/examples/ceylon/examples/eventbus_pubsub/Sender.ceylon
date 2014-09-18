@@ -2,7 +2,7 @@ import io.vertx.ceylon.platform {
   Verticle,
   Container
 }
-import io.vertx.ceylon {
+import io.vertx.ceylon.core {
   Vertx
 }
 shared class Sender() extends Verticle() {

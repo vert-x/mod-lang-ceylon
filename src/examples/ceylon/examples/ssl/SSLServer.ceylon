@@ -1,6 +1,6 @@
 import io.vertx.ceylon.platform { Verticle, Container }
-import io.vertx.ceylon { Vertx }
-import io.vertx.ceylon.net { NetSocket }
+import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.core.net { NetSocket }
 shared class SSLServer() extends Verticle() {
   
   shared actual void start(Vertx vertx, Container container) {

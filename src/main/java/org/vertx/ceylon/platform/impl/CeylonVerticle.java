@@ -68,17 +68,22 @@ public class CeylonVerticle extends Verticle {
         }
         systemRepo = new File(systemRepoURL.toURI()).getAbsolutePath();
         systemPrefix = "flat:";
+        container.logger().debug("Using flat system repo " + systemRepo);
       }
 
       // Vert.x repo in packaged mod contains SDK + io.vertx.ceylon
-      URL vertxRepoURL = Compiler.class.getClassLoader().getResource("repo/");
-      String vertxRepo;
-      if (vertxRepoURL != null && vertxRepoURL.getProtocol().equals("file")) {
-        vertxRepo = new File(vertxRepoURL.toURI()).getAbsolutePath();
-        container.logger().debug("Using vertxRepo " + vertxRepo);
+      String vertxRepo = config.getString("vertxRepo", null);
+      if (vertxRepo == null) {
+        URL vertxRepoURL = Compiler.class.getClassLoader().getResource("repo/");
+        if (vertxRepoURL != null && vertxRepoURL.getProtocol().equals("file")) {
+          vertxRepo = new File(vertxRepoURL.toURI()).getAbsolutePath();
+          container.logger().debug("Using vertxRepo " + vertxRepo);
+        } else {
+          vertxRepo = null;
+          container.logger().debug("No vertxRepo found");
+        }
       } else {
-        vertxRepo = null;
-        container.logger().debug("No vertxRepo found");
+        container.logger().debug("Configured vertxRepo " + vertxRepo);
       }
 
       //
@@ -116,7 +121,7 @@ public class CeylonVerticle extends Verticle {
           moduleSrc.createNewFile();
           Files.write(moduleSrc.toPath(), (
               "module app \"1.0.0\" {\n" +
-              "shared import io.vertx.ceylon \"0.4.0\";\n" +
+              "shared import io.vertx.ceylon.platform \"0.4.0\";\n" +
               "}\n"
           ).getBytes());
           File packageSrc = new File(moduleDir, "package.ceylon");
@@ -197,10 +202,10 @@ public class CeylonVerticle extends Verticle {
         runnerOptions.addUserRepository(vertxRepo);
       }
       runnerOptions.setVerbose(verbose);
-      runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon", "0.4.0");
+      runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon.platform", "0.4.0");
       runner.run();
       ClassLoader loader = runner.getModuleClassLoader();
-      Method introspector = loader.loadClass("io.vertx.ceylon.metamodel.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
+      Method introspector = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
       List<Callable<Verticle>> factories = (List<Callable<Verticle>>) introspector.invoke(null, modules);
       if (factories.size() == 0) {
         throw new Exception("No verticle found in modules " + modules);

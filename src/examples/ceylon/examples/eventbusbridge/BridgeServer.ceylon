@@ -2,17 +2,17 @@ import io.vertx.ceylon.platform {
   Verticle,
   Container
 }
-import io.vertx.ceylon {
+import io.vertx.ceylon.core {
   Vertx
 }
-import io.vertx.ceylon.http {
+import io.vertx.ceylon.core.http {
   HttpServerRequest
 }
 import ceylon.json { Array, Object }
 import ceylon.promise {
   Deferred
 }
-import io.vertx.ceylon.sockjs {
+import io.vertx.ceylon.core.sockjs {
   EventBusBridgeHook,
   SockJSSocket
 }

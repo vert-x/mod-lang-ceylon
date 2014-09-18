@@ -1,6 +1,6 @@
 import io.vertx.ceylon.platform { Verticle, Container }
-import io.vertx.ceylon { Vertx }
-import io.vertx.ceylon.http { HttpClientResponse }
+import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.core.http { HttpClientResponse }
 
 shared class ClientExample() extends Verticle() {
   

@@ -81,6 +81,9 @@ public class VertxHelper {
     if (!config.containsField("systemRepo")) {
       config.putString("systemRepo", "flat:" + Helper.assertSystemRepo().getAbsolutePath());
     }
+    if (!config.containsField("vertxRepo")) {
+      config.putString("vertxRepo", Helper.assertVertxRepo().getAbsolutePath());
+    }
     final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
     Handler<AsyncResult<String>> done = new Handler<AsyncResult<String>>() {
       @Override

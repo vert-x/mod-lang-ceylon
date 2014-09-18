@@ -1,9 +1,9 @@
 import io.vertx.ceylon.platform { Verticle, Container }
-import io.vertx.ceylon { Vertx }
-import io.vertx.ceylon.http { HttpServerRequest }
+import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.core.http { HttpServerRequest }
 import java.util { UUID }
 import java.lang { System { currentTimeMillis } }
-import io.vertx.ceylon.file { AsyncFile }
+import io.vertx.ceylon.core.file { AsyncFile }
 
 shared class UploadServer() extends Verticle() {
   

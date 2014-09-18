@@ -62,10 +62,11 @@ public class BasicTest extends AbstractTest {
     compiler.assertCompile("noopverticle");
     RunnerOptions options = new RunnerOptions();
     options.addExtraModule("noopverticle", "1.0.0");
-    JavaRunner runner = compiler.runner(options, "io.vertx.ceylon", "0.4.0");
+    options.addUserRepository(Helper.assertVertxRepo().getAbsolutePath());
+    JavaRunner runner = compiler.runner(options, "io.vertx.ceylon.platform", "0.4.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
-    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.metamodel.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
+    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
     List<Callable<Verticle>> factories = (List<Callable<Verticle>>) findVerticlesMethod.invoke(null, Collections.singleton("noopverticle"));
     assertEquals(1, factories.size());
     Verticle verticle = factories.get(0).call();

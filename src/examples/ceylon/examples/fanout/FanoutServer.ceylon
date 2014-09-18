@@ -1,6 +1,6 @@
 import io.vertx.ceylon.platform { Verticle, Container }
-import io.vertx.ceylon { Vertx }
-import io.vertx.ceylon.net { NetSocket }
+import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.core.net { NetSocket }
 import org.vertx.java.core.buffer { Buffer }
 
 shared class FanoutServer() extends Verticle() {

@@ -2,13 +2,13 @@ import io.vertx.ceylon.platform {
   Verticle,
   Container
 }
-import io.vertx.ceylon {
+import io.vertx.ceylon.core {
   Vertx
 }
-import io.vertx.ceylon.net {
+import io.vertx.ceylon.core.net {
   NetSocket
 }
-import io.vertx.ceylon.stream {
+import io.vertx.ceylon.core.stream {
   Pump
 }
 shared class EchoServer() extends Verticle() {

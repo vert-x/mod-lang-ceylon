@@ -1,11 +1,11 @@
-import io.vertx.ceylon {
+import io.vertx.ceylon.core {
   Vertx
 }
 import io.vertx.ceylon.platform {
   Container,
   Verticle
 }
-import io.vertx.ceylon.http {
+import io.vertx.ceylon.core.http {
   HttpServerRequest,
   HttpClientResponse
 }

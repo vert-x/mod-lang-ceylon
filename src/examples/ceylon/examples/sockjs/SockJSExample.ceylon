@@ -1,7 +1,7 @@
 import io.vertx.ceylon.platform { Verticle, Container }
-import io.vertx.ceylon { Vertx }
-import io.vertx.ceylon.http { HttpServerRequest }
-import io.vertx.ceylon.sockjs { SockJSSocket }
+import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.core.http { HttpServerRequest }
+import io.vertx.ceylon.core.sockjs { SockJSSocket }
 import ceylon.json { Object }
 
 shared class SockJSExample() extends Verticle() {

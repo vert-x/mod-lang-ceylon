@@ -214,6 +214,29 @@
         <version>1.7</version>
         <executions>
           <execution>
+            <id>compile-platform</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <property environment="env"/>
+                <property name="ceylon.home" value="${env.CEYLON_HOME}"/>
+                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
+                <property name="source.encoding" value="UTF-8"/>
+                <property name="source.version" value="0.4.0"/>
+                <path id="ant-tasks">
+                  <pathelement location="${ceylon.ant.lib}"/>
+                </path>
+                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+                <ceylon-compile src="src/main/ceylon" out="${project.build.directory}/vertx-repo/" encoding="${source.encoding}" verbose="false">
+                  <module name="io.vertx.ceylon.platform"/>
+                </ceylon-compile>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
             <id>copy-modules</id>
             <goals>
               <goal>run</goal>
@@ -222,7 +245,7 @@
             <configuration>
               <target>
                 <exec executable="ceylon">
-                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon/0.4.0"/>
+                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/0.4.0"/>
                 </exec>
               </target>
             </configuration>
@@ -269,7 +292,7 @@
                 </path>
                 <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
                 <ceylon-compile src="src/examples/ceylon" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
-                  <rep url="target/modules/"/>
+                  <rep url="target/vertx-repo"/>
                   <module name="examples.echo"/>
                   <module name="examples.eventbus_pointtopoint"/>
                   <module name="examples.eventbus_pubsub"/>
@@ -299,7 +322,7 @@
         <executions>
           <execution>
             <id>package-system-repo</id>
-            <phase>generate-resources</phase>
+            <phase>generate-test-resources</phase>
             <goals>
               <goal>single</goal>
             </goals>

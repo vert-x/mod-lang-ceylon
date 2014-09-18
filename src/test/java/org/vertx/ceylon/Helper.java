@@ -25,4 +25,11 @@ public class Helper {
     assertTrue(systemRepo.exists());
     return systemRepo;
   }
+
+  public static File assertVertxRepo() {
+    File systemRepo = new File("target/vertx-repo");
+    assertTrue(systemRepo.isDirectory());
+    assertTrue(systemRepo.exists());
+    return systemRepo;
+  }
 }

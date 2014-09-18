@@ -2,8 +2,8 @@ import io.vertx.ceylon.platform {
 	Verticle,
 	Container
 }
-import io.vertx.ceylon.http { HttpServerRequest }
-import io.vertx.ceylon {
+import io.vertx.ceylon.core.http { HttpServerRequest }
+import io.vertx.ceylon.core {
 	Vertx
 }
 

@@ -2,13 +2,13 @@ import io.vertx.ceylon.platform {
   Verticle,
   Container
 }
-import io.vertx.ceylon {
+import io.vertx.ceylon.core {
   Vertx
 }
-import io.vertx.ceylon.http {
+import io.vertx.ceylon.core.http {
   HttpClientResponse
 }
-import io.vertx.ceylon.file {
+import io.vertx.ceylon.core.file {
   AsyncFile
 }
 shared class UploadClient() extends Verticle() {

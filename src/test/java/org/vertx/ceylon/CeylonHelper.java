@@ -20,6 +20,7 @@ public class CeylonHelper {
   File modules;
   File sourcePath;
   File systemRepo;
+  File vertxRepo;
 
   public CeylonHelper() {
     sourcePath = new File("src/test/resources");
@@ -27,6 +28,7 @@ public class CeylonHelper {
     assertTrue(sourcePath.isDirectory());
     modules = Helper.assertModules();
     systemRepo = Helper.assertSystemRepo();
+    vertxRepo = Helper.assertVertxRepo();
   }
 
   private void scan(CompilerOptions options, File file) {
@@ -49,6 +51,7 @@ public class CeylonHelper {
     options.setSourcePath(Collections.singletonList(sourcePath));
     options.setOutputRepository(modules.getAbsolutePath());
     options.setSystemRepository("flat:" + systemRepo.getAbsolutePath());
+    options.addUserRepository(vertxRepo.getAbsolutePath());
     scan(options, new File(sourcePath, module));
     com.redhat.ceylon.compiler.java.runtime.tools.Compiler compiler = CeylonToolProvider.getCompiler(Backend.Java);
     boolean compiled = compiler.compile(options, new CompilationListener() {
