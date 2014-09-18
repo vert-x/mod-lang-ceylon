@@ -327,7 +327,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <descriptor>src/main/assembly/system-repo.xml</descriptor>
+              <descriptor>src/test/assembly/system-repo.xml</descriptor>
               <appendAssemblyId>false</appendAssemblyId>
               <finalName>system-repo</finalName>
             </configuration>
@@ -367,7 +367,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <descriptor>src/main/assembly/examples.xml</descriptor>
+              <descriptor>src/examples/assembly/examples.xml</descriptor>
               <finalName>lang-ceylon-${version}</finalName>
             </configuration>
           </execution>
