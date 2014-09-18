@@ -1,13 +1,13 @@
 import org.vertx.java.platform { Container_ = Container }
-import org.vertx.java.core.json { JsonObject }
-import ceylon.json { Object }
+import org.vertx.java.core.json { JsonObject_=JsonObject }
+import ceylon.json { JsonObject=Object }
 import io.vertx.ceylon.core.util { toJsonObject, fromJsonObject, AsyncResultPromise }
 import java.lang { String_=String }
 import ceylon.promise { Promise }
 import ceylon.collection { HashMap }
 import ceylon.logging { Logger, Priority, Category, trace_=trace, debug_=debug, info_=info, error_=error, warn_=warn, fatal_=fatal }
 
-JsonObject? toConf(Object? c) {
+JsonObject_? toConf(JsonObject? c) {
     if (exists c) {
         return toJsonObject(c);
     } else {
@@ -111,20 +111,54 @@ shared class Container(Container_ delegate) {
       }
     }
     
-    value entries = delegate.env().entrySet().iterator();
-    HashMap<String, String> tmp = HashMap<String, String>();
-    while (entries.hasNext()) {
-        value entry = entries.next();
-        tmp.put(entry.key.string, entry.\ivalue.string);
-    }
-    
     // 
     "Get an unmodifiable map of system, environment variables."
-    shared Map<String, String> env = tmp;
+    shared object env satisfies Map<String, String> {
+      
+      shared actual Map<String,String> clone() => this;
+      
+      shared actual Boolean defines(Object key) {
+        if (is String key) {
+          if (delegate.env().containsKey(String_(key))) {
+            return true;
+          }
+        }
+        return false;
+      }
+      
+      shared actual String? get(Object key) {
+        if (is String key) {
+          String_? val = delegate.env().get(String_(key));
+          if (exists val) {
+            return val.string;
+          }
+        }
+        return null;
+      }
+      
+      shared actual Iterator<String->String> iterator() {
+        value it = delegate.env().entrySet().iterator();
+        object i satisfies Iterator<String->String> {
+          shared actual <String->String>|Finished next() {
+            if (it.hasNext()) {
+              value next = it.next();
+              return next.key.string->next.\ivalue.string;
+            } else {
+              return finished;
+            }
+          }
+        }
+        return i;
+      }
+      
+      shared actual Boolean equals(Object that) => (super of Map<String, String>).equals(that);
+      
+      shared actual Integer hash => (super of Map<String, String>).hash;
+    }
 
     "Get the verticle configuration"
-    JsonObject? config_ = delegate.config();
-    shared Object? config;
+    JsonObject_? config_ = delegate.config();
+    shared JsonObject? config;
     if (exists config_) {
         config = fromJsonObject(delegate.config());
     } else {
@@ -145,8 +179,8 @@ shared class Container(Container_ delegate) {
         "Multithreaded or not"
         Boolean multiThreaded = false, 
         "JSON config to provide to the verticle"
-        Object? conf = null) {
-        JsonObject? conf_ = toConf(conf);
+        JsonObject? conf = null) {
+        JsonObject_? conf_ = toConf(conf);
         void undeploy(String s) {
             delegate.undeployVerticle(s);
         }
@@ -162,8 +196,8 @@ shared class Container(Container_ delegate) {
         "The number of instances to deploy (defaults to 1)"
         Integer instance = 1, 
         "JSON config to provide to the module"
-        Object? conf = null) {
-        JsonObject? conf_ = toConf(conf);
+        JsonObject? conf = null) {
+        JsonObject_? conf_ = toConf(conf);
         void undeploy(String s) {
             delegate.undeployModule(s);
         }
@@ -179,8 +213,8 @@ shared class Container(Container_ delegate) {
         "The number of instances to deploy (defaults to 1)"
         Integer instance = 1, 
         "JSON config to provide to the verticle"
-        Object? conf = null) {
-        JsonObject? conf_ = toConf(conf);
+        JsonObject? conf = null) {
+        JsonObject_? conf_ = toConf(conf);
         void undeploy(String s) {
             delegate.undeployVerticle(s);
         }

@@ -145,6 +145,10 @@
    
    For more information on configuring logging, please see the [main manual](http://vertx.io/manual.html#logging).
    
+   ## Accessing environment variables from a Verticle
+   
+   You can access the map of environment variables from a Verticle with the [[Container.env]] object on the `container` object.
+   
    """
 
 by("Julien Viet")
