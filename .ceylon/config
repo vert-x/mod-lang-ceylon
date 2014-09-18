@@ -1,6 +1,7 @@
 
 [compiler]
 source=src/examples/ceylon
+source=src/main/ceylon
 
 [defaults]
 encoding=UTF-8
