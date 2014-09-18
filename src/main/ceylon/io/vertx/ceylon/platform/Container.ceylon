@@ -1,10 +1,9 @@
 import org.vertx.java.platform { Container_ = Container }
 import org.vertx.java.core.json { JsonObject_=JsonObject }
 import ceylon.json { JsonObject=Object }
-import io.vertx.ceylon.core.util { toJsonObject, fromJsonObject, AsyncResultPromise }
+import io.vertx.ceylon.core.util { toJsonObject, fromJsonObject, voidAsyncResult, stringAsyncResult }
 import java.lang { String_=String }
 import ceylon.promise { Promise }
-import ceylon.collection { HashMap }
 import ceylon.logging { Logger, Priority, Category, trace_=trace, debug_=debug, info_=info, error_=error, warn_=warn, fatal_=fatal }
 
 JsonObject_? toConf(JsonObject? c) {
@@ -12,14 +11,6 @@ JsonObject_? toConf(JsonObject? c) {
         return toJsonObject(c);
     } else {
         return null;
-    }
-}
-
-Deployment fa(Anything(String) undeploy)(String_? a) {
-    if (exists a) {
-        return Deployment(a.string, undeploy);
-    } else {
-        throw Exception();
     }
 }
 
@@ -170,56 +161,60 @@ shared class Container(Container_ delegate) {
     }
 
     "Deploy a worker verticle programmatically. The returned promise will be resolved with the deployment or be rejected if it fails to deploy"
-    shared Promise<Deployment> deployWorkerVerticle(
+    shared Promise<String> deployWorkerVerticle(
         "The main of the verticle"
         String main, 
+        "JSON config to provide to the verticle"
+        JsonObject? conf = null,
         "The number of instances to deploy (defaults to 1)"
         Integer instance = 1, 
         "Multithreaded or not"
-        Boolean multiThreaded = false, 
-        "JSON config to provide to the verticle"
-        JsonObject? conf = null) {
+        Boolean multiThreaded = false) {
         JsonObject_? conf_ = toConf(conf);
-        void undeploy(String s) {
-            delegate.undeployVerticle(s);
-        }
-        AsyncResultPromise<Deployment, String_> a = AsyncResultPromise<Deployment, String_>(fa(undeploy));
+        value a = stringAsyncResult();
         delegate.deployWorkerVerticle(main, conf_, instance, multiThreaded, a);
         return a.promise;
     }
     
     "Deploy a module programmatically. The returned promise will be resolved with the deployment or be rejected if it fails to deploy"
-    shared Promise<Deployment> deployModule(
+    shared Promise<String> deployModule(
         "The main of the module to deploy"
         String moduleName, 
-        "The number of instances to deploy (defaults to 1)"
-        Integer instance = 1, 
         "JSON config to provide to the module"
-        JsonObject? conf = null) {
+        JsonObject? conf = null,
+        "The number of instances to deploy (defaults to 1)"
+        Integer instance = 1) {
         JsonObject_? conf_ = toConf(conf);
-        void undeploy(String s) {
-            delegate.undeployModule(s);
-        }
-        AsyncResultPromise<Deployment, String_> a = AsyncResultPromise<Deployment, String_>(fa(undeploy));
+        value a = stringAsyncResult();
         delegate.deployModule(moduleName, conf_, instance, a);
         return a.promise;
     }
 
     "Deploy a verticle programmatically. The returned promise will be resolved with the deployment or be rejected if it fails to deploy"
-    shared Promise<Deployment> deployVerticle(
+    shared Promise<String> deployVerticle(
         "The main of the verticle"
         String main, 
-        "The number of instances to deploy (defaults to 1)"
-        Integer instance = 1, 
         "JSON config to provide to the verticle"
-        JsonObject? conf = null) {
+        JsonObject? conf = null,
+        "The number of instances to deploy (defaults to 1)"
+        Integer instance = 1) {
         JsonObject_? conf_ = toConf(conf);
-        void undeploy(String s) {
-            delegate.undeployVerticle(s);
-        }
-        AsyncResultPromise<Deployment, String_> a = AsyncResultPromise<Deployment, String_>(fa(undeploy));
+        value a = stringAsyncResult();
         delegate.deployVerticle(main, conf_, instance, a);
         return a.promise;
     }
     
+    "Undeploy a verticle"
+    shared Promise<Anything> undeployVerticle("The deployment ID" String deploymentID) {
+      value a = voidAsyncResult();
+      delegate.undeployVerticle(deploymentID, a);
+      return a.promise;
+    }
+    
+    "Undeploy a module"
+    shared Promise<Anything> undeployModule("The deployment ID" String deploymentID) {
+      value a = voidAsyncResult();
+      delegate.undeployModule(deploymentID, a);
+      return a.promise;
+    }
 }

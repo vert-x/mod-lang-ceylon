@@ -153,6 +153,185 @@
    
    You can call the [[Container.exit]] method of the container to cause the Vert.x instance to make a clean shutdown.
    
+   # Deploying and Undeploying Verticles Programmatically
+   
+   You can deploy and undeploy verticles programmatically from inside another verticle. Any verticles deployed this
+   way will be able to see resources (classes, scripts, other files) of the main verticle.
+   
+   ## Deploying a simple verticle
+   
+   To deploy a verticle programmatically call the function [[Container.deployVerticle]] on the container.
+   
+   To deploy a single instance of a verticle :
+   
+   ~~~
+   container.deployVerticle(main);
+   ~~~
+   
+   Where `main` is the name of the Verticle (i.e. the name of the Java file or FQCN of the class).
+   
+   See the chapter on ["running Vert.x"](http://vertx.io/manual.html#running-vertx) in the main manual for a description
+   of what a main is.
+   
+   ## Deploying Worker Verticles
+   
+   The [[Container.deployVerticle]] method deploys standard (non worker) verticles. If you want to deploy worker
+   verticles use the [[Container.deployWorkerVerticle]] method. This method takes the same parameters as [[Container.deployVerticle]]
+   with the same meanings.
+   
+   ## Deploying a module programmatically
+   
+   You should use [[Container.deployModule]] to deploy a module, for example:
+   
+   ~~~
+   container.deployModule("io.vertx~mod-mailer~2.0.0-beta1", config);
+   ~~~
+   
+   Would deploy an instance of the `io.vertx~mod-mailer~2.0.0-beta1` module with the specified configuration. Please
+   see the modules manual for more information about modules.
+   
+   ## Passing configuration to a verticle programmatically
+   
+   JSON configuration can be passed to a verticle that is deployed programmatically. Inside the deployed verticle the
+   configuration is accessed with the [[Container.config]] attribute. For example:
+   
+   ~~~
+   value config = Object {
+     "foo"->"wibble",
+     "bar"->false
+   };
+   container.deployVerticle("foo.ChildVerticle", config);
+   ~~~
+   
+   Then, in `ChildVerticle` you can access the config via [[Container.config]] as previously explained.
+   
+   ## Using a Verticle to co-ordinate loading of an application
+   
+   If you have an appplication that is composed of multiple verticles that all need to be started at application start-up,
+   then you can use another verticle that maintains the application configuration and starts all the other verticles. You
+   can think of this as your application starter verticle.
+   
+   For example, you could create a verticle AppStarter as follows:
+   
+   ~~~
+   // Application config
+   
+   JsonObject appConfig = container.config();
+   
+   value verticle1Config = appConfig["verticle1_conf"];
+   value verticle2Config = appConfig["verticle2_conf"];
+   value verticle3Config = appConfig["verticle3_conf"];
+   value verticle4Config = appConfig["verticle4_conf"];
+   value verticle5Config = appConfig["verticle5_conf"];
+   
+   // Start the verticles that make up the app
+   
+   container.deployVerticle("verticle1.js", verticle1Config);
+   container.deployVerticle("verticle2.rb", verticle2Config);
+   container.deployVerticle("foo.Verticle3", verticle3Config);
+   container.deployWorkerVerticle("foo.Verticle4", verticle4Config);
+   container.deployWorkerVerticle("verticle5.js", verticle5Config, 10);
+   ~~~
+   
+   Then create a file 'config.json" with the actual JSON config in it
+   
+   ~~~
+   {
+      "verticle1_conf": {
+          "foo": "wibble"
+      },
+      "verticle2_conf": {
+          "age": 1234,
+          "shoe_size": 12,
+          "pi": 3.14159
+      },
+      "verticle3_conf": {
+          "strange": true
+      },
+      "verticle4_conf": {
+          "name": "george"
+      },
+      "verticle5_conf": {
+          "tel_no": "123123123"
+      }
+   }
+   ~~~
+   
+   Then set the `AppStarter` as the main of your module and then you can start your entire application by simply running:
+   
+   ~~~
+   vertx runmod com.mycompany~my-mod~1.0 -conf config.json
+   ~~~
+   
+   If your application is large and actually composed of multiple modules rather than verticles you can use the same technique.
+   
+   More commonly you'd probably choose to write your starter verticle in a scripting language such as JavaScript, Groovy,
+   Ruby or Python - these languages have much better JSON support than Java, so you can maintain the whole JSON config nicely
+   in the starter verticle itself.
+   
+   ## Specifying number of instances
+   
+   By default, when you deploy a verticle only one instance of the verticle is deployed. Verticles instances are
+   strictly single threaded so this means you will use at most one core on your server.
+   
+   Vert.x scales by deploying many verticle instances concurrently.
+   
+   If you want more than one instance of a particular verticle or module to be deployed, you can specify the number of
+   instances as follows:
+   
+   ~~~
+   container.deployVerticle("foo.ChildVerticle", null, 10);
+   ~~~
+   
+   or
+
+   ~~~
+   container.deployModule("io.vertx~some-mod~1.0", null, 10);
+   ~~~
+   
+   The above examples would deploy 10 instances.
+   
+   ## Getting Notified when Deployment is complete
+   
+   The actual verticle deployment is asynchronous and might not complete until some time after the call to
+   [[Container.deployVerticle]] or [[Container.deployVerticle]] has returned. If you want to be notified when
+   the verticle has completed being deployed, you can use the [[ceylon.promise::Promise]] returned by
+   [[Container.deployVerticle]] or [[Container.deployModule]]:
+
+   ~~~
+   Promise<String> deployment = container.deployVerticle("foo.ChildVerticle");
+   deployment.onComplete(
+     (String deploymentID) => print("The verticle has been deployed, deployment ID is ``deploymentID``"),
+     (Throwable failure) => failure.printStackTrace()
+   );
+   ~~~
+   
+   The promise is resolved with the `deploymentID`, you will need this if you need to subsequently undeploy the
+   verticle / module.
+   
+   ## Undeploying a Verticle or Module
+   
+   Any verticles or modules that you deploy programmatically from within a verticle, and all of their children are
+   automatically undeployed when the parent verticle is undeployed, so in many cases you will not need to undeploy
+   a verticle manually, however if you do need to do this, it can be done by calling the method [[Container.undeployVerticle]]
+   or [[Container.undeployModule]] passing in the deployment id.
+   
+   ~~~
+   container.undeployVerticle(deploymentID);
+   ~~~
+   
+   You can use the returned promise if you want to be informed when undeployment is complete.
+   
+   ## Scaling your application
+   
+   A verticle instance is almost always single threaded (the only exception is multi-threaded worker verticles which
+   are an advanced feature), this means a single instance can at most utilise one core of your server.
+   
+   In order to scale across cores you need to deploy more verticle instances. The exact numbers depend on your
+   application - how many verticles there are and of what type.
+
+   You can deploy more verticle instances programmatically or on the command line when deploying your
+   module using the -instances command line option.
    """
 
 by("Julien Viet")
