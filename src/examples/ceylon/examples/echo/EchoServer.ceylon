@@ -1,16 +1,8 @@
-import io.vertx.ceylon.platform {
-  Verticle,
-  Container
-}
-import io.vertx.ceylon.core {
-  Vertx
-}
-import io.vertx.ceylon.core.net {
-  NetSocket
-}
-import io.vertx.ceylon.core.stream {
-  Pump
-}
+import io.vertx.ceylon.platform { Verticle, Container }
+import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.core.net { NetSocket }
+import io.vertx.ceylon.core.stream { Pump }
+
 shared class EchoServer() extends Verticle() {
   
   shared actual void start(Vertx vertx, Container container) {
