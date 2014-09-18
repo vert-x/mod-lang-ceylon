@@ -140,6 +140,7 @@ This module will be resolved in the default module repository of the platform. T
 - SharedMap and SharedSet : inherit Ceylon stuff again
 - test a module deployed in a repository
 - config a particular Verticle as a Ceylon module could contain several Verticle
+- allow to have module imports for ceylon script deployment
 
 ## Build instructions
 
