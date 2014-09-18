@@ -20,7 +20,7 @@ shared class UploadServer() extends Verticle() {
         value pump = stream.pump(file.writeStream);
         value start = currentTimeMillis();
         req.stream.endHandler(void () {
-          file.close().onComplete(void (Null n) {
+          file.close().onComplete(void (Anything anything) {
             req.response.end();
             value end = currentTimeMillis();
             print("Uploaded ``pump.bytesPumped`` bytes to ``pump.bytesPumped`` in ``(end - start)`` ms");

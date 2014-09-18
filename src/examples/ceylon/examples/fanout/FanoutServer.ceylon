@@ -14,7 +14,7 @@ shared class FanoutServer() extends Verticle() {
           vertx.eventBus.publish(actorID, buffer);
         }
       });
-      sock.closeHandler().onComplete((Null n) => connections.remove(sock.writeHandlerID));
+      sock.closeHandler().onComplete((Anything anything) => connections.remove(sock.writeHandlerID));
     }).listen(1234);
   }
 }

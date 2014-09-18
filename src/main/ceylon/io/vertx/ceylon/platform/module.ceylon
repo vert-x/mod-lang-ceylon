@@ -1,15 +1,3 @@
-import io.vertx.ceylon.core.net {
-  NetSocket
-}
-import io.vertx.ceylon.core.stream {
-  Pump
-}
-import ceylon.promise {
-  Promise
-}
-import io.vertx.ceylon.core {
-  Vertx
-}
 """# Writing Verticles
    
    As was described in the [main manual](http://vertx.io/manual.html#verticle), a verticle is the execution unit of Vert.x.

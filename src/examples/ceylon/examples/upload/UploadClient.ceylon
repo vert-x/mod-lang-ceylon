@@ -39,7 +39,7 @@ shared class UploadClient() extends Verticle() {
         pump.start();
         file.readStream.endHandler(void () {
           file.close().onComplete(
-            void (Null n) {
+            void (Anything anything) {
               req.end();
               print("Request sent");
             },
