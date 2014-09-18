@@ -25,7 +25,7 @@ public class VertxHelper {
   public VertxHelper() {
   }
 
-  private PlatformManager getManager() throws Exception {
+  public PlatformManager getManager() throws Exception {
     if (manager == null) {
       System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-alpha-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
       PlatformManager manager = PlatformLocator.factory.createPlatformManager();

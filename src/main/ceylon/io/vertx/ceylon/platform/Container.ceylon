@@ -111,7 +111,6 @@ shared class Container(Container_ delegate) {
       }
     }
     
-    // 
     "Get an unmodifiable map of system, environment variables."
     shared object env satisfies Map<String, String> {
       
@@ -155,7 +154,7 @@ shared class Container(Container_ delegate) {
       
       shared actual Integer hash => (super of Map<String, String>).hash;
     }
-
+    
     "Get the verticle configuration"
     JsonObject_? config_ = delegate.config();
     shared JsonObject? config;

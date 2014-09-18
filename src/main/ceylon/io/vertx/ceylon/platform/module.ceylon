@@ -149,6 +149,10 @@
    
    You can access the map of environment variables from a Verticle with the [[Container.env]] object on the `container` object.
    
+   ## Causing the container to exit
+   
+   You can call the [[Container.exit]] method of the container to cause the Vert.x instance to make a clean shutdown.
+   
    """
 
 by("Julien Viet")
