@@ -5,6 +5,7 @@ import io.vertx.ceylon.core.util { toJsonObject, fromJsonObject, AsyncResultProm
 import java.lang { String_=String }
 import ceylon.promise { Promise }
 import ceylon.collection { HashMap }
+import ceylon.logging { Logger, Priority, Category, trace_=trace, debug_=debug, info_=info, error_=error, warn_=warn, fatal_=fatal }
 
 JsonObject? toConf(Object? c) {
     if (exists c) {
@@ -30,6 +31,85 @@ Deployment fa(Anything(String) undeploy)(String_? a) {
    verticle, amongst other things.
    """
 shared class Container(Container_ delegate) {
+  
+    value loggerDelegate = delegate.logger();
+  
+    "The verticle logger"
+    shared object logger satisfies Logger {
+
+      // Can we do better ?
+      shared actual Category category => `module io.vertx.ceylon.platform`;
+      
+      shared actual void log(Priority priority, Logger.Message message, Exception? exception) {
+        String a;
+        switch (message) 
+        case (is String) {
+          a = message;
+        }
+        case (is String()) {
+          a = message();
+        }
+        switch(priority)
+        case (trace_) {
+          if (exists exception) {
+            loggerDelegate.trace(a, exception);
+          } else {
+            loggerDelegate.trace(a);
+          }
+        }
+        case (debug_) {
+          if (exists exception) {
+            loggerDelegate.debug(a, exception);
+          } else {
+            loggerDelegate.debug(a);
+          }
+        }
+        case (info_) {
+          if (exists exception) {
+            loggerDelegate.info(a, exception);
+          } else {
+            loggerDelegate.info(a);
+          }
+        }
+        case (warn_) {
+          if (exists exception) {
+            loggerDelegate.warn(a, exception);
+          } else {
+            loggerDelegate.warn(a);
+          }
+        }
+        case (error_) {
+          if (exists exception) {
+            loggerDelegate.error(a, exception);
+          } else {
+            loggerDelegate.error(a);
+          }
+        }
+        case (fatal_) {
+          if (exists exception) {
+            loggerDelegate.fatal(a, exception);
+          } else {
+            loggerDelegate.fatal(a);
+          }
+        }
+      }
+      
+      shared actual Priority priority {
+        if (loggerDelegate.traceEnabled) {
+          return trace_;
+        } else if (loggerDelegate.debugEnabled) {
+          return debug_;
+        } else if (loggerDelegate.infoEnabled) {
+          return info_;
+        } else {
+          return error_;
+        }
+      }
+      
+      assign priority {
+        // Read only
+      }
+    }
     
     value entries = delegate.env().entrySet().iterator();
     HashMap<String, String> tmp = HashMap<String, String>();

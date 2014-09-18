@@ -121,8 +121,29 @@
   
    ## Logging from a Verticle
    
-   
+   Each verticle is given its own logger. To get a reference to it use the [[Container.logger]]
+   object on the container instance:
 
+   ~~~
+   value logger = container.logger;
+   
+   logger.info("I am logging something");
+   ~~~
+   
+   The logger is an instance of the interface [[ceylon.logging::Logger]] and has the following methods:
+   
+   - [[[[ceylon.logging::Logger.trace]]]]
+   - [[[[ceylon.logging::Logger.debug]]]]
+   - [[[[ceylon.logging::Logger.info]]]]
+   - [[[[ceylon.logging::Logger.warn]]]]
+   - [[[[ceylon.logging::Logger.error]]]]
+   - [[[[ceylon.logging::Logger.fatal]]]]
+   
+   Which have the normal meanings you would expect.
+   
+   The log files by default go in a file called `vertx.log in the system temp directory. On my Linux box this is \tmp.
+   
+   For more information on configuring logging, please see the [main manual](http://vertx.io/manual.html#logging).
    
    """
 
@@ -130,6 +151,7 @@ by("Julien Viet")
 license("ASL2")
 module io.vertx.ceylon.platform "0.4.0" {
 
+  shared import ceylon.logging "1.1.0";
   shared import io.vertx.ceylon.core "0.4.0";
 
 } 

@@ -32,7 +32,7 @@ public class LogDelegateFactoryImpl implements LogDelegateFactory {
 
       private void log(String level, Object message, Throwable t) {
         System.out.println("[" + level + "] " + message);
-        t.printStackTrace();
+        t.printStackTrace(System.out);
       }
 
       @Override

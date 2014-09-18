@@ -9,6 +9,7 @@ public class NoVerticleTest extends AbstractTest {
 
   @Test
   public void testDeploy() throws Exception {
-    helper.assertFailedDeploy(DeployKind.VERTICLE, "noverticle/module.ceylon");
+    VertxHelper vertx = new VertxHelper();
+    vertx.assertFailedDeploy(DeployKind.VERTICLE, "noverticle/module.ceylon");
   }
 }

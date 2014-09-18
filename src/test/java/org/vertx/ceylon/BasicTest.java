@@ -23,8 +23,9 @@ public class BasicTest extends AbstractTest {
 
   @Test
   public void testCompile() {
-    compiler.assertCompile("helloworld");
-    JavaRunner runner = compiler.runner("helloworld", "1.0.0");
+    CeylonHelper ceylon = new CeylonHelper();
+    ceylon.assertCompile("helloworld");
+    JavaRunner runner = ceylon.runner("helloworld", "1.0.0");
     runner.run();
     runner.cleanup();
     Metamodel.resetModuleManager();
@@ -32,8 +33,9 @@ public class BasicTest extends AbstractTest {
 
   @Test
   public void testSDK() {
-    compiler.assertCompile("sdk");
-    JavaRunner runner = compiler.runner("sdk", "1.0.0");
+    CeylonHelper ceylon = new CeylonHelper();
+    ceylon.assertCompile("sdk");
+    JavaRunner runner = ceylon.runner("sdk", "1.0.0");
     runner.run();
     runner.cleanup();
     Metamodel.resetModuleManager();
@@ -41,11 +43,12 @@ public class BasicTest extends AbstractTest {
 
   @Test
   public void testOverride() throws Exception {
-    compiler.assertCompile("helloworld");
-    compiler.assertCompile("override");
+    CeylonHelper ceylon = new CeylonHelper();
+    ceylon.assertCompile("helloworld");
+    ceylon.assertCompile("override");
     RunnerOptions options = new RunnerOptions();
     options.addExtraModule("helloworld", "1.0.0");
-    JavaRunner runner = compiler.runner(options, "override", "1.0.0");
+    JavaRunner runner = ceylon.runner(options, "override", "1.0.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
     Class<?> vertxClass = loader.loadClass(Vertx.class.getName());
@@ -59,11 +62,12 @@ public class BasicTest extends AbstractTest {
 
   @Test
   public void testVerticleDiscovery() throws Exception {
-    compiler.assertCompile("noopverticle");
+    CeylonHelper ceylon = new CeylonHelper();
+    ceylon.assertCompile("noopverticle");
     RunnerOptions options = new RunnerOptions();
     options.addExtraModule("noopverticle", "1.0.0");
     options.addUserRepository(Helper.assertVertxRepo().getAbsolutePath());
-    JavaRunner runner = compiler.runner(options, "io.vertx.ceylon.platform", "0.4.0");
+    JavaRunner runner = ceylon.runner(options, "io.vertx.ceylon.platform", "0.4.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
     Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", Set.class);

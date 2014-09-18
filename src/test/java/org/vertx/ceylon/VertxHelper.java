@@ -4,9 +4,12 @@ import junit.framework.AssertionFailedError;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;
+import org.vertx.java.core.logging.impl.LogDelegateFactory;
+import org.vertx.java.core.logging.impl.LoggerFactory;
 import org.vertx.java.platform.PlatformLocator;
 import org.vertx.java.platform.PlatformManager;
 
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;
@@ -20,17 +23,14 @@ public class VertxHelper {
   private PlatformManager manager;
 
   public VertxHelper() {
-    this(null);
-  }
-
-  public VertxHelper(PlatformManager manager) {
-    this.manager = manager;
   }
 
   private PlatformManager getManager() throws Exception {
     if (manager == null) {
       System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-alpha-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
       PlatformManager manager = PlatformLocator.factory.createPlatformManager();
+      System.setProperty("org.vertx.logger-delegate-factory-class-name", LogDelegateFactoryImpl.class.getName());
+      LoggerFactory.initialise();
       final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<AsyncResult<String>>(10);
       manager.deployModuleFromClasspath("io.vertx~lang-ceylon~1.0.0-alpha-SNAPSHOT", new JsonObject(), 1, new URL[0], new Handler<AsyncResult<String>>() {
         @Override
