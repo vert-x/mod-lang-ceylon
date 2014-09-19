@@ -344,7 +344,7 @@
               <appendAssemblyId>false</appendAssemblyId>
               <formats><format>zip</format></formats>
               <!-- Bintray name -->
-              <finalName>lang-ceylon-${version}</finalName>
+              <finalName>lang-ceylon-${project.version}</finalName>
             </configuration>
           </execution>
           <execution>
@@ -358,7 +358,7 @@
               <appendAssemblyId>false</appendAssemblyId>
               <formats><format>dir</format></formats>
               <!-- Bintray name -->
-              <finalName>io.vertx~lang-ceylon~${version}</finalName>
+              <finalName>io.vertx~lang-ceylon~${project.version}</finalName>
             </configuration>
           </execution>
           <execution>
@@ -369,7 +369,7 @@
             </goals>
             <configuration>
               <descriptor>src/examples/assembly/examples.xml</descriptor>
-              <finalName>lang-ceylon-${version}</finalName>
+              <finalName>lang-ceylon-${project.version}</finalName>
             </configuration>
           </execution>
         </executions>
