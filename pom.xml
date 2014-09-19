@@ -392,11 +392,17 @@
               <goal>java</goal>
             </goals>
             <configuration>
-              <mainClass>org.vertx.ceylon.IntegrationTester</mainClass>
               <additionalClasspathElements>
                 <additionalClasspathElement>target/test-classes</additionalClasspathElement>
               </additionalClasspathElements>
               <includePluginDependencies>true</includePluginDependencies>
+              <mainClass>org.vertx.ceylon.IntegrationTester</mainClass>
+              <systemProperties>
+                <systemProperty>
+                  <key>project.version</key>
+                  <value>${project.version}</value>
+                </systemProperty>
+              </systemProperties>
             </configuration>
           </execution>
         </executions>

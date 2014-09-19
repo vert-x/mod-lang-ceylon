@@ -136,7 +136,7 @@ public class IntegrationTester {
     assertTrue(modZip.exists());
     assertTrue(modZip.isDirectory());
     System.setProperty("vertx.mods", modZip.getAbsolutePath());
-    System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~1.0.0-alpha3-SNAPSHOT:org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
+    System.setProperty("vertx.langs.ceylon", "io.vertx~lang-ceylon~" + System.getProperty("project.version") + ":org.vertx.ceylon.platform.impl.CeylonVerticleFactory");
     System.setProperty("org.vertx.logger-delegate-factory-class-name", LogDelegateFactoryImpl.class.getName());
     return PlatformLocator.factory.createPlatformManager();
   }
