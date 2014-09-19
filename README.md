@@ -136,6 +136,7 @@ This module will be resolved in the default module repository of the platform. T
 
 ## Todo
 
+- Sanitize the mod-zip and keep only jars in vertx-repo
 - Allow to resolve maven repositories ?
 - test a module deployed in a repository
 - config a particular Verticle as a Ceylon module could contain several Verticle
