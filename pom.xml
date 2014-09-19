@@ -9,7 +9,7 @@
 
   <groupId>vietj</groupId>
   <artifactId>lang-ceylon</artifactId>
-  <version>1.0.0-alpha3-SNAPSHOT</version>
+  <version>1.0.0-beta1</version>
 
   <properties>
     <!-- Can be overriden from command line -->
