@@ -1,0 +1,232 @@
+<!DOCTYPE html><html><head><meta charset='UTF-8'/>
+<title>Overview</title><link href='.resources/favicon.ico' rel='shortcut icon'/>
+<link href='.resources/shCore.css' rel='stylesheet' type='text/css'/>
+<link href='.resources/shThemeDefault.css' rel='stylesheet' type='text/css'/>
+<link href='.resources/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+<link href='.resources/ceylondoc.css' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Inconsolata' rel='stylesheet' type='text/css'/>
+</head><body><div class='navbar navbar-inverse navbar-static-top'><div class='navbar-inner'><a class='module-header' href='index.html'><i class='module-logo'></i><span class='module-label'>module</span><span class='module-name'>io.vertx.ceylon.core</span><span class='module-version'>0.4.0</span></a><ul class='nav pull-right'><li class='divider-vertical' /><li><a class='expand-all' href='#' title='Expand All [Shortcut: + plus]'><i class='icon-expand-all'></i></a></li><li><a class='collapse-all' href='#' title='Collapse All [Shortcut: - minus]'><i class='icon-collapse-all'></i></a></li><li id='infoDropdown' class='dropdown'><a href='#' title='Show keyboard shortcuts [Shortcut: ?]' role='button' class='dropdown-toggle' data-toggle='dropdown'><i class='icon-info'></i></a><ul id='info-dropdown-panel' class='dropdown-menu'><h4>Keyboard Shortcuts</h4><li class='divider'></li><div class='row-fluid'><div id='info-common-shortcuts' class='span6'><div id='f'><span class='key badge'>f</span><span class='info muted'>Open filter by tags</span></div><div id='s'><span class='key badge'>s</span><span class='info muted'>Open search page</span></div><div id='?'><span class='key badge'>?</span><span class='info muted'>Open this information panel</span></div></div><div id='info-expand-collapse-shortcuts' class='span6'><div id='+'><span class='key badge'>+</span><span class='info muted'>Expand all</span></div><div id='-'><span class='key badge'>-</span><span class='info muted'>Collapse all</span></div></div></div><li class='divider'></li><div class='row-fluid'><div id='info-doc-shortcuts' class='span6'><h5>Documentation:</h5><div id='o'><span class='key badge'>o</span><span class='info muted'>Jump to module documentation</span></div><div id='p'><span class='key badge'>p</span><span class='info muted'>Jump to package documentation</span></div><div id='l'><span class='key badge'>l</span><span class='info muted'>Jump to aliases</span></div><div id='n'><span class='key badge'>n</span><span class='info muted'>Jump to annotations</span></div><div id='z'><span class='key badge'>z</span><span class='info muted'>Jump to initializer</span></div><div id='v'><span class='key badge'>v</span><span class='info muted'>Jump to values</span></div><div id='f'><span class='key badge'>f</span><span class='info muted'>Jump to functions</span></div><div id='i'><span class='key badge'>i</span><span class='info muted'>Jump to interfaces</span></div><div id='c'><span class='key badge'>c</span><span class='info muted'>Jump to classes</span></div><div id='e'><span class='key badge'>e</span><span class='info muted'>Jump to exceptions</span></div></div><div id='info-search-shortcuts' class='span6'><h5>Search page:</h5><div id='enter'><span class='key badge'>enter</span><span class='info muted'>Jump to selected declaration</span></div><div id='esc'><span class='key badge'>esc</span><span class='info muted'>Clear search query/Go to overview</span></div><div id='up'><span class='key badge'>up</span><span class='info muted'>Move selection up</span></div><div id='down'><span class='key badge'>down</span><span class='info muted'>Move selection down</span></div></div></div></ul></li></ul><ul class='nav pull-right'><li class='divider-vertical' /><li><a href='search.html' title='Search this module [Shortcut: S]'><i class='icon-search'></i>Search</a></li></ul><ul class='nav pull-right'><li class='divider-vertical' /><li id='filterDropdown' class='dropdown'><a href='#' title='Filter declarations by tags [Shortcut: F]' role='button' class='dropdown-toggle' data-toggle='dropdown'><i class='icon-filter'></i>Filter <span id='filterDropdownLinkInfo'></span> <b class='caret'></b></a><ul id='filterDropdownPanel' class='dropdown-menu'><h4 id='filterDropdownPanelInfo'>Filter declarations by tags</h4><li class='divider'></li><div id='filterDropdownPanelTags'></div><li class='divider'></li><div id='filterActions'><a id='filterActionAll'>All</a><a id='filterActionNone'>None</a><a id='filterActionMore'>Show more</a></div></ul></li></ul></div></div><div class='container-fluid'><div class='module-description'><div class='doc section'><h1>Vert.x for Ceylon</h1>
+<p>Vert.x is a lightweight, high performance application platform for the JVM that's designed for modern mobile, web,
+and enterprise applications.</p>
+<p>The original <a href="http://vertx.io/docs.html">Vert.x documentation</a> explains how to use Vert.x. This Ceylon module is a port
+of the Vert.x API to Ceylon, with this API you can:</p>
+<ul>
+<li>Embed Vert.x in a Ceylon application</li>
+<li>Use the Vert.x API</li>
+<li>Verticles are not covered by this API but are managed by the <code>io.vertx.ceylon.platform</code> Ceylon module.</li>
+</ul>
+<h1>Reference</h1>
+<h2>The Event Bus</h2>
+<p>See <a class='link' href='eventbus/index.html' title='Go to package io.vertx.ceylon.core.eventbus'>io.vertx.ceylon.core.eventbus</a>.</p>
+<h2>Shared Data</h2>
+<p>See <a class='link' href='shareddata/index.html' title='Go to package io.vertx.ceylon.core.shareddata'>io.vertx.ceylon.core.shareddata</a>.</p>
+<h2>Buffers</h2>
+<p>Most data in Vert.x is shuffled around using instances of <span title='org.vertx.java.core.buffer::Buffer'>org.vertx.java.core.buffer::Buffer</span>. We chose deliberately
+to use the Vert.x native type as it can easily used from Ceylon and a wrapper would complicate the bridge.</p>
+<p>A Buffer represents a sequence of zero or more bytes that can be written to or read from, and which expands
+automatically as necessary to accomodate any bytes written to it. You can perhaps think of a buffer as smart byte array.</p>
+<h3>Creating Buffers</h3>
+<p>Create a new empty buffer:</p>
+<pre>value buff = Buffer();
+</pre>
+<p>Create a buffer from a String. The String will be encoded in the buffer using UTF-8.</p>
+<pre>value buff = Buffer("some-string");
+</pre>
+<p>Create a buffer from a String: The String will be encoded using the specified encoding, e.g:</p>
+<pre>value buff = Buffer("some-string", "UTF-16");
+</pre>
+<p>Create a buffer from a byte[] (using <span title='java.lang::ByteArray'>java.lang::ByteArray</span>)</p>
+<pre>ByteArray bytes = ...;
+value buff = Buffer(bytes);   
+</pre>
+<p>Create a buffer with an initial size hint. If you know your buffer will have a certain amount of data written to it
+you can create the buffer and specify this size. This makes the buffer initially allocate that much memory and
+is more efficient than the buffer automatically resizing multiple times as data is written to it.</p>
+<p>Note that buffers created this way are empty. It does not create a buffer filled with zeros up to the specified size.</p>
+<pre>value buff = Buffer(10000);
+</pre>
+<h3>Writing to a Buffer</h3>
+<p>There are two ways to write to a buffer: appending, and random access. In either case buffers
+will always expand automatically to encompass the bytes. It's not possible to get an
+<code>IndexOutOfBoundsException</code> with a buffer.</p>
+<h4>Appending to a Buffer</h4>
+<p>To append to a buffer, you use the <code>appendXXX</code> methods. Append methods exist for appending other buffers,
+byte[], String and all primitive types.</p>
+<p>The return value of the appendXXX methods is the buffer itself, so these can be chained:</p>
+<pre>value buff = Buffer();
+
+buff.appendInt(123).appendString("hello\n");
+</pre>
+<h4>Random access buffer writes</h4>
+<p>You can also write into the buffer at a specific index, by using the <code>setXXX</code> methods. Set methods exist for other
+buffers, byte[], String and all primitive types. All the set methods take an index as the first argument - this
+represents the position in the buffer where to start writing the data.</p>
+<pre>value buff = Buffer();
+
+buff.setInt(1000, 123);
+buff.setString(0, "hello");
+</pre>
+<h3>Reading from a Buffer</h3>
+<p>Data is read from a buffer using the <code>getXXX</code> methods. Get methods exist for byte[], String and all primitive types.
+The first argument to these methods is an index in the buffer from where to get the data.</p>
+<pre>Buffer buff = ...;
+Integer i = buff.getInt(0);
+</pre>
+<h3>Other buffer methods:</h3>
+<ul>
+<li>length(). To obtain the length of the buffer. The length of a buffer is the index of the byte in the buffer with the largest index + 1.</li>
+<li>copy(). Copy the entire buffer</li>
+</ul>
+<h2>JSON</h2>
+<p>Whereas JavaScript has first class support for JSON, and Ruby has Hash literals which make representing JSON easy
+within code, things aren't so easy in Ceylon</p>
+<p>A JSON object is represented by instances of <span title='ceylon.json::Object'>ceylon.json::Object</span>. A JSON array is represented by instances of
+<span title='ceylon.json::Array'>ceylon.json::Array</span>.</p>
+<p>A usage example would be using a Ceylon verticle to send or receive JSON messages from the event bus.</p>
+<pre>value eb = vertx.eventBus();
+
+value obj = Object { "foo"-&gt;"wibble", "age"-&gt;1000 };
+eb.send("some-address", obj);
+
+// ....
+// And in a handler somewhere:
+
+shared void handle(Message&lt;Object&gt; message) {
+  print("foo is ``message.body["foo"]``");
+  print("age is ``message.body["age"]``");
+}
+</pre>
+<h2>Delayed and Periodic Tasks</h2>
+<p>It's very common in Vert.x to want to perform an action after a delay, or periodically.</p>
+<p>In standard verticles you can't just make the thread sleep to introduce a delay, as that will block the event loop
+thread.</p>
+<p>Instead you use Vert.x timers. Timers can be <em>one-shot</em> or <em>periodic</em>. We'll discuss both</p>
+<h3>One-shot Timers</h3>
+<p>A one shot timer calls an event handler after a certain delay, expressed in milliseconds.</p>
+<p>To set a timer to fire once you use the <a class='link' href='Vertx.type.html#setTimer' title='Go to io.vertx.ceylon.core::Vertx.setTimer'>Vertx.setTimer</a> method passing in the delay and a handler</p>
+<pre>value timerId = vertx.setTimer(1000, (Integer timerId) =&gt; print("And one second later this is printed"));
+
+print("First this is printed");
+</pre>
+<p>The return value is a unique timer id which can later be used to cancel the timer. The handler is also passed the timer id.</p>
+<h3>Periodic Timers</h3>
+<p>You can also set a timer to fire periodically by using the <a class='link' href='Vertx.type.html#setPeriodic' title='Go to io.vertx.ceylon.core::Vertx.setPeriodic'>Vertx.setPeriodic</a> method. There will be an initial
+delay equal to the period. The return value of <a class='link' href='Vertx.type.html#setPeriodic' title='Go to io.vertx.ceylon.core::Vertx.setPeriodic'>Vertx.setPeriodic</a> is a unique timer id
+(long). This can be later used if the timer needs to be cancelled. The argument passed into the timer
+event handler is also the unique timer id:</p>
+<pre>value timerId = vertx.setTimer(1000, (Integer timerId) =&gt; print("And every second this is printed"));
+
+print("First this is printed");
+</pre>
+<h3>Cancelling timers</h3>
+<p>To cancel a periodic timer, call the <a class='link' href='Vertx.type.html#cancelTimer' title='Go to io.vertx.ceylon.core::Vertx.cancelTimer'>Vertx.cancelTimer</a> method specifying the timer id. For example:</p>
+<pre>value timerId = vertx.setTimer(1000, (Integer timerId) =&gt; print("Should not be printed"));
+
+// And immediately cancel it
+
+vertx.cancelTimer(timerID);
+</pre>
+<p>Or you can cancel it from inside the event handler. The following example cancels the timer after it has fired 10 times.</p>
+<pre>variable Integer count = 0;
+vertx.setTimer {
+  delay = 1000;
+  void handle(Integer timerId) {
+    print("In event handler ``count``");
+    if (++count == 10) {
+      vertx.cancelTimer(timerId);
+    }
+  }
+};
+</pre>
+<h2>Writing TCP Servers and Clients</h2>
+<p>See <a class='link' href='net/index.html' title='Go to package io.vertx.ceylon.core.net'>io.vertx.ceylon.core.net</a>.</p>
+<h2>Flow Control - Streams and Pumps</h2>
+<p>See <a class='link' href='stream/index.html' title='Go to package io.vertx.ceylon.core.stream'>io.vertx.ceylon.core.stream</a>.</p>
+<h2>Writing HTTP Servers and Clients</h2>
+<p>See <a class='link' href='http/index.html' title='Go to package io.vertx.ceylon.core.http'>io.vertx.ceylon.core.http</a>.</p>
+<h2>Routing HTTP requests with Pattern Matching</h2>
+<p>See <a class='link' href='http/index.html' title='Go to package io.vertx.ceylon.core.http'>io.vertx.ceylon.core.http</a>.</p>
+<h2>WebSockets</h2>
+<p>See <a class='link' href='http/index.html' title='Go to package io.vertx.ceylon.core.http'>io.vertx.ceylon.core.http</a>.</p>
+<h2>SockJS</h2>
+<p>See <a class='link' href='sockjs/index.html' title='Go to package io.vertx.ceylon.core.sockjs'>io.vertx.ceylon.core.sockjs</a></p>
+<h2>SockJS - EventBus Bridge</h2>
+<p>See <a class='link' href='sockjs/index.html' title='Go to package io.vertx.ceylon.core.sockjs'>io.vertx.ceylon.core.sockjs</a></p>
+<h2>File System</h2>
+<p>See <a class='link' href='file/index.html' title='Go to package io.vertx.ceylon.core.file'>io.vertx.ceylon.core.file</a></p>
+</div><div class='by section'><span class='title'>By: </span><span class='value'>Julien Viet</span></div><div class='license section'><span class='title'>License: </span><span class='value'>ASL2</span></div></div><table id='section-packages' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Packages</td></tr></thead><tbody><tr><td><i class='icon-package'></i><a class='link' href='index.html#section-package'>io.vertx.ceylon.core</a></td><td></td></tr><tr><td><i class='icon-package'></i><a class='link' href='eventbus/index.html'>io.vertx.ceylon.core.eventbus</a></td><td><h1>The Event Bus</h1>
+<p>The event bus is the nervous system of Vert.x.</p>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='file/index.html'>io.vertx.ceylon.core.file</a></td><td><h1>File System</h1>
+<p>Vert.x lets you manipulate files on the file system.</p>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='http/index.html'>io.vertx.ceylon.core.http</a></td><td><h1>Writing HTTP Servers and Clients</h1>
+<h2>Writing HTTP servers</h2>
+<p>Vert.x allows you to easily write full featured, highly…</p>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='net/index.html'>io.vertx.ceylon.core.net</a></td><td><h1>Writing TCP Servers and Clients</h1>
+<p>Creating TCP servers and clients is very easy with Vert.x.</p>
+<h2>Net Server</h2>
+<h3>…</h3>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='shareddata/index.html'>io.vertx.ceylon.core.shareddata</a></td><td><h1>Shared Data</h1>
+<p>Sometimes it makes sense to allow different verticles instances to share data in a safe way.</p>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='sockjs/index.html'>io.vertx.ceylon.core.sockjs</a></td><td><h1>SockJS</h1>
+<p>WebSockets are a new technology, and many users are still using browsers that do not support them, or which…</p>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='stream/index.html'>io.vertx.ceylon.core.stream</a></td><td><h1>Flow Control - Streams and Pumps</h1>
+<p>There are several objects in Vert.x that allow data to be read from and written to…</p>
+</td></tr><tr><td><i class='icon-package'></i><a class='link' href='util/index.html'>io.vertx.ceylon.core.util</a></td><td></td></tr></tbody></table><table id='section-dependencies' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='3'><i class='icon-collapse'></i>Dependencies</td></tr></thead><tbody style='display: none'><tr><td class='shrink'><span title='import of module ceylon.collection 1.1.0'><i class='icon-module'></i></span>ceylon.collection</td><td class='shrink'>1.1.0</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module ceylon.io 1.1.0'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>ceylon.io</td><td class='shrink'>1.1.0</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module ceylon.json 1.1.0'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>ceylon.json</td><td class='shrink'>1.1.0</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module ceylon.promise 1.1.0'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>ceylon.promise</td><td class='shrink'>1.1.0</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module ceylon.time 1.1.0'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>ceylon.time</td><td class='shrink'>1.1.0</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='import of module com.fasterxml.jackson.annotations 2.2.2'><i class='icon-module'></i></span>com.fasterxml.jackson.annotations</td><td class='shrink'>2.2.2</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='import of module com.fasterxml.jackson.core 2.2.2'><i class='icon-module'></i></span>com.fasterxml.jackson.core</td><td class='shrink'>2.2.2</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='import of module com.fasterxml.jackson.databind 2.2.2'><i class='icon-module'></i></span>com.fasterxml.jackson.databind</td><td class='shrink'>2.2.2</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='import of module io.netty 4.0.20.Final'><i class='icon-module'></i></span>io.netty</td><td class='shrink'>4.0.20.Final</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module io.vertx.core 2.1.2'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>io.vertx.core</td><td class='shrink'>2.1.2</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module io.vertx.platform 2.1.2'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>io.vertx.platform</td><td class='shrink'>2.1.2</td><td><div class='description import-description'></div></td></tr><tr><td class='shrink'><span title='shared import of module java.base 7'><i class='icon-module'><i class='icon-module-exported-decoration'></i></i></span>java.base</td><td class='shrink'>7</td><td><div class='description import-description'></div></td></tr></tbody></table></div><div class='sub-navbar'><div id='section-package' class='sub-navbar-inner'><span class='sub-navbar-label'>package</span><i class='icon-package'></i><span class='sub-navbar-name'><a class='link' href='index.html#section-package' title='Go to package io.vertx.ceylon.core'>io.vertx.ceylon.core</a></span></div><div class='sub-navbar-menu'><a href='#section-aliases'><span title='Jump to aliases [Shortcut: l]'>A<span class='accesskey'>l</span>iases</span></a><a href='#section-methods'><span title='Jump to functions [Shortcut: F]'><span class='accesskey'>F</span>unctions</span></a><a href='#section-interfaces'><span title='Jump to interfaces [Shortcut: I]'><span class='accesskey'>I</span>nterfaces</span></a><a href='#section-classes'><span title='Jump to classes [Shortcut: C]'><span class='accesskey'>C</span>lasses</span></a></div></div><div class='container-fluid'><div class='package-description'><div class='doc'></div><div class='by section'><span class='title'>By: </span><span class='value'>Julien Viet</span></div></div><table id='section-aliases' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Aliases</td></tr></thead><tbody><tr><td id='Chunk' nowrap><i class='icon-type-alias'></i>Chunk</td><td><a class='link-one-self' title='Link to this declaration' href='index.html#Chunk'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> Chunk<span class='specifier'>=> </span><span title='ceylon.language::String'>String</span>|[<span title='ceylon.language::String'>String</span>, <span title='ceylon.language::String'>String</span>]|<span title='org.vertx.java.core.buffer::Buffer'>Buffer</span></div><div class='description'><div class='doc section'><p>A chunk of data, it can be:</p>
+<ul>
+<li>A mere string</li>
+<li>A string plus an encoding</li>
+<li>A buffer</li>
+</ul>
+</div></div></td></tr><tr><td id='Entries' nowrap><i class='icon-type-alias'></i>Entries</td><td><a class='link-one-self' title='Link to this declaration' href='index.html#Entries'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> Entries<span class='specifier'>=> </span>{&lt;<span title='ceylon.language::String'>String</span>-&gt;<span title='ceylon.language::String'>String</span>|{<span title='ceylon.language::String'>String</span>+}&gt;*}</div><div class='description'><div class='doc section'><p>Alias for the type for reading a loose list of entries</p>
+</div></div></td></tr></tbody></table><table id='section-methods' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Functions</td></tr></thead><tbody><tr><td id='run2' nowrap><i class='icon-shared-member'></i>run2</td><td><a class='link-one-self' title='Link to this declaration' href='index.html#run2'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <span class='void'>void</span> run2()</div><div class='description'><div class='doc section'></div><div class='by section'><span class='title'>By: </span><span class='value'>Julien Viet</span></div></div></td></tr></tbody></table><table id='section-interfaces' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Interfaces</td></tr></thead><tbody><tr><td id='Registration' nowrap><i class='icon-interface'></i><a class='link-discreet' href='Registration.type.html'>Registration</a></td><td><a class='link-one-self' title='Link to this declaration' href='index.html#Registration'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='Registration.type.html' title='Go to io.vertx.ceylon.core::Registration'>Registration</a></div><div class='description'><div class='doc section'><p>A registration, the <code>completed</code> promise is resolved when the registration is completed, the <code>cancel()</code> method
+can be used to cancel the registration.</p>
+</div></div></td></tr></tbody></table><table id='section-classes' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Classes</td></tr></thead><tbody><tr><td id='ClientBase' nowrap><i class='icon-class'></i><a class='link-discreet' href='ClientBase.type.html'>ClientBase</a></td><td><a class='link-one-self' title='Link to this declaration' href='index.html#ClientBase'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='ClientBase.type.html' title='Go to io.vertx.ceylon.core::ClientBase'>ClientBase</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='MultiMap' nowrap><i class='icon-class'></i><a class='link-discreet' href='MultiMap.type.html'>MultiMap</a></td><td><a class='link-one-self' title='Link to this declaration' href='index.html#MultiMap'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='MultiMap.type.html' title='Go to io.vertx.ceylon.core::MultiMap'>MultiMap</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='NetworkBase' nowrap><i class='icon-class'></i><a class='link-discreet' href='NetworkBase.type.html'>NetworkBase</a></td><td><a class='link-one-self' title='Link to this declaration' href='index.html#NetworkBase'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='NetworkBase.type.html' title='Go to io.vertx.ceylon.core::NetworkBase'>NetworkBase</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='ServerBase' nowrap><i class='icon-class'></i><a class='link-discreet' href='ServerBase.type.html'>ServerBase</a></td><td><a class='link-one-self' title='Link to this declaration' href='index.html#ServerBase'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='ServerBase.type.html' title='Go to io.vertx.ceylon.core::ServerBase'>ServerBase</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='Vertx' nowrap><i class='icon-class'></i><a class='link-discreet' href='Vertx.type.html'>Vertx</a></td><td><a class='link-one-self' title='Link to this declaration' href='index.html#Vertx'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='Vertx.type.html' title='Go to io.vertx.ceylon.core::Vertx'>Vertx</a></div><div class='description'><div class='doc section'><p>The control centre of the Vert.x Core API.</p>
+<p>You should normally only use a single instance of this class throughout your application. If you are running in the
+Vert.x container an instance will be provided to you.</p>
+<p>This class acts as a factory for TCP/SSL and HTTP/HTTPS servers and clients, SockJS servers, and provides an
+instance of the event bus, file system and shared data classes, as well as methods for setting and cancelling
+timers.</p>
+<p>Create a new Vertx instance. Instances of this class are thread-safe.</p>
+</div></div></td></tr></tbody></table></div><script type='text/javascript'>var resourceBaseUrl = '.resources/'</script><script type='text/javascript' src='.resources/jquery-1.8.2.min.js'></script><script type='text/javascript' src='.resources/bootstrap.min.js'></script><script type='text/javascript' src='.resources/shCore.js'></script><script type='text/javascript' src='.resources/shAutoloader.js'></script><script type='text/javascript' src='.resources/shBrushCeylon.js'></script><script type='text/javascript' src='.resources/index.js'></script><script type='text/javascript' src='.resources/ceylondoc.js'></script><script type='text/javascript'>jQuery('html').keypress(function(evt){
+  evt = evt || window.event;
+  var keyCode = evt.keyCode || evt.which;
+  if( !evt.ctrlKey && !evt.altKey ) {
+    if (keyCode == 63) {
+      $('#infoDropdown > .dropdown-toggle').click();
+    }
+    if(keyCode == 102){
+      document.location = '#section-methods';
+    }
+    if(keyCode == 115){
+      document.location = 'search.html';
+    }
+    if(keyCode == 99){
+      document.location = '#section-classes';
+    }
+    if(keyCode == 112){
+      document.location = 'index.html';
+    }
+    if(keyCode == 111){
+      document.location = 'index.html';
+    }
+    if(keyCode == 108){
+      document.location = '#section-aliases';
+    }
+    if(keyCode == 109){
+      document.location = '#section-methods';
+    }
+    if(keyCode == 105){
+      document.location = '#section-interfaces';
+    }
+  }
+});
+enableInfoKeybordShortcut('\\?');
+enableInfoKeybordShortcut('f');
+enableInfoKeybordShortcut('s');
+enableInfoKeybordShortcut('c');
+enableInfoKeybordShortcut('p');
+enableInfoKeybordShortcut('o');
+enableInfoKeybordShortcut('l');
+enableInfoKeybordShortcut('m');
+enableInfoKeybordShortcut('i');
+</script></body></html>

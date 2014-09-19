@@ -1,0 +1,181 @@
+<!DOCTYPE html><html><head><meta charset='UTF-8'/>
+<title>Package [io, vertx, ceylon, core, stream]</title><link href='../.resources/favicon.ico' rel='shortcut icon'/>
+<link href='../.resources/shCore.css' rel='stylesheet' type='text/css'/>
+<link href='../.resources/shThemeDefault.css' rel='stylesheet' type='text/css'/>
+<link href='../.resources/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+<link href='../.resources/ceylondoc.css' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Inconsolata' rel='stylesheet' type='text/css'/>
+</head><body><div class='navbar navbar-inverse navbar-static-top'><div class='navbar-inner'><a class='module-header' href='../index.html'><i class='module-logo'></i><span class='module-label'>module</span><span class='module-name'>io.vertx.ceylon.core</span><span class='module-version'>0.4.0</span></a><ul class='nav pull-right'><li class='divider-vertical' /><li><a class='expand-all' href='#' title='Expand All [Shortcut: + plus]'><i class='icon-expand-all'></i></a></li><li><a class='collapse-all' href='#' title='Collapse All [Shortcut: - minus]'><i class='icon-collapse-all'></i></a></li><li id='infoDropdown' class='dropdown'><a href='#' title='Show keyboard shortcuts [Shortcut: ?]' role='button' class='dropdown-toggle' data-toggle='dropdown'><i class='icon-info'></i></a><ul id='info-dropdown-panel' class='dropdown-menu'><h4>Keyboard Shortcuts</h4><li class='divider'></li><div class='row-fluid'><div id='info-common-shortcuts' class='span6'><div id='f'><span class='key badge'>f</span><span class='info muted'>Open filter by tags</span></div><div id='s'><span class='key badge'>s</span><span class='info muted'>Open search page</span></div><div id='?'><span class='key badge'>?</span><span class='info muted'>Open this information panel</span></div></div><div id='info-expand-collapse-shortcuts' class='span6'><div id='+'><span class='key badge'>+</span><span class='info muted'>Expand all</span></div><div id='-'><span class='key badge'>-</span><span class='info muted'>Collapse all</span></div></div></div><li class='divider'></li><div class='row-fluid'><div id='info-doc-shortcuts' class='span6'><h5>Documentation:</h5><div id='o'><span class='key badge'>o</span><span class='info muted'>Jump to module documentation</span></div><div id='p'><span class='key badge'>p</span><span class='info muted'>Jump to package documentation</span></div><div id='l'><span class='key badge'>l</span><span class='info muted'>Jump to aliases</span></div><div id='n'><span class='key badge'>n</span><span class='info muted'>Jump to annotations</span></div><div id='z'><span class='key badge'>z</span><span class='info muted'>Jump to initializer</span></div><div id='v'><span class='key badge'>v</span><span class='info muted'>Jump to values</span></div><div id='f'><span class='key badge'>f</span><span class='info muted'>Jump to functions</span></div><div id='i'><span class='key badge'>i</span><span class='info muted'>Jump to interfaces</span></div><div id='c'><span class='key badge'>c</span><span class='info muted'>Jump to classes</span></div><div id='e'><span class='key badge'>e</span><span class='info muted'>Jump to exceptions</span></div></div><div id='info-search-shortcuts' class='span6'><h5>Search page:</h5><div id='enter'><span class='key badge'>enter</span><span class='info muted'>Jump to selected declaration</span></div><div id='esc'><span class='key badge'>esc</span><span class='info muted'>Clear search query/Go to overview</span></div><div id='up'><span class='key badge'>up</span><span class='info muted'>Move selection up</span></div><div id='down'><span class='key badge'>down</span><span class='info muted'>Move selection down</span></div></div></div></ul></li></ul><ul class='nav pull-right'><li class='divider-vertical' /><li><a href='../search.html' title='Search this module [Shortcut: S]'><i class='icon-search'></i>Search</a></li></ul><ul class='nav pull-right'><li class='divider-vertical' /><li id='filterDropdown' class='dropdown'><a href='#' title='Filter declarations by tags [Shortcut: F]' role='button' class='dropdown-toggle' data-toggle='dropdown'><i class='icon-filter'></i>Filter <span id='filterDropdownLinkInfo'></span> <b class='caret'></b></a><ul id='filterDropdownPanel' class='dropdown-menu'><h4 id='filterDropdownPanelInfo'>Filter declarations by tags</h4><li class='divider'></li><div id='filterDropdownPanelTags'></div><li class='divider'></li><div id='filterActions'><a id='filterActionAll'>All</a><a id='filterActionNone'>None</a><a id='filterActionMore'>Show more</a></div></ul></li></ul></div></div><div class='sub-navbar'><div class='sub-navbar-inner'><span class='sub-navbar-label'>package</span><i class='icon-package'></i><span class='sub-navbar-name'><a class='link' href='../index.html#section-package' title='Go to package io.vertx.ceylon.core'>io.vertx.ceylon.core</a>.<a class='link-custom-text' href='../stream/index.html' title='Go to package io.vertx.ceylon.core.stream'>stream</a></span></div><div class='sub-navbar-menu'><a href='../index.html'><span title='Jump to module documentation [Shortcut: O]'><span class='accesskey'>O</span>verview</span></a><a href='#section-classes'><span title='Jump to classes [Shortcut: C]'><span class='accesskey'>C</span>lasses</span></a></div></div><div class='container-fluid'><div class='package-description'><div class='doc'><h1>Flow Control - Streams and Pumps</h1>
+<p>There are several objects in Vert.x that allow data to be read from and written to in the form of Buffers.</p>
+<p>In Vert.x, calls to write data return immediately and writes are internally queued.</p>
+<p>It's not hard to see that if you write to an object faster than it can actually write the data to its
+underlying resource then the write queue could grow without bound - eventually resulting in exhausting available memory.</p>
+<p>To solve this problem a simple flow control capability is provided by some objects in the Vert.x API.</p>
+<p>Any flow control aware object that can be written-to provides a <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a>, and any flow control object that can be
+read-from is said to provides a <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>.</p>
+<p>Let's take an example where we want to read from a <code>ReadStream</code> and write the data to a <code>WriteStream</code>.</p>
+<p>A very simple example would be reading from a <a class='link' href='../net/NetSocket.type.html' title='Go to io.vertx.ceylon.core.net::NetSocket'>io.vertx.ceylon.core.net::NetSocket</a> on a server and writing back to
+the same <a class='link' href='../net/NetSocket.type.html' title='Go to io.vertx.ceylon.core.net::NetSocket'>io.vertx.ceylon.core.net::NetSocket</a> - since <a class='link' href='../net/NetSocket.type.html' title='Go to io.vertx.ceylon.core.net::NetSocket'>io.vertx.ceylon.core.net::NetSocket</a> provides both <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> and
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>, but you can do this between any <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> and any <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>, including HTTP requests
+and response, async files, WebSockets, etc.</p>
+<p>A naive way to do this would be to directly take the data that's been read and immediately write it to the NetSocket, for example:</p>
+<pre>value server = vertx.createNetServer();
+
+server.connectHandler {
+  void onConnect(NetSocket sock) {
+    sock.dataHandler {
+      void onData(Buffer buffer) {
+        // Write the data straight back
+        sock.write(buffer);
+      }
+    }
+  }
+}.listen(1234, "localhost");
+</pre>
+<p>There's a problem with the above example: If data is read from the socket faster than it can be written back
+to the socket, it will build up in the write queue of the <a class='link' href='../net/NetSocket.type.html' title='Go to io.vertx.ceylon.core.net::NetSocket'>io.vertx.ceylon.core.net::NetSocket</a>, eventually running out of RAM.
+This might happen, for example if the client at the other end of the socket wasn't reading very fast,
+effectively putting back-pressure on the connection.</p>
+<p>Since NetSocket provides <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>, we can check if the <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> is full before writing to it:</p>
+<pre>value server = vertx.createNetServer();
+
+server.connectHandler {
+  void onConnect(NetSocket sock) {
+    sock.dataHandler {
+      void onData(Buffer buffer) {
+        if (!sock.writeStream) {
+          sock.write(buffer);
+        }
+      }
+    }
+  }
+}.listen(1234, "localhost");
+</pre>
+<p>This example won't run out of RAM but we'll end up losing data if the write queue gets full. What we really want
+to do is pause the <a class='link' href='../net/NetSocket.type.html' title='Go to io.vertx.ceylon.core.net::NetSocket'>io.vertx.ceylon.core.net::NetSocket</a> when the write queue is full. Let's do that:</p>
+<pre>value server = vertx.createNetServer();
+
+server.connectHandler {
+  void onConnect(NetSocket sock) {
+    sock.dataHandler {
+      void onData(Buffer buffer) {
+        if (!sock.writeStream) {
+          sock.write(buffer);
+        } else {
+          sock.writeStream.pause();
+      }
+    }
+  }
+}.listen(1234, "localhost");
+</pre>
+<p>We're almost there, but not quite. The <code>NetSocket</code> now gets paused when the file is full, but we also need to
+unpause it when the write queue has processed its backlog:</p>
+<pre>value server = vertx.createNetServer();
+
+server.connectHandler {
+  void onConnect(NetSocket sock) {
+    sock.dataHandler {
+      void onData(Buffer buffer) {
+        if (!sock.writeStream) {
+          sock.write(buffer);
+        } else {
+          sock.readStream.pause();
+          sock.writeStream.drainHandler {
+            void onDrain() {
+              sock.readStream.resume();
+            }
+          };
+        }
+      }
+    }
+  }
+}.listen(1234, "localhost");
+</pre>
+<p>And there we have it. The <a class='link' href='../stream/WriteStream.type.html#drainHandler' title='Go to io.vertx.ceylon.core.stream::WriteStream.drainHandler'>WriteStream.drainHandler</a> event handler will get called when the write queue is
+ready to accept more data, this resumes the NetSocket which allows it to read more data.</p>
+<p>It's very common to want to do this when writing Vert.x applications, so we provide a helper class called <a class='link' href='../stream/Pump.type.html' title='Go to io.vertx.ceylon.core.stream::Pump'>Pump</a> which
+does all this hard work for you. You just feed it the <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> and the <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> and it tell it to start:</p>
+<pre>value server = vertx.createNetServer();
+
+server.connectHandler {
+  void onConnect(NetSocket sock) {
+    Pump(sock, sock).start();
+  }
+}.listen(1234, "localhost");
+</pre>
+<p>Which does exactly the same thing as the more verbose example.</p>
+<p>Let's look at the methods on <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> and <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> in more detail:</p>
+<h2>ReadStream</h2>
+<p><a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> is provided by <code>HttpClientResponse</code>, <code>HttpServerRequest</code>, <code>WebSocket</code>, <code>NetSocket</code>, <code>SockJSSocket</code> and <code>AsyncFile</code>.</p>
+<ul>
+<li><a class='link' href='../stream/ReadStream.type.html#dataHandler' title='Go to io.vertx.ceylon.core.stream::ReadStream.dataHandler'>ReadStream.dataHandler</a> set a handler which will receive data from the <code>ReadStream</code>. As data arrives the handler will be passed a Buffer.</li>
+<li><a class='link' href='../stream/ReadStream.type.html#pause' title='Go to io.vertx.ceylon.core.stream::ReadStream.pause'>ReadStream.pause</a> pause the handler. When paused no data will be received in the <code>dataHandler</code>.</li>
+<li><a class='link' href='../stream/ReadStream.type.html#resume' title='Go to io.vertx.ceylon.core.stream::ReadStream.resume'>ReadStream.resume</a> resume the handler. The handler will be called if any data arrives.</li>
+<li><a class='link' href='../stream/ReadStream.type.html#exceptionHandler' title='Go to io.vertx.ceylon.core.stream::ReadStream.exceptionHandler'>ReadStream.exceptionHandler</a> Will be called if an exception occurs on the <code>ReadStream</code>.</li>
+<li><a class='link' href='../stream/ReadStream.type.html#endHandler' title='Go to io.vertx.ceylon.core.stream::ReadStream.endHandler'>ReadStream.endHandler</a> Will be called when end of stream is reached. This might be when EOF is reached if the <code>ReadStream</code>
+represents a file, or when end of request is reached if it's an HTTP request, or when the connection is closed if it's a TCP socket.</li>
+</ul>
+<h2>WriteStream</h2>
+<p><a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> is provided by , <code>HttpClientRequest</code>, <code>HttpServerResponse</code>, <code>WebSocket</code>, <code>NetSocket</code>, <code>SockJSSocket</code> and <code>AsyncFile</code>.</p>
+<ul>
+<li><a class='link' href='../stream/WriteStream.type.html#write' title='Go to io.vertx.ceylon.core.stream::WriteStream.write'>WriteStream.write</a> write a Buffer to the <code>WriteStream</code>. This method will never block. Writes are queued internally and asynchronously written to the underlying resource.</li>
+<li><a class='link' href='../stream/WriteStream.type.html#setWriteQueueMaxSize' title='Go to io.vertx.ceylon.core.stream::WriteStream.setWriteQueueMaxSize'>WriteStream.setWriteQueueMaxSize</a> set the number of bytes at which the write queue is considered <em>full</em>, and the method
+<code>writeQueueFull()</code> returns <code>true</code>. Note that, even if the write queue is considered full, if `write is called the data will still be accepted and queued.</li>
+<li><a class='link' href='../stream/WriteStream.type.html#writeQueueFull' title='Go to io.vertx.ceylon.core.stream::WriteStream.writeQueueFull'>WriteStream.writeQueueFull</a> returns <code>true</code> if the write queue is considered full.</li>
+<li><a class='link' href='../stream/WriteStream.type.html#exceptionHandler' title='Go to io.vertx.ceylon.core.stream::WriteStream.exceptionHandler'>WriteStream.exceptionHandler</a> Will be called if an exception occurs on the <code>WriteStream</code>.</li>
+<li><a class='link' href='../stream/WriteStream.type.html#drainHandler' title='Go to io.vertx.ceylon.core.stream::WriteStream.drainHandler'>WriteStream.drainHandler</a> The handler will be called if the <code>WriteStream</code> is considered no longer full.</li>
+</ul>
+<h2>Pump</h2>
+<p>Instances of Pump have the following methods:</p>
+<ul>
+<li><a class='link' href='../stream/Pump.type.html#start' title='Go to io.vertx.ceylon.core.stream::Pump.start'>Pump.start</a> Start the pump.</li>
+<li><a class='link' href='../stream/Pump.type.html#stop' title='Go to io.vertx.ceylon.core.stream::Pump.stop'>Pump.stop</a> Stops the pump. When the pump starts it is in stopped mode.</li>
+<li><a class='link' href='../stream/Pump.type.html#setWriteQueueMaxSize' title='Go to io.vertx.ceylon.core.stream::Pump.setWriteQueueMaxSize'>Pump.setWriteQueueMaxSize</a> This has the same meaning as <a class='link' href='../stream/WriteStream.type.html#setWriteQueueMaxSize' title='Go to io.vertx.ceylon.core.stream::WriteStream.setWriteQueueMaxSize'>WriteStream.setWriteQueueMaxSize</a>.</li>
+<li><a class='link' href='../stream/Pump.type.html#bytesPumped' title='Go to io.vertx.ceylon.core.stream::Pump.bytesPumped'>Pump.bytesPumped</a> Returns total number of bytes pumped.</li>
+</ul>
+<p>A pump can be started and stopped multiple times.</p>
+<p>When a pump is first created it is <em>not</em> started. You need to call the <a class='link' href='../stream/Pump.type.html#start' title='Go to io.vertx.ceylon.core.stream::Pump.start'>Pump.start</a> method to start it.</p>
+</div></div><table id='section-classes' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Classes</td></tr></thead><tbody><tr><td id='Pump' nowrap><i class='icon-class'></i><a class='link-discreet' href='../stream/Pump.type.html'>Pump</a></td><td><a class='link-one-self' title='Link to this declaration' href='../stream/index.html#Pump'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../stream/Pump.type.html' title='Go to io.vertx.ceylon.core.stream::Pump'>Pump</a></div><div class='description'><div class='doc section'><p>Pumps data from a <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> to a <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> and performs flow control where necessary to
+prevent the write stream buffer from getting overfull.</p>
+<p>Instances of this class read bytes from a <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> and write them to a <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>. If data
+can be read faster than it can be written this could result in the write queue of the <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> growing
+without bound, eventually causing it to exhaust all available RAM.</p>
+<p>To prevent this, after each write, instances of this class check whether the write queue of the <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>
+is full, and if so, the {@link ReadStream} is paused, and a <a class='link' href='../stream/WriteStream.type.html#drainHandler' title='Go to io.vertx.ceylon.core.stream::WriteStream.drainHandler'>WriteStream.drainHandler</a> is set on the
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>. When the <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a> has processed half of its backlog, the <a class='link' href='../stream/WriteStream.type.html#drainHandler' title='Go to io.vertx.ceylon.core.stream::WriteStream.drainHandler'>WriteStream.drainHandler</a> will be
+called, which results in the pump resuming the <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a>.</p>
+<p>This class can be used to pump from any <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> to any <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>,
+e.g. from an <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerRequest'>io.vertx.ceylon.core.http::HttpServerRequest</a> to an {@link org.vertx.java.core.file.AsyncFile} (todo),
+or from {@link org.vertx.java.core.net.NetSocket} (todo) to a {@link org.vertx.java.core.http.WebSocket} (todo).</p>
+<p>Instances of this class are not thread-safe.</p>
+</div></div></td></tr><tr><td id='ReadStream' nowrap><i class='icon-class'></i><a class='link-discreet' href='../stream/ReadStream.type.html'>ReadStream</a></td><td><a class='link-one-self' title='Link to this declaration' href='../stream/index.html#ReadStream'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a></div><div class='description'><div class='doc section'><p>Represents a stream of data that can be read from.</p>
+<p>Any class that implements this interface can be used by a <a class='link' href='../stream/Pump.type.html' title='Go to io.vertx.ceylon.core.stream::Pump'>Pump</a> to pump data from it to a <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a>.</p>
+</div></div></td></tr><tr><td id='WriteStream' nowrap><i class='icon-class'></i><a class='link-discreet' href='../stream/WriteStream.type.html'>WriteStream</a></td><td><a class='link-one-self' title='Link to this declaration' href='../stream/index.html#WriteStream'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>WriteStream</a></div><div class='description'><div class='doc section'><p>Represents a stream of data that can be written to.</p>
+<p>Any class that implements this interface can be used by a <a class='link' href='../stream/Pump.type.html' title='Go to io.vertx.ceylon.core.stream::Pump'>Pump</a> to pump data from a <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>ReadStream</a> to it.</p>
+</div></div></td></tr></tbody></table></div><script type='text/javascript'>var resourceBaseUrl = '../.resources/'</script><script type='text/javascript' src='../.resources/jquery-1.8.2.min.js'></script><script type='text/javascript' src='../.resources/bootstrap.min.js'></script><script type='text/javascript' src='../.resources/shCore.js'></script><script type='text/javascript' src='../.resources/shAutoloader.js'></script><script type='text/javascript' src='../.resources/shBrushCeylon.js'></script><script type='text/javascript' src='../.resources/index.js'></script><script type='text/javascript' src='../.resources/ceylondoc.js'></script><script type='text/javascript'>jQuery('html').keypress(function(evt){
+  evt = evt || window.event;
+  var keyCode = evt.keyCode || evt.which;
+  if( !evt.ctrlKey && !evt.altKey ) {
+    if (keyCode == 63) {
+      $('#infoDropdown > .dropdown-toggle').click();
+    }
+    if(keyCode == 115){
+      document.location = '../search.html';
+    }
+    if(keyCode == 99){
+      document.location = '#section-classes';
+    }
+    if(keyCode == 112){
+      document.location = 'index.html';
+    }
+    if(keyCode == 111){
+      document.location = '../index.html';
+    }
+  }
+});
+enableInfoKeybordShortcut('\\?');
+enableInfoKeybordShortcut('s');
+enableInfoKeybordShortcut('c');
+enableInfoKeybordShortcut('p');
+enableInfoKeybordShortcut('o');
+</script></body></html>
