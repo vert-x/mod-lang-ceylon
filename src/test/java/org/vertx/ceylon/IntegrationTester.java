@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 public class IntegrationTester {
 
   public static void main(String[] args) throws Exception {
+    run("testDeployFromVerticle");
     run("testModuleFromSources");
     run("testModZip");
   }
@@ -126,6 +127,35 @@ public class IntegrationTester {
       });
       latch.await();
       assertEquals("stopped", System.getProperty("lifecycle"));
+    } finally {
+      manager.stop();
+    }
+  }
+
+  public static void testDeployFromVerticle() throws Throwable {
+    File path = new File(Helper.assertModules(), "deployerverticle/1.0.0/deployerverticle-1.0.0.car");
+    assertTrue(path.exists());
+    assertTrue(path.isFile());
+    PlatformManager manager = createPlatform();
+    try {
+      final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<>(10);
+      manager.deployVerticle(
+          "ceylon:deployerverticle/1.0.0",
+          new JsonObject().putString("userRepo", Helper.assertModules().getAbsolutePath()),
+          new URL[0],
+          1,
+          null,
+          new Handler<AsyncResult<String>>() {
+        @Override
+        public void handle(AsyncResult<String> result) {
+          queue.add(result);
+        }
+      });
+      AsyncResult<String> result = queue.poll(30, TimeUnit.SECONDS);
+      if (!result.succeeded()) {
+        throw result.cause();
+      }
+      // Finish this test later
     } finally {
       manager.stop();
     }

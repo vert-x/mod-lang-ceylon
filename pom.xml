@@ -268,8 +268,10 @@
                 </path>
                 <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
                 <ceylon-compile src="src/test/resources" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
-                  <rep url="target/modules/"/>
+                  <!--<rep url="target/modules/"/>-->
+                  <rep url="target/vertx-repo/"/>
                   <module name="lifecycleverticle"/>
+                  <module name="deployerverticle"/>
                 </ceylon-compile>
               </target>
             </configuration>

@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -70,10 +71,10 @@ public class BasicTest extends AbstractTest {
     JavaRunner runner = ceylon.runner(options, "io.vertx.ceylon.platform", "0.4.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
-    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class);
-    List<Callable<Verticle>> factories = (List<Callable<Verticle>>) findVerticlesMethod.invoke(null, "noopverticle");
+    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class, String.class);
+    Map<String, Callable<Verticle>> factories = (Map<String, Callable<Verticle>>) findVerticlesMethod.invoke(null, "noopverticle", null);
     assertEquals(1, factories.size());
-    Verticle verticle = factories.get(0).call();
+    Verticle verticle = factories.values().iterator().next().call();
     assertTrue(Verticle.class.isInstance(verticle));
     runner.cleanup();
     Metamodel.resetModuleManager();
