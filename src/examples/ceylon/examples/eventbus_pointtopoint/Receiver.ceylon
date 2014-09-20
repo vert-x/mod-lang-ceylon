@@ -13,7 +13,7 @@ shared class Receiver() extends Verticle() {
   shared actual void start(Vertx vertx, Container container) {
     vertx.eventBus.registerHandler {
       address = "ping-address";
-      void handler(Message<String> msg) {
+      void onMessage(Message<String> msg) {
         print("Received message: ``msg.body``");
         msg.reply("pong!");
       }

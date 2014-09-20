@@ -70,8 +70,8 @@ public class BasicTest extends AbstractTest {
     JavaRunner runner = ceylon.runner(options, "io.vertx.ceylon.platform", "0.4.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
-    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
-    List<Callable<Verticle>> factories = (List<Callable<Verticle>>) findVerticlesMethod.invoke(null, Collections.singleton("noopverticle"));
+    Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class);
+    List<Callable<Verticle>> factories = (List<Callable<Verticle>>) findVerticlesMethod.invoke(null, "noopverticle");
     assertEquals(1, factories.size());
     Verticle verticle = factories.get(0).call();
     assertTrue(Verticle.class.isInstance(verticle));

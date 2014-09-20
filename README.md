@@ -89,7 +89,7 @@ Compiled module httpserververticle/1.0.0
 Succeeded in deploying verticle
 ~~~~
 
-### a precompiled Verticle
+### A precompiled Verticle
 
 In the previous examples, Vert.x was compiling the module for you, `mod-lang-ceylon` can also run compiled modules
 from your Ceylon repository. This means you have compiled this module with the `ceylon compile` command or Ceylon IDE
@@ -98,6 +98,21 @@ and installed it in your user repository `$HOME/.ceylon`:
 ~~~~
 vertx run ceylon:httpserververticle/1.0.0
 Succeeded in deploying verticle
+~~~~
+
+### Specifying the Verticle
+
+A failure will occur when a module contains several verticle instances, because there is an ambiguity about the
+ Verticle to use. A Verticle can deploy other Verticles, so it is valid to have several Verticle, in such situation
+ the `io.vertx.ceylon.platform.main` annotation can be used to specify the _main_ verticle of this module:
+
+~~~~
+import io.vertx.ceylon.platform { main }
+
+main(`class MainVerticle`)
+module myapp "1.0.0" {
+  shared import "io.vertx.ceylon.platform" "0.4.0";
+}
 ~~~~
 
 ### Deployment options

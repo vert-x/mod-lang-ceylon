@@ -22,44 +22,61 @@ Boolean isVerticle(OpenType classDecl) {
 	return false;
 }
 
-"Find the verticles among the known modules and return a list of verticle factories. This method is called
+"Find the verticles for the specified module and return a list of verticle factories. This method is called
  by the Vert.x module to discover the existing Verticles and is somewhat reserved for internal use."
-shared List_<Callable_<Verticle_>> findVerticles("The set of module names" Set_<String_> moduleNames) {
+shared List_<Callable_<Verticle_>> findVerticles("The set of module names" String_ moduleName) {
 	value verticles = ArrayList_<Callable_<Verticle_>>();
-	value mods = modules.list.filter((Module elem) => moduleNames.contains(String_(elem.name)));
+	value mods = modules.list.filter((Module elem) => moduleName == String_(elem.name));
 	for (mod in mods) {
-		for (pkg in mod.members) {
-			for (classDecl in pkg.members<ClassDeclaration>()) {
-				if (isVerticle(classDecl.openType)) {
-					value instance = classDecl.instantiate();
-					assert(is Verticle instance);
-					object factory satisfies Callable_<Verticle_> {
-					  shared actual Verticle_ call() {
-					    object adapter extends Verticle_() {
-					      shared actual void start(Future_<Void_> future) {
-					        Vertx vertx = Vertx(this.vertx);
-					        Container container = Container(this.container);
-					        Promise<Anything> result = instance.asyncStart(vertx, container);
-					        result.onComplete(
-					          void (Anything a) {
-					            future.setResult(null);
-					          },
-					          void (Throwable reason) {
-					            future.setFailure(reason);
-					          }
-					        );
-					      }
-					      shared actual void stop() {
-					        instance.stop();
-					      }
-					    }
-					    return adapter;
-					  }
+		value mainAnnotations = mod.annotations<MainAnnotation>();
+		if (exists first = mainAnnotations.first) {
+			value verticle = foo(first.verticle);
+			if (exists verticle) {
+				verticles.add(verticle);
+			}
+		} else {
+			for (pkg in mod.members) {
+				for (classDecl in pkg.members<ClassDeclaration>()) {
+					value verticle = foo(classDecl);
+					if (exists verticle) {
+						verticles.add(verticle);
 					}
-					verticles.add(factory);
 				}
 			}
 		}
 	}
 	return verticles;
+}
+
+Callable_<Verticle_>? foo(ClassDeclaration classDecl) {
+  if (isVerticle(classDecl.openType)) {
+    value instance = classDecl.instantiate();
+    assert(is Verticle instance);
+    object factory satisfies Callable_<Verticle_> {
+      shared actual Verticle_ call() {
+        object adapter extends Verticle_() {
+          shared actual void start(Future_<Void_> future) {
+            Vertx vertx = Vertx(this.vertx);
+            Container container = Container(this.container);
+            Promise<Anything> result = instance.asyncStart(vertx, container);
+            result.onComplete(
+              void (Anything a) {
+                future.setResult(null);
+              },
+              void (Throwable reason) {
+                future.setFailure(reason);
+              }
+            );
+          }
+          shared actual void stop() {
+            instance.stop();
+          }
+        }
+        return adapter;
+      }
+    }
+    return factory;
+  } else {
+    return null;
+  }
 }

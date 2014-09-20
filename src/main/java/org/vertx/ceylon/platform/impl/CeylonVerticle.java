@@ -205,8 +205,12 @@ public class CeylonVerticle extends Verticle {
       runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon.platform", "0.4.0");
       runner.run();
       ClassLoader loader = runner.getModuleClassLoader();
-      Method introspector = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", Set.class);
-      List<Callable<Verticle>> factories = (List<Callable<Verticle>>) introspector.invoke(null, modules);
+      Method introspector = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class);
+      List<Callable<Verticle>> factories = new ArrayList<>();
+      for (String module : modules) {
+        List<Callable<Verticle>> moduleFactories = (List<Callable<Verticle>>) introspector.invoke(null, module);
+        factories.addAll(moduleFactories);
+      }
       if (factories.size() == 0) {
         throw new Exception("No verticle found in modules " + modules);
       } else if (factories.size() > 1) {

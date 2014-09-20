@@ -13,7 +13,7 @@ shared class Receiver() extends Verticle() {
   shared actual void start(Vertx vertx, Container container) {
     vertx.eventBus.registerHandler {
       address = "news-feed";
-      void handler(Message<String> msg) {
+      void onMessage(Message<String> msg) {
         print("Received news: ``msg.body``");
       }
     }; 
