@@ -4,7 +4,7 @@ import io.vertx.ceylon.core { Vertx }
 import java.lang { String_=String, Void_=Void }
 import org.vertx.java.platform { Verticle_ = Verticle }
 import org.vertx.java.core { Future_=Future }
-import java.util { ArrayList_=ArrayList, List_=List, Set_=Set }
+import java.util { Map_=Map, LinkedHashMap_=LinkedHashMap }
 import java.util.concurrent { Callable_=Callable }
 import ceylon.promise { Promise }
 
@@ -24,22 +24,30 @@ Boolean isVerticle(OpenType classDecl) {
 
 "Find the verticles for the specified module and return a list of verticle factories. This method is called
  by the Vert.x module to discover the existing Verticles and is somewhat reserved for internal use."
-shared List_<Callable_<Verticle_>> findVerticles("The set of module names" String_ moduleName) {
-	value verticles = ArrayList_<Callable_<Verticle_>>();
+shared Map_<String_, Callable_<Verticle_>> findVerticles(
+  "The name of the module to introspect" String_ moduleName,
+  "The optional verticle name to return" String_? verticleName) {
+	value verticles = LinkedHashMap_<String_, Callable_<Verticle_>>();
 	value mods = modules.list.filter((Module elem) => moduleName == String_(elem.name));
 	for (mod in mods) {
 		value mainAnnotations = mod.annotations<MainAnnotation>();
-		if (exists first = mainAnnotations.first) {
+		if (exists first = mainAnnotations.first, !verticleName exists) {
 			value verticle = foo(first.verticle);
 			if (exists verticle) {
-				verticles.add(verticle);
+				verticles.put(String_(first.verticle.qualifiedName), verticle);
 			}
 		} else {
 			for (pkg in mod.members) {
-				for (classDecl in pkg.members<ClassDeclaration>()) {
+				{ClassDeclaration*} classDecls;
+				if (exists verticleName) {
+					classDecls = pkg.members<ClassDeclaration>().filter((ClassDeclaration classDecl) => classDecl.qualifiedName == verticleName.string);
+				} else {
+					classDecls = pkg.members<ClassDeclaration>();
+				}
+				for (classDecl in classDecls) {
 					value verticle = foo(classDecl);
 					if (exists verticle) {
-						verticles.add(verticle);
+						verticles.put(String_(classDecl.qualifiedName), verticle);
 					}
 				}
 			}

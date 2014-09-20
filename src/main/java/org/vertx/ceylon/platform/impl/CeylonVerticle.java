@@ -15,7 +15,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
@@ -205,18 +207,18 @@ public class CeylonVerticle extends Verticle {
       runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon.platform", "0.4.0");
       runner.run();
       ClassLoader loader = runner.getModuleClassLoader();
-      Method introspector = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class);
-      List<Callable<Verticle>> factories = new ArrayList<>();
+      Method introspector = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class, String.class);
+      Map<String, Callable<Verticle>> factories = new LinkedHashMap<>();
       for (String module : modules) {
-        List<Callable<Verticle>> moduleFactories = (List<Callable<Verticle>>) introspector.invoke(null, module);
-        factories.addAll(moduleFactories);
+        Map<String, Callable<Verticle>> moduleFactories = (Map<String, Callable<Verticle>>) introspector.invoke(null, module, config.getString("main"));
+        factories.putAll(moduleFactories);
       }
       if (factories.size() == 0) {
         throw new Exception("No verticle found in modules " + modules);
       } else if (factories.size() > 1) {
         throw new Exception("Too many verticles found " + factories + " in " + modules);
       }
-      verticle = factories.get(0).call();
+      verticle = factories.values().iterator().next().call();
       verticle.setContainer(container);
       verticle.setVertx(vertx);
     } catch (Exception e) {

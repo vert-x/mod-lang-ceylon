@@ -100,7 +100,7 @@ vertx run ceylon:httpserververticle/1.0.0
 Succeeded in deploying verticle
 ~~~~
 
-### Specifying the Verticle
+### Specifying the main Verticle
 
 A failure will occur when a module contains several verticle instances, because there is an ambiguity about the
  Verticle to use. A Verticle can deploy other Verticles, so it is valid to have several Verticle, in such situation
@@ -123,6 +123,8 @@ When running a module, options can be specified, mod-lang-ceylon defines two con
 - `userRepo`: provide an explicit user repository where Ceylon stores compiled modules or look for existing modules, when
 such repository does not exist, mod-lang-ceylon will create a temporary repository
 - `verbose`: activate Ceylon verbose option, useful for debugging
+- `mainVerticle`: specify a Verticle to deploy, usually used when you deploy a module that could contain several verticles. This
+will override any `main` annotation
 
 ## Creating a module
 
@@ -154,7 +156,6 @@ This module will be resolved in the default module repository of the platform. T
 - Sanitize the mod-zip and keep only jars in vertx-repo
 - Allow to resolve maven repositories ?
 - test a module deployed in a repository
-- config a particular Verticle as a Ceylon module could contain several Verticle
 - allow to have module imports for ceylon script deployment
 - javascript client lib
 
