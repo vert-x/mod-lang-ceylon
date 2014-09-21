@@ -24,7 +24,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -35,7 +34,9 @@ import static org.junit.Assert.assertTrue;
 public class IntegrationTester {
 
   public static void main(String[] args) throws Exception {
+    // run("testDeploySelfFromVerticle");
     run("testDeployCeylonFromVerticle");
+    run("testDeployJavaScriptFromVerticle");
     run("testModuleFromSources");
     run("testModZip");
   }
@@ -155,6 +156,17 @@ public class IntegrationTester {
         putString("_main", "ceylon:lifecycleverticle/1.0.0").
         putObject("_conf", new JsonObject().
             putString("userRepo", userRepo)));
+  }
+
+  public static void testDeployJavaScriptFromVerticle() throws Throwable {
+    File path = new File(Helper.assertModules(), "deployerverticle/1.0.0/deployerverticle-1.0.0.car");
+    assertTrue(path.exists());
+    assertTrue(path.isFile());
+    String userRepo = Helper.assertModules().getAbsolutePath();
+    testDeployFromVerticle(new JsonObject().
+        putString("userRepo", userRepo).
+        putString("_main", "deployerverticle/verticle.js").
+        putObject("_conf", new JsonObject()));
   }
 
   private static void testDeployFromVerticle(JsonObject conf) throws Throwable {
