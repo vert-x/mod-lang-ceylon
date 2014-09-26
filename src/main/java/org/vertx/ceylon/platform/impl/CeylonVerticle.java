@@ -1,6 +1,5 @@
 package org.vertx.ceylon.platform.impl;
 
-import com.redhat.ceylon.compiler.java.runtime.metamodel.Metamodel;
 import com.redhat.ceylon.compiler.java.runtime.tools.*;
 import com.redhat.ceylon.compiler.java.runtime.tools.Compiler;
 import org.vertx.java.core.Future;
@@ -9,6 +8,7 @@ import org.vertx.java.core.logging.Logger;
 import org.vertx.java.platform.Verticle;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.Files;
@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -222,7 +221,12 @@ public class CeylonVerticle extends Verticle {
       verticle.setContainer(container);
       verticle.setVertx(vertx);
     } catch (Exception e) {
-      startedResult.setFailure(e);
+      if (e instanceof InvocationTargetException) {
+        e.printStackTrace();
+        startedResult.setFailure(e.getCause());
+      } else {
+        startedResult.setFailure(e);
+      }
       return;
     }
     verticle.start(startedResult);
@@ -236,7 +240,6 @@ public class CeylonVerticle extends Verticle {
     if (runner != null) {
       runner.cleanup();
     }
-    Metamodel.resetModuleManager();
   }
 
   private void scan(List<File> sources, File file) {
