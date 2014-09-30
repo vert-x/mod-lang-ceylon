@@ -30,6 +30,8 @@
     </developer>
   </developers>
   <scm>
+    <connection>scm:git:git://github.com/vert-x/mod-lang-ceylon.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/vert-x/mod-lang-ceylon.git</developerConnection>
     <url>https://github.com/vert-x/mod-lang-ceylon</url>
   </scm>
   <properties>
