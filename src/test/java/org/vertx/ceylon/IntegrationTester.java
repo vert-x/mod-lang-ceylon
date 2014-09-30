@@ -35,7 +35,7 @@ import static org.junit.Assert.assertTrue;
 public class IntegrationTester {
 
   public static void main(String[] args) throws Exception {
-    run("testDeployFromVerticle");
+    run("testDeployCeylonFromVerticle");
     run("testModuleFromSources");
     run("testModZip");
   }
@@ -132,16 +132,38 @@ public class IntegrationTester {
     }
   }
 
-  public static void testDeployFromVerticle() throws Throwable {
+  public static void testDeploySelfFromVerticle() throws Throwable {
     File path = new File(Helper.assertModules(), "deployerverticle/1.0.0/deployerverticle-1.0.0.car");
     assertTrue(path.exists());
     assertTrue(path.isFile());
+    String userRepo = Helper.assertModules().getAbsolutePath();
+    testDeployFromVerticle(new JsonObject().
+        putString("userRepo", userRepo).
+        putString("_main", "ceylon:deployerverticle/1.0.0").
+        putObject("_conf", new JsonObject().
+            putString("main", "deployerverticle::VerticleImpl2").
+            putString("userRepo", userRepo)));
+  }
+
+  public static void testDeployCeylonFromVerticle() throws Throwable {
+    File path = new File(Helper.assertModules(), "deployerverticle/1.0.0/deployerverticle-1.0.0.car");
+    assertTrue(path.exists());
+    assertTrue(path.isFile());
+    String userRepo = Helper.assertModules().getAbsolutePath();
+    testDeployFromVerticle(new JsonObject().
+        putString("userRepo", userRepo).
+        putString("_main", "ceylon:lifecycleverticle/1.0.0").
+        putObject("_conf", new JsonObject().
+            putString("userRepo", userRepo)));
+  }
+
+  private static void testDeployFromVerticle(JsonObject conf) throws Throwable {
     PlatformManager manager = createPlatform();
     try {
       final ArrayBlockingQueue<AsyncResult<String>> queue = new ArrayBlockingQueue<>(10);
       manager.deployVerticle(
           "ceylon:deployerverticle/1.0.0",
-          new JsonObject().putString("userRepo", Helper.assertModules().getAbsolutePath()),
+          conf,
           new URL[0],
           1,
           null,
@@ -155,7 +177,16 @@ public class IntegrationTester {
       if (!result.succeeded()) {
         throw result.cause();
       }
-      // Finish this test later
+      assertEquals("started", System.getProperty("lifecycle"));
+      final CountDownLatch latch = new CountDownLatch(1);
+      manager.undeploy(result.result(), new Handler<AsyncResult<Void>>() {
+        @Override
+        public void handle(AsyncResult<Void> event) {
+          latch.countDown();
+        }
+      });
+      latch.await();
+      assertEquals("stopped", System.getProperty("lifecycle"));
     } finally {
       manager.stop();
     }

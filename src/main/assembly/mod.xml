@@ -13,27 +13,22 @@
     </file>
   </files>
 
-  <!-- Vertx repo -->
   <fileSets>
     <fileSet>
       <directory>${project.build.outputDirectory}</directory>
       <outputDirectory>/</outputDirectory>
     </fileSet>
     <fileSet>
+      <directory>target/system-repo</directory>
+      <outputDirectory>/lib</outputDirectory>
+    </fileSet>
+    <fileSet>
       <directory>target/vertx-repo</directory>
+      <includes>
+        <include>io/vertx/ceylon/**</include>
+      </includes>
       <outputDirectory>/repo</outputDirectory>
     </fileSet>
   </fileSets>
-
-  <!-- system repo -->
-  <dependencySets>
-    <dependencySet>
-      <scope>system</scope>
-      <includes>
-        <include>system-repo:*</include>
-      </includes>
-      <outputDirectory>/lib</outputDirectory>
-    </dependencySet>
-  </dependencySets>
 
 </assembly>

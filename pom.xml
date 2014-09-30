@@ -247,6 +247,12 @@
                 <exec executable="ceylon">
                   <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/0.4.0 ceylon.logging/1.1.0"/>
                 </exec>
+                <copy todir="target/system-repo" flatten="true">
+                  <fileset dir="target/vertx-repo">
+                    <include name="**/*.car"/>
+                    <exclude name="io/vertx/ceylon/**"/>
+                  </fileset>
+                </copy>
               </target>
             </configuration>
           </execution>

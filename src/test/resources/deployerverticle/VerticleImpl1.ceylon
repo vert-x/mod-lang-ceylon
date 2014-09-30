@@ -7,11 +7,13 @@ shared class VerticleImpl1() extends Verticle() {
   shared actual Promise<Anything> asyncStart(Vertx vertx, Container container) {
     value cfg = container.config;
     assert(exists cfg);
-    value userRepo = cfg["userRepo"];
-    assert(is String userRepo);
+    value main = cfg["_main"];
+    assert(is String main);
+    value conf = cfg["_conf"];
+    assert(is JsonObject conf);
     return container.deployVerticle {
-      main = "ceylon:deployerverticle/1.0.0";
-      conf = JsonObject { "main"->"deployerverticle::VerticleImpl2", "userRepo"->userRepo };
+      main = main;
+      conf = conf;
     };
   }
 }
