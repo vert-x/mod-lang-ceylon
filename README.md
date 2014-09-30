@@ -10,7 +10,7 @@
 
 We suppose `$VERTX_HOME` points to Vert.x 2.1.2. Edit `$VERTX_HOME/conf/langs.properties` lang configuration:
 
-- declare the Ceylon Verticle Factory with `ceylon=io.vertx~lang-ceylon~1.0.0-beta1:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
+- declare the Ceylon Verticle Factory with `ceylon=io.vertx~lang-ceylon~1.0.0-beta2:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
 - declare the file mapping with `.ceylon=ceylon`
 
 Note that the Vert.x lang mod comes with the Ceylon language out of the box. If you want to install Ceylon 1.1
@@ -49,9 +49,9 @@ Run it with the `vertx` command:
 
 ~~~~
 % vertx run HelloWorldServer.ceylon
-Downloading io.vertx~lang-ceylon~1.0.0-beta1. Please wait...
+Downloading io.vertx~lang-ceylon~1.0.0-beta2. Please wait...
 Downloading 100%
-Module io.vertx~lang-ceylon~1.0.0-beta1 successfully installed
+Module io.vertx~lang-ceylon~1.0.0-beta2 successfully installed
 Create temporary source path /var/folders/87/1zztskkd20s8hqvkbn5dy0l00000gn/T/vertx4242384732878054860ceylon for /Users/julien/HelloWorldServer.ceylon
 Compiled module app/1.0.0
 Succeeded in deploying verticle
