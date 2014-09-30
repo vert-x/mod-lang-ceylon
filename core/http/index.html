@@ -1,0 +1,689 @@
+<!DOCTYPE html><html><head><meta charset='UTF-8'/>
+<title>Package [io, vertx, ceylon, core, http]</title><link href='../.resources/favicon.ico' rel='shortcut icon'/>
+<link href='../.resources/shCore.css' rel='stylesheet' type='text/css'/>
+<link href='../.resources/shThemeDefault.css' rel='stylesheet' type='text/css'/>
+<link href='../.resources/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+<link href='../.resources/ceylondoc.css' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Inconsolata' rel='stylesheet' type='text/css'/>
+</head><body><div class='navbar navbar-inverse navbar-static-top'><div class='navbar-inner'><a class='module-header' href='../index.html'><i class='module-logo'></i><span class='module-label'>module</span><span class='module-name'>io.vertx.ceylon.core</span><span class='module-version'>0.4.0</span></a><ul class='nav pull-right'><li class='divider-vertical' /><li><a class='expand-all' href='#' title='Expand All [Shortcut: + plus]'><i class='icon-expand-all'></i></a></li><li><a class='collapse-all' href='#' title='Collapse All [Shortcut: - minus]'><i class='icon-collapse-all'></i></a></li><li id='infoDropdown' class='dropdown'><a href='#' title='Show keyboard shortcuts [Shortcut: ?]' role='button' class='dropdown-toggle' data-toggle='dropdown'><i class='icon-info'></i></a><ul id='info-dropdown-panel' class='dropdown-menu'><h4>Keyboard Shortcuts</h4><li class='divider'></li><div class='row-fluid'><div id='info-common-shortcuts' class='span6'><div id='f'><span class='key badge'>f</span><span class='info muted'>Open filter by tags</span></div><div id='s'><span class='key badge'>s</span><span class='info muted'>Open search page</span></div><div id='?'><span class='key badge'>?</span><span class='info muted'>Open this information panel</span></div></div><div id='info-expand-collapse-shortcuts' class='span6'><div id='+'><span class='key badge'>+</span><span class='info muted'>Expand all</span></div><div id='-'><span class='key badge'>-</span><span class='info muted'>Collapse all</span></div></div></div><li class='divider'></li><div class='row-fluid'><div id='info-doc-shortcuts' class='span6'><h5>Documentation:</h5><div id='o'><span class='key badge'>o</span><span class='info muted'>Jump to module documentation</span></div><div id='p'><span class='key badge'>p</span><span class='info muted'>Jump to package documentation</span></div><div id='l'><span class='key badge'>l</span><span class='info muted'>Jump to aliases</span></div><div id='n'><span class='key badge'>n</span><span class='info muted'>Jump to annotations</span></div><div id='z'><span class='key badge'>z</span><span class='info muted'>Jump to initializer</span></div><div id='v'><span class='key badge'>v</span><span class='info muted'>Jump to values</span></div><div id='f'><span class='key badge'>f</span><span class='info muted'>Jump to functions</span></div><div id='i'><span class='key badge'>i</span><span class='info muted'>Jump to interfaces</span></div><div id='c'><span class='key badge'>c</span><span class='info muted'>Jump to classes</span></div><div id='e'><span class='key badge'>e</span><span class='info muted'>Jump to exceptions</span></div></div><div id='info-search-shortcuts' class='span6'><h5>Search page:</h5><div id='enter'><span class='key badge'>enter</span><span class='info muted'>Jump to selected declaration</span></div><div id='esc'><span class='key badge'>esc</span><span class='info muted'>Clear search query/Go to overview</span></div><div id='up'><span class='key badge'>up</span><span class='info muted'>Move selection up</span></div><div id='down'><span class='key badge'>down</span><span class='info muted'>Move selection down</span></div></div></div></ul></li></ul><ul class='nav pull-right'><li class='divider-vertical' /><li><a href='../search.html' title='Search this module [Shortcut: S]'><i class='icon-search'></i>Search</a></li></ul><ul class='nav pull-right'><li class='divider-vertical' /><li id='filterDropdown' class='dropdown'><a href='#' title='Filter declarations by tags [Shortcut: F]' role='button' class='dropdown-toggle' data-toggle='dropdown'><i class='icon-filter'></i>Filter <span id='filterDropdownLinkInfo'></span> <b class='caret'></b></a><ul id='filterDropdownPanel' class='dropdown-menu'><h4 id='filterDropdownPanelInfo'>Filter declarations by tags</h4><li class='divider'></li><div id='filterDropdownPanelTags'></div><li class='divider'></li><div id='filterActions'><a id='filterActionAll'>All</a><a id='filterActionNone'>None</a><a id='filterActionMore'>Show more</a></div></ul></li></ul></div></div><div class='sub-navbar'><div class='sub-navbar-inner'><span class='sub-navbar-label'>package</span><i class='icon-package'></i><span class='sub-navbar-name'><a class='link' href='../index.html#section-package' title='Go to package io.vertx.ceylon.core'>io.vertx.ceylon.core</a>.<a class='link-custom-text' href='../http/index.html' title='Go to package io.vertx.ceylon.core.http'>http</a></span></div><div class='sub-navbar-menu'><a href='../index.html'><span title='Jump to module documentation [Shortcut: O]'><span class='accesskey'>O</span>verview</span></a><a href='#section-attributes'><span title='Jump to values [Shortcut: V]'><span class='accesskey'>V</span>alues</span></a><a href='#section-methods'><span title='Jump to functions [Shortcut: F]'><span class='accesskey'>F</span>unctions</span></a><a href='#section-interfaces'><span title='Jump to interfaces [Shortcut: I]'><span class='accesskey'>I</span>nterfaces</span></a><a href='#section-classes'><span title='Jump to classes [Shortcut: C]'><span class='accesskey'>C</span>lasses</span></a></div></div><div class='container-fluid'><div class='package-description'><div class='doc'><h1>Writing HTTP Servers and Clients</h1>
+<h2>Writing HTTP servers</h2>
+<p>Vert.x allows you to easily write full featured, highly performant and scalable HTTP servers.</p>
+<h3>Creating an HTTP Server</h3>
+<p>To create an HTTP server you call the <code>createHttpServer</code> method on your <code>vertx</code> instance.</p>
+<pre>HttpServer server = vertx.createHttpServer();
+</pre>
+<h3>Start the Server Listening</h3>
+<p>To tell that server to listen for incoming requests you use the listen method:</p>
+<pre>HttpServer server = vertx.createHttpServer();
+server.listen(8080, "myhost");
+</pre>
+<p>The first parameter to listen is the <code>port</code>, The second parameter is the hostname or ip address. If it is omitted it will
+default to 0.0.0.0 which means it will listen at all available interfaces. Note that you could also do it this way:</p>
+<pre>server.listen { port = 8080; hostName = "myhost"; };
+</pre>
+<p>The actual bind is asynchronous so the server might not actually be listening until some time after the call to
+listen has returned. If you want to be notified when the server is actually listening you can use
+the <code>Promise&lt;HttpServer&gt;</code> returned by the <code>listen</code> method. For example:</p>
+<pre>server.listen(8080, "myhost").
+   onComplete(
+     (HttpServer server) =&gt; print("Listen succeeded"),
+     (Exception e) =&gt; print("Listen failed")
+   );
+</pre>
+<h3>Getting Notified of Incoming Requests</h3>
+<p>To be notified when a request arrives you need to set a request handler. This is done by calling the
+requestHandler method of the server, passing in the handler:</p>
+<pre>value server = vertx.createHttpServer();
+
+void handle(HttpServerRequest request) {
+  print(""A request has arrived on the server!");
+  request.response.end();
+}
+
+server.requestHandler(handle);
+server.listen(8080, "localhost");
+</pre>
+<h3>Handling HTTP Requests</h3>
+<p>So far we have seen how to create an <code>HttpServer</code> and be notified of requests. Lets take a look at how to handle
+the requests and do something useful with them.</p>
+<p>When a request arrives, the request handler is called passing in an instance of <code>HttpServerRequest</code>. This object
+represents the server side HTTP request.</p>
+<p>The handler is called when the headers of the request have been fully read. If the request contains a body,
+that body may arrive at the server some time after the request handler has been called.</p>
+<p>It contains functions to get the URI, path, request headers and request parameters. It also contains a
+<code>response</code> reference to an object that represents the server side HTTP response for the object.</p>
+<h4>Request Method</h4>
+<p>The request object has a <code>method</code> attribute which returns a string representing what HTTP method was requested. This attribute
+has the type <code>ceylon.net.http.Method</code>.</p>
+<h4>Request Version</h4>
+<p>The request object has a method <a class='link' href='../http/HttpServerRequest.type.html#version' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.version'>HttpServerRequest.version</a> attribute which returns an <a class='link' href='../http/HttpVersion.type.html' title='Go to io.vertx.ceylon.core.http::HttpVersion'>HttpVersion</a>(enum) representing
+the HTTP version.</p>
+<h4>Request URI</h4>
+<p>The request object has an <a class='link' href='../http/HttpServerRequest.type.html#uri' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.uri'>HttpServerRequest.uri</a> attribute which returns the full URI (Uniform Resource Locator) of the
+request. For example, if the request URI was: <code>/a/b/c/page.html?param1=abc&amp;param2=xyz</code> then it would return the corresponding
+<code>ceylon.net.uri.Uri</code>. Request URIs can be relative or absolute (with a domain) depending on what the client sent.
+In most cases they will be relative.</p>
+<h4>Request Path</h4>
+<p>The request object has a <a class='link' href='../http/HttpServerRequest.type.html#path' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.path'>HttpServerRequest.path</a> attribute which returns the path of the request.  For example, if the
+request URI was <code>/a/b/c/page.html?param1=abc&amp;param2=xyz</code> then path would return the string <code>/a/b/c/page.html</code></p>
+<h4>Request Query</h4>
+<p>The request object has a <a class='link' href='../http/HttpServerRequest.type.html#query' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.query'>HttpServerRequest.query</a> which contains the query of the request as a <code>ceylon.net.uri.Query</code> object.</p>
+<h4>Request Headers</h4>
+<p>The request headers are available using the <a class='link' href='../http/HttpServerRequest.type.html#headers' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.headers'>HttpServerRequest.headers</a> attribute on the request object. The returned
+object is an instance of <code>Map&lt;String,{String+}&gt;</code>.</p>
+<p>Here's an example that echoes the headers to the output of the response. Run it and point your browser at
+http://localhost:8080 to see the headers.</p>
+<pre>value server = vertx.createHttpServer();
+void handle(HttpServerRequest request) {
+  value sb = StringBuilder();
+  for (header in request.headers) {
+    for (val in header.item) {
+      sb.append("``header.key``: ``val``");
+    }
+  }
+  request.response.end(sb.string);
+}
+server.requestHandler(handle).listen(8080, "localhost);
+</pre>
+<h4>Request params</h4>
+<p>Similarly to the headers, the request parameters are available using the <a class='link' href='../http/HttpServerRequest.type.html#params' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.params'>HttpServerRequest.params</a> attribute on the request object.
+Request parameters are sent on the request URI, after the path. For example if the URI was:</p>
+<pre>/page.html?param1=abc&amp;param2=xyz
+</pre>
+<p>Then the params multimap would contain the following entries:</p>
+<pre>param1: 'abc'
+param2: 'xyz
+</pre>
+<h4>Remote Address</h4>
+<p>Use the <a class='link' href='../http/HttpServerRequest.type.html#remoteAddress' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.remoteAddress'>HttpServerRequest.remoteAddress</a> attribute to find out the address of the other side of the HTTP connection.</p>
+<h4>Absolute URI</h4>
+<p>Use the method <a class='link' href='../http/HttpServerRequest.type.html#absoluteURI' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.absoluteURI'>HttpServerRequest.absoluteURI</a> to return the absolute URI corresponding to the request.</p>
+<h4>Reading Data from the Request Body</h4>
+<p>Sometimes an HTTP request contains a request body that we want to read. As previously mentioned the request handler is called when
+only the headers of the request have arrived so the HttpServerRequest object does not contain the body. This is because the body
+may be very large and we don't want to create problems with exceeding available memory.</p>
+<p>To receive the body, you need to call the <a class='link' href='../http/HttpServerRequest.type.html#parseBody' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.parseBody'>HttpServerRequest.parseBody</a> method on the request object with a <a class='link' href='../http/BodyType.type.html' title='Go to io.vertx.ceylon.core.http::BodyType'>BodyType</a> implementation.
+This method returns a <code>Promise&lt;Body&gt;</code> that will be resolved when the body will be fully parsed, here's an example:</p>
+<pre>value server = vertx.createHttpServer();
+void handle(HttpServerRequest request) {
+  Promise&lt;ByteBuffer&gt; p = request.parseBody(binaryBody);
+  p.onComplete((ByteBuffer body) =&gt; print("I received ``body.size`` bytes"));
+}
+server.requestHandler(handle).listen(8080, "localhost");
+</pre>
+<p>There are several body type implementations:</p>
+<ul>
+<li><a class='link' href='../http/index.html#binaryBody' title='Go to io.vertx.ceylon.core.http::binaryBody'>binaryBody</a> : provides a <code>ceylon.io.ByteBuffer</code> for any mime type</li>
+<li><a class='link' href='../http/index.html#textBody' title='Go to io.vertx.ceylon.core.http::textBody'>textBody</a> : provides a Ceylon string for mime type <code>text/*</code></li>
+<li><a class='link' href='../http/index.html#jsonBody' title='Go to io.vertx.ceylon.core.http::jsonBody'>jsonBody</a> : provides a <code>ceylon.json.Object</code> for mime type <code>application/json</code></li>
+</ul>
+<p>It is of course possible to implement custom <a class='link' href='../http/BodyType.type.html' title='Go to io.vertx.ceylon.core.http::BodyType'>BodyType</a>, for instance here is the implementation for text content:</p>
+<pre>shared object textBody satisfies BodyType&lt;String&gt; {
+  shared actual Boolean accept(String mimeType) =&gt; mimeType.startsWith("text/");
+    shared actual String parse(Charset? charset, Buffer data) {
+      if (exists charset) {
+        return data.toString(charset.name);
+      } else {
+        return data.string;
+      }
+   }
+}
+</pre>
+<p>Note that this API is different from the original Vert.x API. Also this current implementation will parse the full body before calling
+the body type object, in the future this will likely evolve to provide a finer granularity for body parsing.</p>
+<h4>Handling Multipart Form Uploads</h4>
+<p>todo</p>
+<h4>Handling Multipart Form Attributes</h4>
+<p>If the request corresponds to an HTML form that was submitted you can use the <a class='link' href='../http/HttpServerRequest.type.html#formAttributes' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.formAttributes'>HttpServerRequest.formAttributes</a> promise to access
+the form attributes. This promise is resolved after all of the request has been read - this is because form attributes are encoded
+in the request body not in the request headers.</p>
+<pre>req.formAttributes.onComplete((Map&lt;String, {String+}&gt; formAttributes) =&gt; print("Do something with them"));
+</pre>
+<p>When the request does not have form attributes the <code>formAttributes</code> promise is rejected.</p>
+<h3>HTTP Server Responses</h3>
+<p>As previously mentioned, the HTTP request object contains a <a class='link' href='../http/HttpServerRequest.type.html#response' title='Go to io.vertx.ceylon.core.http::HttpServerRequest.response'>HttpServerRequest.response</a> attribute. This returns the HTTP response
+for the request. You use it to write the response back to the client.</p>
+<h4>Setting Status Code and Message</h4>
+<p>To set the HTTP status code for the response use the <a class='link' href='../http/HttpServerResponse.type.html#status' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.status'>HttpServerResponse.status</a> method, e.g.</p>
+<pre>HttpServer server = vertx.createHttpServer();
+void handle(HttpServerRequest request) {
+  request.response.status {
+    code = 739;
+    message = "Too many gerbils";
+  }.end();
+}
+server.requestHandler(handle).listen(8080, "localhost");
+</pre>
+<p>You can also set the status message. If you do not set the status message a default message will be used.</p>
+<p>The default value for the status code is <code>200</code>.</p>
+<h5>Writing HTTP responses</h5>
+<p>To write data to an HTTP response, you invoke the write function. This function can be invoked multiple times before the response is
+ended. It can be invoked in a few ways:</p>
+<p>With a single buffer: currently not supported</p>
+<p>A string. In this case the string will encoded using UTF-8 and the result written to the wire.</p>
+<pre>request.response.write("hello");
+</pre>
+<p>A string and an encoding. In this case the string will encoded using the specified encoding and the result written to the wire.</p>
+<pre>request.response.write(["hello", "UTF-16"]);
+</pre>
+<p>The <a class='link' href='../http/HttpServerResponse.type.html#write' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.write'>HttpServerResponse.write</a> function is asynchronous and always returns immediately after the write has been queued.
+If you are just writing a single string or Buffer to the HTTP response you can write it and end the response in a single
+call to the <a class='link' href='../http/HttpServerResponse.type.html#end' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.end'>HttpServerResponse.end</a> method.</p>
+<p>The first call to <a class='link' href='../http/HttpServerResponse.type.html#write' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.write'>HttpServerResponse.write</a> results in the response header being being written to the response.</p>
+<p>Consequently, if you are not using HTTP chunking then you must set the <code>Content-Length</code> header before writing to the response, since
+it will be too late otherwise. If you are using HTTP chunking you do not have to worry.</p>
+<h5>Ending HTTP responses</h5>
+<p>Once you have finished with the HTTP response you must call the <a class='link' href='../http/HttpServerResponse.type.html#end' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.end'>HttpServerResponse.end</a> function on it.</p>
+<p>This function can be invoked in several ways:</p>
+<p>With no arguments, the response is simply ended.</p>
+<pre>request.response.end();
+</pre>
+<p>The function can also be called with a string or Buffer in the same way <a class='link' href='../http/HttpServerResponse.type.html#write' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.write'>HttpServerResponse.write</a> is called. In this case
+it's just the same as calling write with a string or Buffer (not supported) followed by calling <a class='link' href='../http/HttpServerResponse.type.html#end' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.end'>HttpServerResponse.end</a> with
+no arguments. For example:</p>
+<pre>request.response.end("That's all folks");
+</pre>
+<h5>Closing the underlying connection</h5>
+<p>You can close the underlying TCP connection of the request by calling the <a class='link' href='../http/HttpServerResponse.type.html#close' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.close'>HttpServerResponse.close</a> method.</p>
+<pre>request.response.close();
+</pre>
+<h5>Response headers</h5>
+<p>HTTP response headers can be added to the response by passing them to the <a class='link' href='../http/HttpServerResponse.type.html#headers' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.headers'>HttpServerResponse.headers</a> methods:</p>
+<pre>request.response.headers { "Cheese"-&gt;"Stilton", "Hat colour"-&gt;"Mauve" };
+</pre>
+<p>Response headers must all be added before any parts of the response body are written.</p>
+<h5>Chunked HTTP Responses and Trailers</h5>
+<p>Vert.x supports <a href="http://en.wikipedia.org/wiki/Chunked_transfer_encoding">HTTP Chunked Transfer Encoding</a>. This allows the HTTP
+response body to be written in chunks, and is normally used when a large response body is being streamed to a client,
+whose size is not known in advance.</p>
+<p>You put the HTTP response into chunked mode as follows:</p>
+<pre>req.response.setChunked(true);
+</pre>
+<p>Default is non-chunked. When in chunked mode, each call to <code>response.write(...)</code> will result in a new HTTP chunk being written out.</p>
+<p>When in chunked mode you can also write HTTP response trailers to the response. These are actually written in the final chunk of the response.</p>
+<p>To add trailers to the response, add them to the multimap returned from the trailers() method:</p>
+<pre>request.response.trailers {
+  "Philosophy"-&gt;"Solipsism",
+  "Favourite-Shakin-Stevens-Song"-&gt;"Behind the Green Door"
+};
+</pre>
+<h4>Serving files directly from disk</h4>
+<p>Not yet implemented.</p>
+<h4>Pumping Responses</h4>
+<p>The <a class='link' href='../http/HttpServerResponse.type.html#stream' title='Go to io.vertx.ceylon.core.http::HttpServerResponse.stream'>HttpServerResponse.stream</a> provides a <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a> you can pump to it from any
+<a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a>, e.g. an AsyncFile (todo), NetSocket (todo), WebSocket (todo) or <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerRequest'>HttpServerRequest</a>.</p>
+<p>Here's an example which echoes HttpRequest headers and body back in the HttpResponse. It uses a pump for the body,
+so it will work even if the HTTP request body is much larger than can fit in memory at any one time:</p>
+<pre>HttpServer server = vertx.createHttpServer();
+void handle(HttpServerRequest request) {
+  HttpServerResponse resp = req.response;
+  resp.headers(req.headers);
+  req.stream.pump(resp.stream).start();
+  req.stream.endHandler(resp.close);
+}
+server.requestHandler(handle).listen(8080, "localhost");
+</pre>
+<h4>HTTP Compression</h4>
+<p>Not yet available in 2.0.</p>
+<h3>Writing HTTP Clients</h3>
+<h4>Creating an HTTP Client</h4>
+<p>To create an HTTP client you call the <a class='link' href='../Vertx.type.html#createHttpClient' title='Go to io.vertx.ceylon.core::Vertx.createHttpClient'>io.vertx.ceylon.core::Vertx.createHttpClient</a> method on your vertx instance:</p>
+<pre>HttpClient client = vertx.createHttpClient();
+</pre>
+<p>You set the port and hostname (or ip address) that the client will connect to using the <a class='link' href='../http/HttpClient.type.html#host' title='Go to io.vertx.ceylon.core.http::HttpClient.host'>HttpClient.host</a> and <a class='link' href='../http/HttpClient.type.html#port' title='Go to io.vertx.ceylon.core.http::HttpClient.port'>HttpClient.port</a> attributes:</p>
+<pre>HttpClient client = vertx.createHttpClient();
+client.port = 8181;
+client.host = "foo.com";
+</pre>
+<p>You can also set the port and host when creating the client:</p>
+<pre>HttpClient client = vertx.createHttpClient {
+  port = 8181;
+  host = "foo.com";
+};
+</pre>
+<p>A single <a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a> always connects to the same host and port. If you want to connect to different servers, create more instances.</p>
+<p>The default port is <code>80</code> and the default host is <code>localhost</code>. So if you don't explicitly set these values that's what the client
+will attempt to connect to.</p>
+<h4>Pooling and Keep Alive</h4>
+<p>By default the <a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a> pools HTTP connections. As you make requests a connection is borrowed from the pool and returned
+when the HTTP response has ended.</p>
+<p>If you do not want connections to be pooled you can set <a class='link' href='../http/HttpClient.type.html#keepAlive' title='Go to io.vertx.ceylon.core.http::HttpClient.keepAlive'>HttpClient.keepAlive</a> to false:</p>
+<pre>HttpClient client = vertx.createHttpClient();
+client.port = 8181;
+client.host = "foo.com";
+client.keepAlive = false;
+</pre>
+<p>In this case a new connection will be created for each HTTP request and closed once the response has ended.</p>
+<p>You can set the maximum number of connections that the client will pool as follows:</p>
+<pre>HttpClient client = vertx.createHttpClient();
+client.port = 8181;
+client.host = "foo.com";
+client.maxPoolSize = 10;
+</pre>
+<p>The default value is <code>1</code>.</p>
+<h4>Closing the client</h4>
+<p>Any HTTP clients created in a verticle are automatically closed for you when the verticle is stopped, however if you want to close
+it explicitly you can:</p>
+<pre>client.close();
+</pre>
+<h4>Making Requests</h4>
+<p>To make a request using the client you invoke one the methods named after the HTTP method that you want to invoke.</p>
+<p>For example, to make a <code>POST</code> request:</p>
+<pre>value client = vertx.createHttpClient{ host = "foo.com" };
+HttpClientRequest request = client.post("/some-path"/);
+request.response.onComplete((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
+request.end();
+</pre>
+<p>To make a PUT request use the <a class='link' href='../http/HttpClient.type.html#put' title='Go to io.vertx.ceylon.core.http::HttpClient.put'>HttpClient.put</a> method, to make a GET request use the <a class='link' href='../http/HttpClient.type.html#get' title='Go to io.vertx.ceylon.core.http::HttpClient.get'>HttpClient.get</a> method, etc.</p>
+<p>Legal request methods are: <a class='link' href='../http/HttpClient.type.html#get' title='Go to io.vertx.ceylon.core.http::HttpClient.get'>HttpClient.get</a>, <a class='link' href='../http/HttpClient.type.html#put' title='Go to io.vertx.ceylon.core.http::HttpClient.put'>HttpClient.put</a>, <a class='link' href='../http/HttpClient.type.html#post' title='Go to io.vertx.ceylon.core.http::HttpClient.post'>HttpClient.post</a>, <a class='link' href='../http/HttpClient.type.html#delete' title='Go to io.vertx.ceylon.core.http::HttpClient.delete'>HttpClient.delete</a>, <a class='link' href='../http/HttpClient.type.html#head' title='Go to io.vertx.ceylon.core.http::HttpClient.head'>HttpClient.head</a>,
+<a class='link' href='../http/HttpClient.type.html#options' title='Go to io.vertx.ceylon.core.http::HttpClient.options'>HttpClient.options</a>, <a class='link' href='../http/HttpClient.type.html#connect' title='Go to io.vertx.ceylon.core.http::HttpClient.connect'>HttpClient.connect</a>, <a class='link' href='../http/HttpClient.type.html#trace' title='Go to io.vertx.ceylon.core.http::HttpClient.trace'>HttpClient.trace</a> and <a class='link' href='../http/HttpClient.type.html#patch' title='Go to io.vertx.ceylon.core.http::HttpClient.patch'>HttpClient.patch</a>.</p>
+<p>The general modus operandi is you invoke the appropriate method passing in the request URI. The <code>Promise&lt;HttpClientResponse</code> <a class='link' href='../http/HttpClientRequest.type.html#response' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.response'>HttpClientRequest.response</a>]
+attribute will be resolved when the corresponding response arrives. Note that the response promise should be used before the <a class='link' href='../http/HttpClientRequest.type.html#end' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.end'>HttpClientRequest.end</a>
+method is called, so the promise will be resolved by the Vert.x thread.</p>
+<p>The value specified in the request URI corresponds to the Request-URI as specified in
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html">Section 5.1.2 of the HTTP specification</a>. <em>In most cases it will be a relative URI</em>.</p>
+<p><em>Please note that the domain/port that the client connects to is determined by <a class='link' href='../http/HttpClient.type.html#port' title='Go to io.vertx.ceylon.core.http::HttpClient.port'>HttpClient.port</a> and <a class='link' href='../http/HttpClient.type.html#host' title='Go to io.vertx.ceylon.core.http::HttpClient.host'>HttpClient.host</a>, and is not parsed
+from the uri.</em></p>
+<p>The return value from the appropriate request method is an instance of <a class='link' href='../http/HttpClientRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpClientRequest'>HttpClientRequest</a>. You can use this to add headers to the request,
+and to write to the request body. The request object implements <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a>.</p>
+<p>Once you have finished with the request you must call the <a class='link' href='../http/HttpClientRequest.type.html#end' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.end'>HttpClientRequest.end</a> method.</p>
+<p>If you don't know the name of the request method in advance there is a general <a class='link' href='../http/HttpClient.type.html#request' title='Go to io.vertx.ceylon.core.http::HttpClient.request'>HttpClient.request</a> method which takes the HTTP
+method as a parameter:</p>
+<pre>value client = vertx.createHttpClient{ host = "foo.com" };
+value request = client.request(post, "/some-path/");
+request.response.onComplete((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
+request.end();
+</pre>
+<h5>Handling exceptions</h5>
+<p>The <a class='link' href='../http/HttpClientRequest.type.html#response' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.response'>HttpClientRequest.response</a> promise will be rejected when the request fails.</p>
+<h5>Writing to the request body</h5>
+<p>Writing to the client request body has a very similar API to writing to the server response body.</p>
+<p>To write data to an <a class='link' href='../http/HttpClientRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpClientRequest'>HttpClientRequest</a> object, you invoke the <a class='link' href='../http/HttpClientRequest.type.html#write' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.write'>HttpClientRequest.write</a> function. This function can be called multiple times
+before the request has ended. It can be invoked in a few ways:</p>
+<p>With a single buffer: (todo)</p>
+<p>A string. In this case the string will encoded using UTF-8 and the result written to the wire:</p>
+<pre>request.write("hello");
+</pre>
+<p>A string and an encoding. In this case the string will encoded using the specified encoding and the result written to the wire.</p>
+<pre>request.write("hello", "UTF-16");
+</pre>
+<p>The <a class='link' href='../http/HttpClientRequest.type.html#write' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.write'>HttpClientRequest.write</a> function is asynchronous and always returns immediately after the write has been queued.
+The actual write might complete some time later.</p>
+<p>If you are just writing a single string or Buffer to the HTTP request you can write it
+and end the request in a single call to the end function.</p>
+<p>The first call to <code>write</code> will result in the request headers being written to the request. Consequently, if you are not
+using HTTP chunking then you must set the <code>Content-Length</code> header before writing to the request, since it will be too
+late otherwise. If you are using HTTP chunking you do not have to worry.</p>
+<h5>Ending HTTP requests</h5>
+<p>Once you have finished with the HTTP request you must call the <a class='link' href='../http/HttpClientRequest.type.html#end' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.end'>HttpClientRequest.end</a> function on it.</p>
+<p>This function can be invoked in several ways:</p>
+<p>With no arguments, the request is simply ended.</p>
+<pre>request.end();
+</pre>
+<p>The function can also be called with a string or Buffer in the same way <code>write</code> is called. In this case it's just the
+same as calling write with a string or Buffer followed by calling <code>end</code> with no arguments.</p>
+<h5>Writing Request Headers</h5>
+<p>To write headers to the request, add them using the <a class='link' href='../http/HttpClientRequest.type.html#headers' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.headers'>HttpClientRequest.headers</a> method:</p>
+<pre>value client = vertx.createHttpClient{ host = "foo.com" };
+value request = client.request(post, "/some-path/");
+request.response.onComplete((HttpClientResponse resp) =&gt; print("Got a response: ``resp.status``"));
+request.headers { "Some-Header"-&gt;"Some-Value" };
+request.end();
+</pre>
+<h5>Request timeouts</h5>
+<p>You can set a timeout for specific Http Request using the <a class='link' href='../http/HttpClientRequest.type.html#timeout' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.timeout'>HttpClientRequest.timeout</a> attribute. If the request does not
+return any data within the timeout period the <a class='link' href='../http/HttpClientRequest.type.html#response' title='Go to io.vertx.ceylon.core.http::HttpClientRequest.response'>HttpClientRequest.response</a> will be rejected and the request will be closed.</p>
+<h5>HTTP chunked requests</h5>
+<p>Vert.x supports <a href="http://en.wikipedia.org/wiki/Chunked_transfer_encoding">HTTP Chunked Transfer Encoding</a> for requests. This allows the
+HTTP request body to be written in chunks, and is normally used when a large request body is being streamed to the server,
+whose size is not known in advance.</p>
+<p>You put the HTTP request into chunked mode as follows:</p>
+<pre>request.chunked = true;
+</pre>
+<p>Default is non-chunked. When in chunked mode, each call to request.write(&hellip;) will result in a new HTTP chunk being written out.</p>
+<h4>HTTP Client Responses</h4>
+<p>Client responses are received as an argument to the response handler that is passed into one of the request methods on the HTTP client.</p>
+<p>The response object provides a <a class='link' href='../http/HttpClientResponse.type.html#stream' title='Go to io.vertx.ceylon.core.http::HttpClientResponse.stream'>HttpClientResponse.stream</a> attribute, so it can be pumped to a
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a> like any other <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a>.</p>
+<p>To query the status code of the response use the <a class='link' href='../http/HttpClientResponse.type.html#statusMessage' title='Go to io.vertx.ceylon.core.http::HttpClientResponse.statusMessage'>HttpClientResponse.statusMessage</a> attribute. The
+<a class='link' href='../http/HttpClientResponse.type.html#statusMessage' title='Go to io.vertx.ceylon.core.http::HttpClientResponse.statusMessage'>HttpClientResponse.statusMessage</a> attribute contains the status message. For example:</p>
+<pre>value client = vertx.createHttpClient{ host = "foo.com" };
+value request = client.request(post, "/some-path/");
+request.response.onComplete {
+  void onFulfilled(HttpClientResponse resp) {
+    print("server returned status code: ``resp.statusCode``");
+    print("server returned status message: ``resp.statusMessage``");
+  }
+};
+request.end();
+</pre>
+<h5>Reading Data from the Response Body</h5>
+<p>The API for reading an HTTP client response body is very similar to the API for reading a HTTP server request body.</p>
+<p>Sometimes an HTTP response contains a body that we want to read. Like an HTTP request, the client response promise
+is resolved when all the response headers have arrived, not when the entire response body has arrived.</p>
+<p>To receive the response body, you use the <a class='link' href='../http/HttpClientResponse.type.html#parseBody' title='Go to io.vertx.ceylon.core.http::HttpClientResponse.parseBody'>HttpClientResponse.parseBody</a> on the response object which returns a <code>Promise&lt;Body&gt;</code>
+that is resolved when the response body has been parsed. Here's an example:</p>
+<pre>value client = vertx.createHttpClient{ host = "foo.com" };
+value request = client.request(post, "/some-path/");
+request.response.onComplete((HttpClientResponse resp) =&gt; resp.parseBody(binaryBody).onComplete((ByteBuffer body) =&gt; print("I received  + ``body.size`` + bytes")));
+request.end();
+</pre>
+<p>The response object provides the <a class='link' href='../http/HttpClientResponse.type.html#stream' title='Go to io.vertx.ceylon.core.http::HttpClientResponse.stream'>HttpClientResponse.stream</a> interface so you can pump the response body to a
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a>. See the chapter on streams and pump for a detailed explanation.</p>
+<h5>Reading cookies</h5>
+<p>You can read the list of cookies from the response using the <a class='link' href='../http/HttpClientResponse.type.html#cookies' title='Go to io.vertx.ceylon.core.http::HttpClientResponse.cookies'>HttpClientResponse.cookies</a> attribute.</p>
+<h4>100-Continue Handling</h4>
+<p>todo</p>
+<h4>HTTP Compression</h4>
+<p>Not provided by the 2.0 API</p>
+<h3>Pumping Requests and Responses</h3>
+<p>The HTTP client and server requests and responses all implement either <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a> or <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a>.
+This means you can pump between them and any other read and write streams.</p>
+<h3>HTTPS Servers</h3>
+<p>todo</p>
+<h3>HTTPS Clients</h3>
+<p>todo</p>
+<h3>Scaling HTTP servers</h3>
+<p>Scaling an HTTP or HTTPS server over multiple cores is as simple as deploying more instances of the verticle. For example:</p>
+<pre>vertx runmod com.mycompany~my-mod~1.0 -instance 20
+</pre>
+<p>Or, for a raw verticle:</p>
+<pre>vertx run foo.MyServer -instances 20
+</pre>
+<p>The scaling works in the same way as scaling a NetServer. Please see the chapter on scaling Net Servers for a detailed
+explanation of how this works.</p>
+<h2>Routing HTTP requests with Pattern Matching</h2>
+<p>Vert.x lets you route HTTP requests to different handlers based on pattern matching on the request path. It also enables you
+to extract values from the path and use them as parameters in the request.</p>
+<p>This is particularly useful when developing REST-style web applications.</p>
+<p>To do this you simply create an instance of <a class='link' href='../http/RouteMatcher.type.html' title='Go to io.vertx.ceylon.core.http::RouteMatcher'>RouteMatcher</a> and use it as handler in an HTTP server.
+See the chapter on HTTP servers for more information on setting HTTP handlers. Here's an example:</p>
+<pre>value server = vertx.createHttpServer();
+value routeMatcher = RouteMatcher();
+server.requestHandler(routeMatcher.handle).listen { port = 8080; host = "localhost"; };
+</pre>
+<h3>Specifying matches.</h3>
+<p>You can then add different matches to the route matcher. For example, to send all GET requests with path <code>/animals/dogs</code> to
+one handler and all GET requests with path <code>/animals/cats</code> to another handler you would do:</p>
+<pre>value server = vertx.createHttpServer();
+value routeMatcher = RouteMatcher();
+routerMarcher.get("/animals/dogs", (HttpServerRequest req) =&gt; req.response().end("You requested dogs"));
+routerMarcher.get("/animals/cats", (HttpServerRequest req) =&gt; req.response().end("You requested cats"));
+server.requestHandler(router.handle).listen { port = 8080; host = "localhost"; };
+</pre>
+<p>Corresponding methods exist for each HTTP method - <code>get</code>, <code>post</code>, <code>put</code>, <code>delete</code>, <code>head</code>, <code>options</code>, <code>trace</code>, <code>connect</code> and <code>patch</code>.</p>
+<p>There's also an <code>all</code> method which applies the match to any HTTP request method.</p>
+<p>The handler specified to the method is just a normal HTTP server request handler, the same as you would supply to the
+requestHandler method of the HTTP server.</p>
+<p>You can provide as many matches as you like and they are evaluated in the order you added them, the first matching
+one will receive the request.</p>
+<p>A request is sent to at most one handler.</p>
+<h3>Extracting parameters from the path</h3>
+<p>If you want to extract parameters from the path, you can do this too, by using the : (colon) character to denote
+the name of a parameter. For example:</p>
+<pre>value server = vertx.createHttpServer();
+value routeMatcher = RouteMatcher();
+routerMarcher.get {
+  pattern = "/:blogname/:post";
+  void handler(HttpServerRequest req) {
+    assert(exists blogName = req.params["blogname"]);
+    assert(exists post = req.params["post"]);
+    req.response.end("blogname is ``blogName`` post is ``post``");
+  }
+};
+server.requestHandler(router.handle).listen { port = 8080; host = "localhost"; };
+</pre>
+<p>Any params extracted by pattern matching are added to the map of request parameters.</p>
+<p>In the above example, a PUT request to <code>/myblog/post1 would result in the variable</code>blogName<code>getting the value</code>myblog<code>and the
+variable</code>post<code>getting the value</code>post1`.</p>
+<p>Valid parameter names must start with a letter of the alphabet and be followed by any letters of the alphabet or digits or
+the underscore character.</p>
+<h3>Extracting params using Regular Expressions</h3>
+<p>Regular Expressions can be used to extract more complex matches. In this case capture groups are used to capture any parameters.</p>
+<p>Since the capture groups are not named they are added to the request with names <code>param0</code>, <code>param1</code>, <code>param2</code>, etc.</p>
+<p>Corresponding methods exist for each HTTP method - <a class='link' href='../http/RouteMatcher.type.html#getWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.getWithRegEx'>RouteMatcher.getWithRegEx</a>, <a class='link' href='../http/RouteMatcher.type.html#postWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.postWithRegEx'>RouteMatcher.postWithRegEx</a>, <a class='link' href='../http/RouteMatcher.type.html#putWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.putWithRegEx'>RouteMatcher.putWithRegEx</a>,
+<a class='link' href='../http/RouteMatcher.type.html#deleteWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.deleteWithRegEx'>RouteMatcher.deleteWithRegEx</a>, <a class='link' href='../http/RouteMatcher.type.html#headWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.headWithRegEx'>RouteMatcher.headWithRegEx</a>, <a class='link' href='../http/RouteMatcher.type.html#optionsWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.optionsWithRegEx'>RouteMatcher.optionsWithRegEx</a>, <a class='link' href='../http/RouteMatcher.type.html#traceWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.traceWithRegEx'>RouteMatcher.traceWithRegEx</a>,
+<a class='link' href='../http/RouteMatcher.type.html#connectWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.connectWithRegEx'>RouteMatcher.connectWithRegEx</a> and <a class='link' href='../http/RouteMatcher.type.html#patchWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.patchWithRegEx'>RouteMatcher.patchWithRegEx</a>.</p>
+<p>There's also an <a class='link' href='../http/RouteMatcher.type.html#allWithRegEx' title='Go to io.vertx.ceylon.core.http::RouteMatcher.allWithRegEx'>RouteMatcher.allWithRegEx</a> method which applies the match to any HTTP request method.</p>
+<p>For example:</p>
+<pre>value server = vertx.createHttpServer();
+value routeMatcher = RouteMatcher();
+routerMarcher.get {
+  pattern = "\\/([^\\/]+)\\/([^\\/]+)";
+  void handler(HttpServerRequest req) {
+    assert(exists first = req.params["param0"]);
+    assert(exists second = req.params["param1"]);
+    req.response.end("first is ``first`` and second is ``second``");
+  }
+};
+server.requestHandler(router.handle).listen { port = 8080; host = "localhost"; };
+</pre>
+<p>Run the above and point your browser at <code>http://localhost:8080/animals/cats</code>.</p>
+<h3>Handling requests where nothing matches</h3>
+<p>You can use the <a class='link' href='../http/RouteMatcher.type.html#noMatch' title='Go to io.vertx.ceylon.core.http::RouteMatcher.noMatch'>RouteMatcher.noMatch</a> method to specify a handler that will be called if nothing matches.
+If you don't specify a no match handler and nothing matches, a 404 will be returned.</p>
+<pre>routeMatcher.noMatch((HttpServerRequest req) =&gt; req.response.end("Nothing matched"));
+</pre>
+<h3>WebSockets</h3>
+<p><a href="http://en.wikipedia.org/wiki/WebSocket">WebSockets</a> are a web technology that allows a full duplex
+socket-like connection between HTTP servers and HTTP clients (typically browsers).</p>
+<h4>WebSockets on the server</h4>
+<p>To use WebSockets on the server you create an HTTP server as normal, but instead of setting a
+<code>requestHandler</code> you set a <code>websocketHandler</code> on the server.</p>
+<pre>value server = vertx.createHttpServer();
+
+server.websocketHandler {
+  void handle(ServerWebSocket ws) {
+    // A WebSocket has connected!
+  }
+}.listen(8080, "localhost");
+</pre>
+<h5>Reading from and Writing to WebSockets</h5>
+<p>The <code>websocket</code> instance passed into the handler provides access to the <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a> and
+<a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a>, so you can read and write data to it in the normal ways. I.e by setting a
+<a class='link' href='../stream/ReadStream.type.html#dataHandler' title='Go to io.vertx.ceylon.core.stream::ReadStream.dataHandler'>io.vertx.ceylon.core.stream::ReadStream.dataHandler</a> and calling the <a class='link' href='../stream/WriteStream.type.html#write' title='Go to io.vertx.ceylon.core.stream::WriteStream.write'>io.vertx.ceylon.core.stream::WriteStream.write</a>
+method.</p>
+<p>See the chapter on streams and pumps for more information.</p>
+<p>For example, to echo all data received on a WebSocket:</p>
+<pre>value server = vertx.createHttpServer();
+
+server.websocketHandler {
+  void handle(ServerWebSocket ws) {
+    value pump = ws.readStream.pump(ws.writeStream);
+    pump.start();
+ }
+}.listen(8080, "localhost");
+</pre>
+<p>The <code>websocket instance also has method</code>writeBinaryFrame<code>for writing binary data. This has the same effect
+as calling</code>write`.</p>
+<p>Another method <code>writeTextFrame</code> also exists for writing text data. This is equivalent to calling</p>
+<pre>websocket.write(Buffer("some-string"));
+</pre>
+<h5>Rejecting WebSockets</h5>
+<p>Sometimes you may only want to accept WebSockets which connect at a specific path.</p>
+<p>To check the path, you can query the <a class='link' href='../http/ServerWebSocket.type.html#path' title='Go to io.vertx.ceylon.core.http::ServerWebSocket.path'>ServerWebSocket.path</a> attribute of the websocket. You can then call
+the <a class='link' href='../http/ServerWebSocket.type.html#reject' title='Go to io.vertx.ceylon.core.http::ServerWebSocket.reject'>ServerWebSocket.reject</a> method to reject the websocket.</p>
+<pre>value server = vertx.createHttpServer();
+
+server.websocketHandler { 
+  void handle(ServerWebSocket ws) {
+    if (ws.path().equals("/services/echo")) {
+      value pump = ws.readStream.pump(ws.writeStream);
+      pump.start();
+    } else {
+      ws.reject();
+    }
+  }
+}.listen(8080, "localhost");
+</pre>
+<h5>Headers on the websocket</h5>
+<p>You can use the <a class='link' href='../http/ServerWebSocket.type.html#headers' title='Go to io.vertx.ceylon.core.http::ServerWebSocket.headers'>ServerWebSocket.headers</a> method to retrieve the headers passed in the Http Request
+from the client that caused the upgrade to websockets.</p>
+<h4>WebSockets on the HTTP client</h4>
+<p>To use WebSockets from the HTTP client, you create the HTTP client as normal, then call the
+<a class='link' href='../http/HttpClient.type.html#connectWebsocket' title='Go to io.vertx.ceylon.core.http::HttpClient.connectWebsocket'>HttpClient.connectWebsocket</a> function, passing in the URI that you wish to connect to at the
+server, and a handler.</p>
+<p>The handler will then get called if the WebSocket successfully connects. If the WebSocket does not
+connect - perhaps the server rejects it - then any exception handler on the HTTP client will be called.</p>
+<p>Here's an example of WebSocket connection:</p>
+<pre>value client = vertx.createHttpClient();
+client.host = "foo.com";
+
+client.connectWebsocket("/some-uri", (WebSocket ws) =&gt; print("Connected!) });
+</pre>
+<p>Note that the host (and port) is set on the <a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a> instance, and the uri passed in the connect is
+<em>typically</em> a relative URI.</p>
+<p>Again, the client side WebSocket implements <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a> and <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a>,
+so you can read and write to it in the same way as any other stream object.</p>
+<h4>WebSockets in the browser</h4>
+<p>To use WebSockets from a compliant browser, you use the standard WebSocket API. Here's some example
+client side JavaScript which uses a WebSocket.</p>
+<pre>&lt;script&gt;
+
+  var socket = new WebSocket("ws://foo.com/services/echo");
+
+  socket.onmessage = function(event) {
+    alert("Received data from websocket: " + event.data);
+  }
+
+  socket.onopen = function(event) {
+    alert("Web Socket opened");
+    socket.send("Hello World");
+  };
+
+  socket.onclose = function(event) {
+    alert("Web Socket closed");
+  };
+
+&lt;/script&gt;
+</pre>
+<p>For more information see the <a href="http://dev.w3.org/html5/websockets/">WebSocket API documentation</a></p>
+</div><div class='by section'><span class='title'>By: </span><span class='value'>Julien Viet</span></div></div><table id='section-attributes' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Values</td></tr></thead><tbody><tr><td id='HYBI_00' nowrap><i class='icon-shared-member'></i>HYBI_00</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HYBI_00'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HYBI_00.object.html' title='Go to io.vertx.ceylon.core.http::HYBI_00'>HYBI_00</a> HYBI_00</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='HYBI_08' nowrap><i class='icon-shared-member'></i>HYBI_08</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HYBI_08'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HYBI_08.object.html' title='Go to io.vertx.ceylon.core.http::HYBI_08'>HYBI_08</a> HYBI_08</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='RFC6455' nowrap><i class='icon-shared-member'></i>RFC6455</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#RFC6455'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/RFC6455.object.html' title='Go to io.vertx.ceylon.core.http::RFC6455'>RFC6455</a> RFC6455</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='binaryBody' nowrap><i class='icon-shared-member'></i>binaryBody</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#binaryBody'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/binaryBody.object.html' title='Go to io.vertx.ceylon.core.http::binaryBody'>binaryBody</a> binaryBody</div><div class='description'><div class='doc section'><p>Binary body type</p>
+</div></div></td></tr><tr><td id='binaryFrame' nowrap><i class='icon-shared-member'></i>binaryFrame</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#binaryFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/binaryFrame.object.html' title='Go to io.vertx.ceylon.core.http::binaryFrame'>binaryFrame</a> binaryFrame</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='closeFrame' nowrap><i class='icon-shared-member'></i>closeFrame</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#closeFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/closeFrame.object.html' title='Go to io.vertx.ceylon.core.http::closeFrame'>closeFrame</a> closeFrame</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='continuationFrame' nowrap><i class='icon-shared-member'></i>continuationFrame</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#continuationFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/continuationFrame.object.html' title='Go to io.vertx.ceylon.core.http::continuationFrame'>continuationFrame</a> continuationFrame</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='http_1_0' nowrap><i class='icon-shared-member'></i>http_1_0</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#http_1_0'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/http_1_0.object.html' title='Go to io.vertx.ceylon.core.http::http_1_0'>http_1_0</a> http_1_0</div><div class='description'><div class='doc section'><p>HTTP 1.0</p>
+</div></div></td></tr><tr><td id='http_1_1' nowrap><i class='icon-shared-member'></i>http_1_1</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#http_1_1'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/http_1_1.object.html' title='Go to io.vertx.ceylon.core.http::http_1_1'>http_1_1</a> http_1_1</div><div class='description'><div class='doc section'><p>HTTP 1.1</p>
+</div></div></td></tr><tr><td id='jsonBody' nowrap><i class='icon-shared-member'></i>jsonBody</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#jsonBody'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/jsonBody.object.html' title='Go to io.vertx.ceylon.core.http::jsonBody'>jsonBody</a> jsonBody</div><div class='description'><div class='doc section'><p>JSON body type</p>
+</div></div></td></tr><tr><td id='pingFrame' nowrap><i class='icon-shared-member'></i>pingFrame</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#pingFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/pingFrame.object.html' title='Go to io.vertx.ceylon.core.http::pingFrame'>pingFrame</a> pingFrame</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='pongFrame' nowrap><i class='icon-shared-member'></i>pongFrame</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#pongFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/pongFrame.object.html' title='Go to io.vertx.ceylon.core.http::pongFrame'>pongFrame</a> pongFrame</div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='textBody' nowrap><i class='icon-shared-member'></i>textBody</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#textBody'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/textBody.object.html' title='Go to io.vertx.ceylon.core.http::textBody'>textBody</a> textBody</div><div class='description'><div class='doc section'><p>Text body type</p>
+</div></div></td></tr><tr><td id='textFrame' nowrap><i class='icon-shared-member'></i>textFrame</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#textFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/textFrame.object.html' title='Go to io.vertx.ceylon.core.http::textFrame'>textFrame</a> textFrame</div><div class='description'><div class='doc section'></div></div></td></tr></tbody></table><table id='section-methods' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Functions</td></tr></thead><tbody><tr><td id='findBody' nowrap><i class='icon-shared-member'></i>findBody</td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#findBody'><i class='icon-link'></i></a><a id='findBody-mimeType'></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/BodyType.type.html' title='Go to io.vertx.ceylon.core.http::BodyType'>BodyType</a>&lt;<span title='ceylon.language::Anything'>Anything</span>&gt; findBody(<span title='ceylon.language::String'>String</span> mimeType)</div><div class='description'><div class='doc section'><p>Find a body type for the specified mime type</p>
+</div></div></td></tr></tbody></table><table id='section-interfaces' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Interfaces</td></tr></thead><tbody><tr><td id='BodyType' nowrap><i class='icon-interface'></i><a class='link-discreet' href='../http/BodyType.type.html'>BodyType</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#BodyType'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/BodyType.type.html' title='Go to io.vertx.ceylon.core.http::BodyType'>BodyType</a>&lt;<span class='type-parameter-keyword'>out </span><span class='type-parameter'>Body</span>&gt;</div><div class='description'><div class='doc section'><p>The type of an input body, this interface allows to parse the body of a stream plugable</p>
+</div></div></td></tr></tbody></table><table id='section-classes' class='table table-condensed table-bordered table-hover'><thead><tr class='table-header' title='Click for expand/collapse'><td colspan='2'><i class='icon-expand'></i>Classes</td></tr></thead><tbody><tr><td id='FrameType' nowrap><i class='icon-class'><i class='icon-decoration-abstract'><i class='icon-decoration-enumerated'></i></i></i><a class='link-discreet' href='../http/FrameType.type.html'>FrameType</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#FrameType'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared abstract</span> <a class='link' href='../http/FrameType.type.html' title='Go to io.vertx.ceylon.core.http::FrameType'>FrameType</a></div><div class='description'><div class='doc section'><p>List of all frame types.</p>
+</div></div></td></tr><tr><td id='HYBI_00' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/HYBI_00.object.html'>HYBI_00</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HYBI_00'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HYBI_00.object.html' title='Go to io.vertx.ceylon.core.http::HYBI_00'>HYBI_00</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='HYBI_08' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/HYBI_08.object.html'>HYBI_08</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HYBI_08'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HYBI_08.object.html' title='Go to io.vertx.ceylon.core.http::HYBI_08'>HYBI_08</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='HttpClient' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpClient.type.html'>HttpClient</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpClient'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a></div><div class='description'><div class='doc section'><p>An HTTP client that maintains a pool of connections to a specific host, at a specific port. The client supports
+pipelining of requests.</p>
+<p>If an instance is instantiated from an event loop then the handlers of the instance will always be called on that
+same event loop. If an instance is instantiated from some other arbitrary Java thread (i.e. when running embedded)
+then and event loop will be assigned to the instance and used when any of its handlers are called.</p>
+<p>Instances of HttpClient are thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpClientRequest' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpClientRequest.type.html'>HttpClientRequest</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpClientRequest'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpClientRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpClientRequest'>HttpClientRequest</a></div><div class='description'><div class='doc section'><p>Represents a client-side HTTP request.</p>
+<p>Instances are created by an <a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a> instance, via one of the methods corresponding to the
+specific HTTP methods, or the generic <code>request</code> method. Once a request has been obtained, headers can be set on
+it, and data can be written to its body if required. Once you are ready to send the request, the <code>end()</code> method
+should be called.</p>
+<p>Nothing is actually sent until the request has been internally assigned an HTTP connection. The <a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a>
+instance will return an instance of this class immediately, even if there are no HTTP connections available
+in the pool. Any requests sent before a connection is assigned will be queued internally and actually sent
+when an HTTP connection becomes available from the pool.</p>
+<p>The headers of the request are actually sent either when the <code>end()</code> method is called, or, when the first
+part of the body is written, whichever occurs first.</p>
+<p>This class supports both chunked and non-chunked HTTP.</p>
+<p>An example of using this class is as follows:</p>
+<pre>HttpClientRequest req = client.
+  request(post, "/some-url").
+  headers { "some-header"-&gt;"hello", "Content-Length"-&gt;"5" };
+req.response.onComplete((HttpClientResponse resp) =&gt; print("Got response ``resp.status``"));
+req.end("hello");
+</pre>
+<p>Instances of HttpClientRequest are not thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpClientResponse' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpClientResponse.type.html'>HttpClientResponse</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpClientResponse'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpClientResponse.type.html' title='Go to io.vertx.ceylon.core.http::HttpClientResponse'>HttpClientResponse</a></div><div class='description'><div class='doc section'><p>Represents a client-side HTTP response. Instances of this class are not thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpInput' nowrap><i class='icon-class'><i class='icon-decoration-abstract'></i></i><a class='link-discreet' href='../http/HttpInput.type.html'>HttpInput</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpInput'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared abstract</span> <a class='link' href='../http/HttpInput.type.html' title='Go to io.vertx.ceylon.core.http::HttpInput'>HttpInput</a></div><div class='description'><div class='doc section'><p>Provides access for reading the http headers and the body of an <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerRequest'>HttpServerRequest</a> or an <a class='link' href='../http/HttpClientResponse.type.html' title='Go to io.vertx.ceylon.core.http::HttpClientResponse'>HttpClientResponse</a>.</p>
+</div></div></td></tr><tr><td id='HttpOutput' nowrap><i class='icon-class'><i class='icon-decoration-abstract'></i></i><a class='link-discreet' href='../http/HttpOutput.type.html'>HttpOutput</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpOutput'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared abstract</span> <a class='link' href='../http/HttpOutput.type.html' title='Go to io.vertx.ceylon.core.http::HttpOutput'>HttpOutput</a>&lt;<span class='type-parameter'>O</span>&gt;</div><div class='description'><div class='doc section'><p>Provides access for writing the headers and  content of an
+<a class='link' href='../http/HttpClientRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpClientRequest'>HttpClientRequest</a> or an <a class='link' href='../http/HttpServerResponse.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerResponse'>HttpServerResponse</a>.</p>
+</div></div></td></tr><tr><td id='HttpServer' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServer.type.html'>HttpServer</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServer'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServer.type.html' title='Go to io.vertx.ceylon.core.http::HttpServer'>HttpServer</a></div><div class='description'><div class='doc section'><p>An HTTP and WebSockets server</p>
+<p>If an instance is instantiated from an event loop then the handlers of the instance will
+always be called on that same event loop. If an instance is instantiated from some other
+arbitrary Java thread then an event loop will be assigned to the instance and used when
+any of its handlers are called.</p>
+<p>Instances of HttpServer are thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpServerFileUpload' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServerFileUpload.type.html'>HttpServerFileUpload</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServerFileUpload'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServerFileUpload.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerFileUpload'>HttpServerFileUpload</a></div><div class='description'><div class='doc section'><p>Represents an upload from an HTML form.</p>
+</div></div></td></tr><tr><td id='HttpServerRequest' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServerRequest.type.html'>HttpServerRequest</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServerRequest'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerRequest'>HttpServerRequest</a></div><div class='description'><div class='doc section'><p>Represents a server-side HTTP request. Each instance of this class is associated with a corresponding
+<a class='link' href='../http/HttpServerResponse.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerResponse'>HttpServerResponse</a> instance via the <code>response</code> field. Instances of this class are not thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpServerResponse' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/HttpServerResponse.type.html'>HttpServerResponse</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpServerResponse'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/HttpServerResponse.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerResponse'>HttpServerResponse</a></div><div class='description'><div class='doc section'><p>Represents a server-side HTTP response. Instances of this class are created and associated to every instance of
+<a class='link' href='../http/HttpServerRequest.type.html' title='Go to io.vertx.ceylon.core.http::HttpServerRequest'>HttpServerRequest</a> that is created. It allows the developer to control the HTTP response that is sent back to the
+client for a particular HTTP request. It contains methods that allow HTTP  headers and trailers to be set, and
+for a body to be written out to the response.</p>
+<p>Instances of this class are not thread-safe.</p>
+</div></div></td></tr><tr><td id='HttpVersion' nowrap><i class='icon-class'><i class='icon-decoration-abstract'><i class='icon-decoration-enumerated'></i></i></i><a class='link-discreet' href='../http/HttpVersion.type.html'>HttpVersion</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#HttpVersion'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared abstract</span> <a class='link' href='../http/HttpVersion.type.html' title='Go to io.vertx.ceylon.core.http::HttpVersion'>HttpVersion</a></div><div class='description'><div class='doc section'><p>The HTTP version</p>
+</div></div></td></tr><tr><td id='RFC6455' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/RFC6455.object.html'>RFC6455</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#RFC6455'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/RFC6455.object.html' title='Go to io.vertx.ceylon.core.http::RFC6455'>RFC6455</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='RouteMatcher' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/RouteMatcher.type.html'>RouteMatcher</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#RouteMatcher'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/RouteMatcher.type.html' title='Go to io.vertx.ceylon.core.http::RouteMatcher'>RouteMatcher</a></div><div class='description'><div class='doc section'><p>This class allows you to do route requests based on the HTTP verb and the request URI, in a manner similar
+to <a href="http://www.sinatrarb.com/">Sinatra</a> or <a href="http://expressjs.com/">Express</a>.</p>
+<p>RouteMatcher also lets you extract paramaters from the request URI either a simple pattern or using
+regular expressions for more complex matches. Any parameters extracted will be added to the requests parameters
+which will be available to you in your request handler.</p>
+<p>It's particularly useful when writing REST-ful web applications.</p>
+<p>To use a simple pattern to extract parameters simply prefix the parameter name in the pattern with a ':' (colon).</p>
+<p>Different handlers can be specified for each of the HTTP verbs, GET, POST, PUT, DELETE etc.
+For more complex matches regular expressions can be used in the pattern. When regular expressions are used, the extracted
+parameters do not have a name, so they are put into the HTTP request with names of param0, param1, param2 etc.</p>
+<p>Multiple matches can be specified for each HTTP verb. In the case there are more than one matching patterns for
+a particular request, the first matching one will be used.</p>
+<p>Instances of this class are not thread-safe</p>
+</div></div></td></tr><tr><td id='ServerWebSocket' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/ServerWebSocket.type.html'>ServerWebSocket</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#ServerWebSocket'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/ServerWebSocket.type.html' title='Go to io.vertx.ceylon.core.http::ServerWebSocket'>ServerWebSocket</a></div><div class='description'><div class='doc section'><p>Represents a server side WebSocket that is passed into a the websocketHandler of an <a class='link' href='../http/HttpServer.type.html' title='Go to io.vertx.ceylon.core.http::HttpServer'>HttpServer</a></p>
+<p>Instances of this class are not thread-safe</p>
+</div></div></td></tr><tr><td id='WebSocket' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/WebSocket.type.html'>WebSocket</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#WebSocket'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/WebSocket.type.html' title='Go to io.vertx.ceylon.core.http::WebSocket'>WebSocket</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='WebSocketBase' nowrap><i class='icon-class'><i class='icon-decoration-abstract'></i></i><a class='link-discreet' href='../http/WebSocketBase.type.html'>WebSocketBase</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#WebSocketBase'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared abstract</span> <a class='link' href='../http/WebSocketBase.type.html' title='Go to io.vertx.ceylon.core.http::WebSocketBase'>WebSocketBase</a></div><div class='description'><div class='doc section'><p>Represents an HTML 5 Websocket</p>
+<p>Instances of this class are created and provided to the handler of an
+<a class='link' href='../http/HttpClient.type.html' title='Go to io.vertx.ceylon.core.http::HttpClient'>HttpClient</a> when a successful websocket connect attempt occurs.</p>
+<p>On the server side, the subclass <a class='link' href='../http/ServerWebSocket.type.html' title='Go to io.vertx.ceylon.core.http::ServerWebSocket'>ServerWebSocket</a> is used instead.</p>
+<p>It provides access to both <a class='link' href='../stream/ReadStream.type.html' title='Go to io.vertx.ceylon.core.stream::ReadStream'>io.vertx.ceylon.core.stream::ReadStream</a> and <a class='link' href='../stream/WriteStream.type.html' title='Go to io.vertx.ceylon.core.stream::WriteStream'>io.vertx.ceylon.core.stream::WriteStream</a> so
+it can be used with <a class='link' href='../stream/Pump.type.html' title='Go to io.vertx.ceylon.core.stream::Pump'>io.vertx.ceylon.core.stream::Pump</a> to pump data with flow control.</p>
+<p>Instances of this class are not thread-safe</p>
+</div></div></td></tr><tr><td id='WebSocketFrame' nowrap><i class='icon-class'></i><a class='link-discreet' href='../http/WebSocketFrame.type.html'>WebSocketFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#WebSocketFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/WebSocketFrame.type.html' title='Go to io.vertx.ceylon.core.http::WebSocketFrame'>WebSocketFrame</a></div><div class='description'><div class='doc section'><p>A Web Socket frame that represents either text or binary data.</p>
+</div></div></td></tr><tr><td id='WebSocketVersion' nowrap><i class='icon-class'><i class='icon-decoration-abstract'><i class='icon-decoration-enumerated'></i></i></i><a class='link-discreet' href='../http/WebSocketVersion.type.html'>WebSocketVersion</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#WebSocketVersion'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared abstract</span> <a class='link' href='../http/WebSocketVersion.type.html' title='Go to io.vertx.ceylon.core.http::WebSocketVersion'>WebSocketVersion</a></div><div class='description'><div class='doc section'><p>Represents the version of the WebSockets specification</p>
+</div></div></td></tr><tr><td id='binaryBody' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/binaryBody.object.html'>binaryBody</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#binaryBody'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/binaryBody.object.html' title='Go to io.vertx.ceylon.core.http::binaryBody'>binaryBody</a></div><div class='description'><div class='doc section'><p>Binary body type</p>
+</div></div></td></tr><tr><td id='binaryFrame' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/binaryFrame.object.html'>binaryFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#binaryFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/binaryFrame.object.html' title='Go to io.vertx.ceylon.core.http::binaryFrame'>binaryFrame</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='closeFrame' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/closeFrame.object.html'>closeFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#closeFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/closeFrame.object.html' title='Go to io.vertx.ceylon.core.http::closeFrame'>closeFrame</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='continuationFrame' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/continuationFrame.object.html'>continuationFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#continuationFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/continuationFrame.object.html' title='Go to io.vertx.ceylon.core.http::continuationFrame'>continuationFrame</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='http_1_0' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/http_1_0.object.html'>http_1_0</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#http_1_0'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/http_1_0.object.html' title='Go to io.vertx.ceylon.core.http::http_1_0'>http_1_0</a></div><div class='description'><div class='doc section'><p>HTTP 1.0</p>
+</div></div></td></tr><tr><td id='http_1_1' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/http_1_1.object.html'>http_1_1</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#http_1_1'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/http_1_1.object.html' title='Go to io.vertx.ceylon.core.http::http_1_1'>http_1_1</a></div><div class='description'><div class='doc section'><p>HTTP 1.1</p>
+</div></div></td></tr><tr><td id='jsonBody' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/jsonBody.object.html'>jsonBody</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#jsonBody'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/jsonBody.object.html' title='Go to io.vertx.ceylon.core.http::jsonBody'>jsonBody</a></div><div class='description'><div class='doc section'><p>JSON body type</p>
+</div></div></td></tr><tr><td id='pingFrame' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/pingFrame.object.html'>pingFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#pingFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/pingFrame.object.html' title='Go to io.vertx.ceylon.core.http::pingFrame'>pingFrame</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='pongFrame' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/pongFrame.object.html'>pongFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#pongFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/pongFrame.object.html' title='Go to io.vertx.ceylon.core.http::pongFrame'>pongFrame</a></div><div class='description'><div class='doc section'></div></div></td></tr><tr><td id='textBody' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/textBody.object.html'>textBody</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#textBody'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/textBody.object.html' title='Go to io.vertx.ceylon.core.http::textBody'>textBody</a></div><div class='description'><div class='doc section'><p>Text body type</p>
+</div></div></td></tr><tr><td id='textFrame' nowrap><i class='icon-object'></i><a class='link-discreet' href='../http/textFrame.object.html'>textFrame</a></td><td><a class='link-one-self' title='Link to this declaration' href='../http/index.html#textFrame'><i class='icon-link'></i></a><div class='signature'><span class='modifiers'>shared</span> <a class='link' href='../http/textFrame.object.html' title='Go to io.vertx.ceylon.core.http::textFrame'>textFrame</a></div><div class='description'><div class='doc section'></div></div></td></tr></tbody></table></div><script type='text/javascript'>var resourceBaseUrl = '../.resources/'</script><script type='text/javascript' src='../.resources/jquery-1.8.2.min.js'></script><script type='text/javascript' src='../.resources/bootstrap.min.js'></script><script type='text/javascript' src='../.resources/shCore.js'></script><script type='text/javascript' src='../.resources/shAutoloader.js'></script><script type='text/javascript' src='../.resources/shBrushCeylon.js'></script><script type='text/javascript' src='../.resources/index.js'></script><script type='text/javascript' src='../.resources/ceylondoc.js'></script><script type='text/javascript'>jQuery('html').keypress(function(evt){
+  evt = evt || window.event;
+  var keyCode = evt.keyCode || evt.which;
+  if( !evt.ctrlKey && !evt.altKey ) {
+    if (keyCode == 63) {
+      $('#infoDropdown > .dropdown-toggle').click();
+    }
+    if(keyCode == 102){
+      document.location = '#section-methods';
+    }
+    if(keyCode == 118){
+      document.location = '#section-attributes';
+    }
+    if(keyCode == 115){
+      document.location = '../search.html';
+    }
+    if(keyCode == 99){
+      document.location = '#section-classes';
+    }
+    if(keyCode == 97){
+      document.location = '#section-attributes';
+    }
+    if(keyCode == 112){
+      document.location = 'index.html';
+    }
+    if(keyCode == 111){
+      document.location = '../index.html';
+    }
+    if(keyCode == 109){
+      document.location = '#section-methods';
+    }
+    if(keyCode == 105){
+      document.location = '#section-interfaces';
+    }
+  }
+});
+enableInfoKeybordShortcut('\\?');
+enableInfoKeybordShortcut('f');
+enableInfoKeybordShortcut('v');
+enableInfoKeybordShortcut('s');
+enableInfoKeybordShortcut('c');
+enableInfoKeybordShortcut('a');
+enableInfoKeybordShortcut('p');
+enableInfoKeybordShortcut('o');
+enableInfoKeybordShortcut('m');
+enableInfoKeybordShortcut('i');
+</script></body></html>
