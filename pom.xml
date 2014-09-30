@@ -2,15 +2,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
   <packaging>jar</packaging>
-
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>vietj</groupId>
+  <groupId>io.vertx</groupId>
   <artifactId>lang-ceylon</artifactId>
   <version>1.0.0-beta2-SNAPSHOT</version>
-
+  <name>mod-lang-ceylon</name>
+  <inceptionYear>2014</inceptionYear>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>vietj</id>
+      <name>Julien Viet</name>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/vert-x/mod-lang-ceylon</url>
+  </scm>
   <properties>
     <!-- Can be overriden from command line -->
     <!--<system.repo>${env.CEYLON_HOME}/repo</system.repo>-->
