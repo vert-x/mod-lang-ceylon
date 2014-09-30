@@ -160,8 +160,8 @@ This module will be resolved in the default module repository of the platform. T
 
 - build a snapshot of Ceylon 1.1: instructions here https://github.com/ceylon/ceylon-dist
 - deploy a snapshot of the Vert.x Api for Ceylon in your local Ceylon repository
-    - checkout https://github.com/vietj/ceylon-vertx
+    - checkout [the project](https://github.com/vietj/ceylon-vertx)
     - `ant install`
 - deploy a snapshot of the Ceylon lang module for Vert.x in your Maven repository
-    - mvn install
+    - `mvn install`
 
