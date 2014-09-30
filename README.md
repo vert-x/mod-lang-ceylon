@@ -3,8 +3,8 @@
 ## Documentation
 
 - [Official Vert.x documentation](http://vertx.io/docs.html)
-- [`io.vertx.ceylon.core` module](http://www.julienviet.com/mod-lang-ceylon/core/)
-- [`io.vertx.ceylon.platform` module](http://www.julienviet.com/mod-lang-ceylon/platform/)
+- [`io.vertx.ceylon.core` module](http://vertx.io/mod-lang-ceylon/core/)
+- [`io.vertx.ceylon.platform` module](http://vertx.io/mod-lang-ceylon/platform/)
 
 ## Installation
 
@@ -49,16 +49,14 @@ Run it with the `vertx` command:
 
 ~~~~
 % vertx run HelloWorldServer.ceylon
-Downloading io.vertx~lang-ceylon~1.0.0-beta2. Please wait...
-Downloading 100%
 Module io.vertx~lang-ceylon~1.0.0-beta2 successfully installed
-Create temporary source path /var/folders/87/1zztskkd20s8hqvkbn5dy0l00000gn/T/vertx4242384732878054860ceylon for /Users/julien/HelloWorldServer.ceylon
+Create temporary source path /var/folders/79/mjy6k9xs6l74_cf_zjg8klgc0000gn/T/vertx4695595712845187618ceylon for /Users/julien/java/mod-lang-ceylon/src/examples/ceylon/examples/httphelloworld/HelloWorldServer.ceylon
 Compiled module app/1.0.0
 Succeeded in deploying verticle
 ~~~~
 
-You can download more [examples](http://www.julienviet.com/mod-lang-ceylon/lang-ceylon-1.0.0-beta1-examples.zip) or view them
-[here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/test/resources/examples).
+You can download more [examples](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.0-beta2/lang-ceylon-1.0.0-beta2-examples.zip) or view them
+[here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/examples/ceylon/examples).
 
 ### from a Ceylon module containing a Verticle
 
@@ -153,7 +151,6 @@ This module will be resolved in the default module repository of the platform. T
 
 ## Todo
 
-- Sanitize the mod-zip and keep only jars in vertx-repo
 - Allow to resolve maven repositories ?
 - test a module deployed in a repository
 - allow to have module imports for ceylon script deployment
