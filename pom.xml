@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
@@ -13,7 +11,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>lang-ceylon</artifactId>
-  <version>1.0.0-beta2-SNAPSHOT</version>
+  <version>1.0.0-beta2</version>
   <name>mod-lang-ceylon</name>
   <inceptionYear>2014</inceptionYear>
   <licenses>
@@ -244,17 +242,17 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <property environment="env"/>
-                <property name="ceylon.home" value="${env.CEYLON_HOME}"/>
-                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
-                <property name="source.encoding" value="UTF-8"/>
-                <property name="source.version" value="0.4.0"/>
+                <property environment="env" />
+                <property name="ceylon.home" value="${env.CEYLON_HOME}" />
+                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar" />
+                <property name="source.encoding" value="UTF-8" />
+                <property name="source.version" value="0.4.0" />
                 <path id="ant-tasks">
-                  <pathelement location="${ceylon.ant.lib}"/>
+                  <pathelement location="${ceylon.ant.lib}" />
                 </path>
-                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
                 <ceylon-compile src="src/main/ceylon" out="${project.build.directory}/vertx-repo/" encoding="${source.encoding}" verbose="false">
-                  <module name="io.vertx.ceylon.platform"/>
+                  <module name="io.vertx.ceylon.platform" />
                 </ceylon-compile>
               </target>
             </configuration>
@@ -268,12 +266,12 @@
             <configuration>
               <target>
                 <exec executable="ceylon">
-                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/0.4.0 ceylon.logging/1.1.0"/>
+                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/0.4.0 ceylon.logging/1.1.0" />
                 </exec>
                 <copy todir="target/system-repo" flatten="true">
                   <fileset dir="target/vertx-repo">
-                    <include name="**/*.car"/>
-                    <exclude name="io/vertx/ceylon/**"/>
+                    <include name="**/*.car" />
+                    <exclude name="io/vertx/ceylon/**" />
                   </fileset>
                 </copy>
               </target>
@@ -287,20 +285,20 @@
             <phase>pre-integration-test</phase>
             <configuration>
               <target>
-                <property environment="env"/>
-                <property name="ceylon.home" value="${env.CEYLON_HOME}"/>
-                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
-                <property name="source.encoding" value="UTF-8"/>
-                <property name="source.version" value="0.4.0"/>
+                <property environment="env" />
+                <property name="ceylon.home" value="${env.CEYLON_HOME}" />
+                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar" />
+                <property name="source.encoding" value="UTF-8" />
+                <property name="source.version" value="0.4.0" />
                 <path id="ant-tasks">
-                  <pathelement location="${ceylon.ant.lib}"/>
+                  <pathelement location="${ceylon.ant.lib}" />
                 </path>
-                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
                 <ceylon-compile src="src/test/resources" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
-                  <!--<rep url="target/modules/"/>-->
-                  <rep url="target/vertx-repo/"/>
-                  <module name="lifecycleverticle"/>
-                  <module name="deployerverticle"/>
+                  <!--<rep url="target/modules/" />-->
+                  <rep url="target/vertx-repo/" />
+                  <module name="lifecycleverticle" />
+                  <module name="deployerverticle" />
                 </ceylon-compile>
               </target>
             </configuration>
@@ -313,35 +311,35 @@
             <phase>verify</phase>
             <configuration>
               <target>
-                <property environment="env"/>
-                <property name="ceylon.home" value="${env.CEYLON_HOME}"/>
-                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
-                <property name="source.encoding" value="UTF-8"/>
-                <property name="source.version" value="0.4.0"/>
+                <property environment="env" />
+                <property name="ceylon.home" value="${env.CEYLON_HOME}" />
+                <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar" />
+                <property name="source.encoding" value="UTF-8" />
+                <property name="source.version" value="0.4.0" />
                 <path id="ant-tasks">
-                  <pathelement location="${ceylon.ant.lib}"/>
+                  <pathelement location="${ceylon.ant.lib}" />
                 </path>
-                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+                <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
                 <ceylon-compile src="src/examples/ceylon" out="${project.build.directory}/modules/" encoding="${source.encoding}" verbose="false">
-                  <rep url="target/vertx-repo"/>
-                  <module name="examples.asyncstart"/>
-                  <module name="examples.echo"/>
-                  <module name="examples.eventbus_pointtopoint"/>
-                  <module name="examples.eventbus_pubsub"/>
-                  <module name="examples.eventbusbridge"/>
-                  <module name="examples.fanout"/>
-                  <module name="examples.http"/>
-                  <module name="examples.httphelloworld"/>
-                  <module name="examples.https"/>
-                  <module name="examples.proxyserver"/>
-                  <module name="examples.route_match"/>
-                  <module name="examples.sendfile"/>
-                  <module name="examples.simpleform"/>
-                  <module name="examples.simpleformupload"/>
-                  <module name="examples.sockjs"/>
-                  <module name="examples.ssl"/>
-                  <module name="examples.upload"/>
-                  <module name="examples.websockets"/>
+                  <rep url="target/vertx-repo" />
+                  <module name="examples.asyncstart" />
+                  <module name="examples.echo" />
+                  <module name="examples.eventbus_pointtopoint" />
+                  <module name="examples.eventbus_pubsub" />
+                  <module name="examples.eventbusbridge" />
+                  <module name="examples.fanout" />
+                  <module name="examples.http" />
+                  <module name="examples.httphelloworld" />
+                  <module name="examples.https" />
+                  <module name="examples.proxyserver" />
+                  <module name="examples.route_match" />
+                  <module name="examples.sendfile" />
+                  <module name="examples.simpleform" />
+                  <module name="examples.simpleformupload" />
+                  <module name="examples.sockjs" />
+                  <module name="examples.ssl" />
+                  <module name="examples.upload" />
+                  <module name="examples.websockets" />
                 </ceylon-compile>
               </target>
             </configuration>
