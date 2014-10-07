@@ -222,7 +222,6 @@ public class CeylonVerticle extends Verticle {
       verticle.setVertx(vertx);
     } catch (Exception e) {
       if (e instanceof InvocationTargetException) {
-        e.printStackTrace();
         startedResult.setFailure(e.getCause());
       } else {
         startedResult.setFailure(e);
