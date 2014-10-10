@@ -1,5 +1,10 @@
-import io.vertx.ceylon.core { Vertx }
-import ceylon.promise { Promise, Deferred }
+import io.vertx.ceylon.core {
+  Vertx
+}
+import ceylon.promise {
+  Promise,
+  Deferred
+}
 
 """A verticle is the unit of execution in the Vert.x platform
    Vert.x code is packaged into Verticle's and then deployed and executed by the Vert.x platform.
@@ -17,10 +22,10 @@ shared abstract class Verticle() {
     }
     return deferred.promise;
   }
-
+  
   shared default void start(Vertx vertx, Container container) {
   }
-
+  
   shared default void stop() {
   }
 }

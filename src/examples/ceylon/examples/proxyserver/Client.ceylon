@@ -19,16 +19,16 @@ shared class Client() extends Verticle() {
       port = 8080;
       host = "localhost";
     }.put("/some-url");
-    req.response.onComplete(void (HttpClientResponse resp) {
-      resp.stream.dataHandler(void (Buffer buffer) {
-        print("Got response data:``buffer``");
+    req.response.onComplete(void(HttpClientResponse resp) {
+        resp.stream.dataHandler(void(Buffer buffer) {
+            print("Got response data:``buffer``");
+          });
       });
-    });
     //Write a few chunks
     req.chunked = true;
     for (i in 0..10) {
       req.write("client-data-chunk-``i``");
     }
     req.end();
-  }  
+  }
 }

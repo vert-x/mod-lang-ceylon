@@ -15,9 +15,7 @@ shared class Sender() extends Verticle() {
     vertx.setPeriodic {
       delay = 1000;
       void handle(Integer timerId) {
-        vertx.eventBus.
-            send<String>("ping-address", "ping!").
-            onComplete((Message<String> msg) => print("Received reply: ``msg.body``"));
+        vertx.eventBus.send<String>("ping-address", "ping!").onComplete((Message<String> msg) => print("Received reply: ``msg.body``"));
       }
     };
   }

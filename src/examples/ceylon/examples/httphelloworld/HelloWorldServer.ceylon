@@ -11,9 +11,9 @@ import io.vertx.ceylon.core.http {
 shared class HelloWorldServer() extends Verticle() {
   
   shared actual void start(Vertx vertx, Container container) {
-    vertx.createHttpServer().requestHandler(void (HttpServerRequest req) {
-      req.response.headers { "Content-Type" -> "text/plain" };
-      req.response.end("Hello World");
-    }).listen(8080);
-  }  
+    vertx.createHttpServer().requestHandler(void(HttpServerRequest req) {
+        req.response.headers { "Content-Type"->"text/plain" };
+        req.response.end("Hello World");
+      }).listen(8080);
+  }
 }

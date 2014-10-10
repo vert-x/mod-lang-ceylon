@@ -8,7 +8,10 @@ import io.vertx.ceylon.core {
 import io.vertx.ceylon.core.http {
   HttpServerRequest
 }
-import ceylon.json { Array, Object }
+import ceylon.json {
+  Array,
+  Object
+}
 import ceylon.promise {
   Deferred
 }
@@ -23,13 +26,13 @@ shared class BridgeServer() extends Verticle() {
     value server = vertx.createHttpServer();
     
     // Also serve the static resources. In real life this would probably be done by a CDN
-    server.requestHandler(void (HttpServerRequest req) {
-      if (req.path == "/") {
-        req.response.sendFile("eventbusbridge/index.html"); // Serve the index.html
-      } else if (req.path == "/vertxbus.js") {
-        req.response.sendFile("eventbusbridge/vertxbus.js"); // Serve the js
-      }
-    });
+    server.requestHandler(void(HttpServerRequest req) {
+        if (req.path == "/") {
+          req.response.sendFile("eventbusbridge/index.html"); // Serve the index.html
+        } else if (req.path == "/vertxbus.js") {
+          req.response.sendFile("eventbusbridge/vertxbus.js"); // Serve the js
+        }
+      });
     
     value permitted = Array();
     permitted.add(Object()); // Let everything through
@@ -39,7 +42,7 @@ shared class BridgeServer() extends Verticle() {
     sockJSServer.setHook(hook);
     sockJSServer.bridge(Object { "prefix"->"/eventbus" }, permitted, permitted);
     
-    server.listen(8080);    
+    server.listen(8080);
   }
   
   class ServerHook() satisfies EventBusBridgeHook {
@@ -84,4 +87,3 @@ shared class BridgeServer() extends Verticle() {
     }
   }
 }
-

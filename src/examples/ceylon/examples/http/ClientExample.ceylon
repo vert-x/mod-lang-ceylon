@@ -6,7 +6,8 @@ import io.vertx.ceylon.core {
   Vertx
 }
 import io.vertx.ceylon.core.http {
-  HttpClientResponse, textBody
+  HttpClientResponse,
+  textBody
 }
 shared class ClientExample() extends Verticle() {
   
@@ -14,9 +15,6 @@ shared class ClientExample() extends Verticle() {
     vertx.createHttpClient {
       port = 8080;
       host = "localhost";
-    }.get("/").end().
-        response.
-        compose<String>((HttpClientResponse resp) => resp.parseBody(textBody)).
-        onComplete(print);
+    }.get("/").end().response.compose<String>((HttpClientResponse resp) => resp.parseBody(textBody)).onComplete(print);
   }
 }

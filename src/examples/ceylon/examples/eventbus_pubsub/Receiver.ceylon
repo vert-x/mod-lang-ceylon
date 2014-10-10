@@ -16,6 +16,6 @@ shared class Receiver() extends Verticle() {
       void onMessage(Message<String> msg) {
         print("Received news: ``msg.body``");
       }
-    }; 
-  }  
+    };
+  }
 }

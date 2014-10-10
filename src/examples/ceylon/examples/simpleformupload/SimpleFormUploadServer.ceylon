@@ -20,13 +20,13 @@ shared class SimpleFormUploadServer() extends Verticle() {
         } else if (req.uri.startsWith("/form")) {
           req.expectMultiPart(true);
           req.uploadHandler(
-            void (HttpServerFileUpload upload) {
-              upload.readStream.exceptionHandler(void (Throwable t) {
-                req.response.end("Upload failed");
-              });
-              upload.readStream.endHandler(void () {
-                req.response.end("Upload successful, you should see the file in the server directory");
-              });
+            void(HttpServerFileUpload upload) {
+              upload.readStream.exceptionHandler(void(Throwable t) {
+                  req.response.end("Upload failed");
+                });
+              upload.readStream.endHandler(void() {
+                  req.response.end("Upload successful, you should see the file in the server directory");
+                });
               upload.streamToFileSystem(upload.filename);
             }
           );

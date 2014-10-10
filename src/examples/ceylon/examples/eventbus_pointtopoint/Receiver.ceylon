@@ -17,6 +17,6 @@ shared class Receiver() extends Verticle() {
         print("Received message: ``msg.body``");
         msg.reply("pong!");
       }
-    }; 
-  }  
+    };
+  }
 }

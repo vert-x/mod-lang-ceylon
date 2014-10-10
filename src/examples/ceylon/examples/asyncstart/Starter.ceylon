@@ -1,6 +1,13 @@
-import io.vertx.ceylon.platform { Verticle, Container }
-import ceylon.promise { Promise }
-import io.vertx.ceylon.core { Vertx }
+import io.vertx.ceylon.platform {
+  Verticle,
+  Container
+}
+import ceylon.promise {
+  Promise
+}
+import io.vertx.ceylon.core {
+  Vertx
+}
 
 shared class Starter() extends Verticle() {
   

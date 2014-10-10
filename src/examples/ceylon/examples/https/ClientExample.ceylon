@@ -1,6 +1,13 @@
-import io.vertx.ceylon.platform { Verticle, Container }
-import io.vertx.ceylon.core { Vertx }
-import io.vertx.ceylon.core.http { HttpClientResponse }
+import io.vertx.ceylon.platform {
+  Verticle,
+  Container
+}
+import io.vertx.ceylon.core {
+  Vertx
+}
+import io.vertx.ceylon.core.http {
+  HttpClientResponse
+}
 
 shared class ClientExample() extends Verticle() {
   
@@ -12,7 +19,7 @@ shared class ClientExample() extends Verticle() {
     client.host = "localhost";
     value resp = client.get("/").end().response;
     resp.onComplete((HttpClientResponse resp) =>
-      resp.stream.dataHandler(print)
+        resp.stream.dataHandler(print)
     );
   }
 }
