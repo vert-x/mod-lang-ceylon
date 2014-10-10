@@ -3,8 +3,8 @@
 ## Documentation
 
 - [Official Vert.x documentation](http://vertx.io/docs.html)
-- [`io.vertx.ceylon.core` module](http://vertx.io/mod-lang-ceylon/core/)
-- [`io.vertx.ceylon.platform` module](http://vertx.io/mod-lang-ceylon/platform/)
+- [`io.vertx.ceylon.core` module](https://modules.ceylon-lang.org/modules/io.vertx.ceylon.core/1.0.0/doc)
+- [`io.vertx.ceylon.platform` module](https://modules.ceylon-lang.org/modules/io.vertx.ceylon.platform/1.0.0/doc)
 
 ## Installation
 
