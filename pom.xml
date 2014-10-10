@@ -35,7 +35,7 @@
   <properties>
     <!-- Can be overriden from command line -->
     <!--<system.repo>${env.CEYLON_HOME}/repo</system.repo>-->
-    <system.repo>/Users/julien/java/ceylon/ceylon-dist/dist/repo</system.repo>
+    <system.repo>/Users/julien/java/ceylon/ceylon-1.1.0/repo</system.repo>
   </properties>
 
   <dependencies>
@@ -246,7 +246,7 @@
                 <property name="ceylon.home" value="${env.CEYLON_HOME}" />
                 <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar" />
                 <property name="source.encoding" value="UTF-8" />
-                <property name="source.version" value="0.4.0" />
+                <property name="source.version" value="1.0.0" />
                 <path id="ant-tasks">
                   <pathelement location="${ceylon.ant.lib}" />
                 </path>
@@ -266,7 +266,7 @@
             <configuration>
               <target>
                 <exec executable="ceylon">
-                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/0.4.0 ceylon.logging/1.1.0" />
+                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/1.0.0 ceylon.logging/1.1.0" />
                 </exec>
                 <copy todir="target/system-repo" flatten="true">
                   <fileset dir="target/vertx-repo">
@@ -289,7 +289,7 @@
                 <property name="ceylon.home" value="${env.CEYLON_HOME}" />
                 <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar" />
                 <property name="source.encoding" value="UTF-8" />
-                <property name="source.version" value="0.4.0" />
+                <property name="source.version" value="1.0.0" />
                 <path id="ant-tasks">
                   <pathelement location="${ceylon.ant.lib}" />
                 </path>
@@ -315,7 +315,7 @@
                 <property name="ceylon.home" value="${env.CEYLON_HOME}" />
                 <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar" />
                 <property name="source.encoding" value="UTF-8" />
-                <property name="source.version" value="0.4.0" />
+                <property name="source.version" value="1.0.0" />
                 <path id="ant-tasks">
                   <pathelement location="${ceylon.ant.lib}" />
                 </path>

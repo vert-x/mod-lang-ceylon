@@ -69,7 +69,7 @@ Add a module descriptor `module.ceylon`:
 
 ~~~~
 module httpserververticle "1.0.0" {
-  shared import "io.vertx.ceylon" "0.4.0";
+  shared import "io.vertx.ceylon" "1.0.0";
 }
 ~~~~
 
@@ -109,7 +109,7 @@ import io.vertx.ceylon.platform { main }
 
 main(`class MainVerticle`)
 module myapp "1.0.0" {
-  shared import "io.vertx.ceylon.platform" "0.4.0";
+  shared import "io.vertx.ceylon.platform" "1.0.0";
 }
 ~~~~
 

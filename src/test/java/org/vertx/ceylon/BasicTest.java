@@ -68,7 +68,7 @@ public class BasicTest extends AbstractTest {
     RunnerOptions options = new RunnerOptions();
     options.addExtraModule("noopverticle", "1.0.0");
     options.addUserRepository(Helper.assertVertxRepo().getAbsolutePath());
-    JavaRunner runner = ceylon.runner(options, "io.vertx.ceylon.platform", "0.4.0");
+    JavaRunner runner = ceylon.runner(options, "io.vertx.ceylon.platform", "1.0.0");
     runner.run();
     ClassLoader loader = runner.getModuleClassLoader();
     Method findVerticlesMethod = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class, String.class);

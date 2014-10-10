@@ -122,7 +122,7 @@ public class CeylonVerticle extends Verticle {
           moduleSrc.createNewFile();
           Files.write(moduleSrc.toPath(), (
               "module app \"1.0.0\" {\n" +
-              "shared import io.vertx.ceylon.platform \"0.4.0\";\n" +
+              "shared import io.vertx.ceylon.platform \"1.0.0\";\n" +
               "}\n"
           ).getBytes());
           File packageSrc = new File(moduleDir, "package.ceylon");
@@ -203,7 +203,7 @@ public class CeylonVerticle extends Verticle {
         runnerOptions.addUserRepository(vertxRepo);
       }
       runnerOptions.setVerbose(verbose);
-      runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon.platform", "0.4.0");
+      runner = (JavaRunner) CeylonToolProvider.getRunner(Backend.Java, runnerOptions, "io.vertx.ceylon.platform", "1.0.0");
       ClassLoader loader = runner.getModuleClassLoader();
       Method introspector = loader.loadClass("io.vertx.ceylon.platform.findVerticles_").getDeclaredMethod("findVerticles", String.class, String.class);
       Map<String, Callable<Verticle>> factories = new LinkedHashMap<>();

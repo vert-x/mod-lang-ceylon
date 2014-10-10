@@ -336,9 +336,9 @@
 
 by("Julien Viet")
 license("ASL2")
-module io.vertx.ceylon.platform "0.4.0" {
+module io.vertx.ceylon.platform "1.0.0" {
 
   shared import ceylon.logging "1.1.0";
-  shared import io.vertx.ceylon.core "0.4.0";
+  shared import io.vertx.ceylon.core "1.0.0";
 
 } 
