@@ -132,12 +132,12 @@
    
    The logger is an instance of the interface [[ceylon.logging::Logger]] and has the following methods:
    
-   - [[[[ceylon.logging::Logger.trace]]]]
-   - [[[[ceylon.logging::Logger.debug]]]]
-   - [[[[ceylon.logging::Logger.info]]]]
-   - [[[[ceylon.logging::Logger.warn]]]]
-   - [[[[ceylon.logging::Logger.error]]]]
-   - [[[[ceylon.logging::Logger.fatal]]]]
+   - [[ceylon.logging::Logger.trace]]
+   - [[ceylon.logging::Logger.debug]]
+   - [[ceylon.logging::Logger.info]]
+   - [[ceylon.logging::Logger.warn]]
+   - [[ceylon.logging::Logger.error]]
+   - [[ceylon.logging::Logger.fatal]]
    
    Which have the normal meanings you would expect.
    

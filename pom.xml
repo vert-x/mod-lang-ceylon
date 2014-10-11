@@ -182,6 +182,19 @@
       <systemPath>${system.repo}/net/minidev/json-smart/1.1.1/net.minidev.json-smart-1.1.1.jar</systemPath>
     </dependency>
 
+    <dependency>
+      <groupId>org.tautua.markdownpapers</groupId>
+      <artifactId>markdownpapers-core</artifactId>
+      <version>1.4.2</version>
+      <!--<scope>provided</scope>-->
+    </dependency>
+
+    <dependency>
+      <groupId>org.pegdown</groupId>
+      <artifactId>pegdown</artifactId>
+      <version>1.4.2</version>
+    </dependency>
+
     <!-- Vert.x dependencies -->
     <dependency>
       <groupId>io.vertx</groupId>
@@ -438,6 +451,27 @@
       </plugin>
     </plugins>
   </build>
+
+  <!-- Generate the index.md doc with "mvn -Pdoc compile exec:java" -->
+  <profiles>
+    <profile>
+      <id>doc</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>1.3.2</version>
+              <configuration>
+                <mainClass>org.vertx.ceylon.doc.DocRenderer</mainClass>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
 
 
 </project>
