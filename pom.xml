@@ -437,7 +437,20 @@
             </goals>
             <configuration>
               <descriptor>src/examples/assembly/examples.xml</descriptor>
-              <finalName>lang-ceylon-${project.version}</finalName>
+              <finalName>examples-${project.version}</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+          </execution>
+          <execution>
+            <id>package-webapp</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptor>src/examples/assembly/webapp.xml</descriptor>
+              <finalName>io.vertx~example-web-app~${project.version}</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
             </configuration>
           </execution>
         </executions>
