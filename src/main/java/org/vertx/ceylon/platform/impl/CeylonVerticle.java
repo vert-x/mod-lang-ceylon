@@ -18,7 +18,9 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,20 +117,21 @@ public class CeylonVerticle extends Verticle {
           container.logger().info("Create temporary source path " + sourcePath.getAbsolutePath() + " for " +
               moduleSrc.getAbsolutePath());
           sourcePath.deleteOnExit();
-          File moduleDir = new File(sourcePath, "app");
+          String moduleName = "app" + Math.abs(new Random().nextInt()); // A unique module name, we use the source file name
+          File moduleDir = new File(sourcePath, moduleName);
           moduleDir.mkdir();
           Files.copy(moduleSrc.toPath(), new File(moduleDir, moduleSrc.getName()).toPath());
           moduleSrc = new File(moduleDir, "module.ceylon");
           moduleSrc.createNewFile();
           Files.write(moduleSrc.toPath(), (
-              "module app \"1.0.0\" {\n" +
+              "module " + moduleName + " \"1.0.0\" {\n" +
               "shared import io.vertx.ceylon.platform \"1.0.0\";\n" +
               "}\n"
           ).getBytes());
           File packageSrc = new File(moduleDir, "package.ceylon");
           packageSrc.createNewFile();
           Files.write(packageSrc.toPath(), (
-              "shared package app;\n"
+              "shared package " + moduleName + ";\n"
           ).getBytes());
         }
 
