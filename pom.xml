@@ -71,6 +71,20 @@
     </dependency>
     <dependency>
       <groupId>system-repo</groupId>
+      <artifactId>com.redhat.ceylon.compiler.js</artifactId>
+      <version>1.1.0</version>
+      <scope>system</scope>
+      <systemPath>${system.repo}/com/redhat/ceylon/compiler/js/1.1.0/com.redhat.ceylon.compiler.js-1.1.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>system-repo</groupId>
+      <artifactId>com.redhat.ceylon.maven-support</artifactId>
+      <version>2.0</version>
+      <scope>system</scope>
+      <systemPath>${system.repo}/com/redhat/ceylon/maven-support/2.0/com.redhat.ceylon.maven-support-2.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>system-repo</groupId>
       <artifactId>ceylon.runtime</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
@@ -183,13 +197,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.tautua.markdownpapers</groupId>
-      <artifactId>markdownpapers-core</artifactId>
-      <version>1.4.2</version>
-      <!--<scope>provided</scope>-->
-    </dependency>
-
-    <dependency>
       <groupId>org.pegdown</groupId>
       <artifactId>pegdown</artifactId>
       <version>1.4.2</version>
@@ -279,11 +286,30 @@
             <configuration>
               <target>
                 <exec executable="ceylon">
-                  <arg line="copy -r --out target/vertx-repo io.vertx.ceylon.core/1.0.0 ceylon.logging/1.1.0" />
+                  <arg value="copy" />
+                  <arg value="--out" />
+                  <arg value="target/vertx-repo" />
+                  <arg value="io.netty/4.0.20.Final" />
+                  <arg value="com.fasterxml.jackson.annotations/2.2.2" />
+                  <arg value="com.fasterxml.jackson.core/2.2.2" />
+                  <arg value="com.fasterxml.jackson.databind/2.2.2" />
+                  <arg value="ceylon.logging/1.1.0" />
+                  <arg value="ceylon.collection/1.1.0" />
+                  <arg value="ceylon.promise/1.1.0" />
+                  <arg value="ceylon.time/1.1.0" />
+                  <arg value="ceylon.json/1.1.0" />
+                  <arg value="ceylon.io/1.1.0" />
+                  <arg value="ceylon.file/1.1.0" />
+                  <arg value="ceylon.interop.java/1.1.0" />
+                  <arg value="org.tautua.markdownpapers.core/1.2.7" />
+                  <arg value="io.vertx.core/2.1.2" />
+                  <arg value="io.vertx.platform/2.1.2" />
+                  <arg value="io.vertx.ceylon.core/1.0.0" />
                 </exec>
                 <copy todir="target/system-repo" flatten="true">
                   <fileset dir="target/vertx-repo">
                     <include name="**/*.car" />
+                    <include name="**/*.jar" />
                     <exclude name="io/vertx/ceylon/**" />
                   </fileset>
                 </copy>
