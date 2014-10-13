@@ -2,6 +2,7 @@ package org.vertx.ceylon.doc;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -20,6 +21,7 @@ public class DocRenderer {
         "-->\n" +
         "\n" +
         "[TOC]\n";
+    s += new String(Files.readAllBytes(new File("Instructions.md").toPath()));
     s += new MarkdownSerializer(platformBase, "io.vertx.ceylon.platform").convert();
     s += new MarkdownSerializer(coreBase, "io.vertx.ceylon.core").convert();
     try (FileWriter out = new FileWriter("target/index.md")) {
