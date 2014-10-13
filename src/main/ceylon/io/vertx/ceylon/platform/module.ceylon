@@ -90,7 +90,7 @@
    
    ## Getting Configuration in a Verticle
    
-   You can pass configuration to a module or verticle from the command line using the `-conf option, for example:
+   You can pass configuration to a module or verticle from the command line using the `-conf` option, for example:
    
    ~~~
    vertx runmod com.mycompany~my-mod~1.0 -conf myconf.json
