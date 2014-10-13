@@ -261,6 +261,7 @@ public class MarkdownSerializer implements Visitor {
 
   @Override
   public void visit(BulletListNode node) {
+    buffer.println();
     visitChildren(node);
   }
 
