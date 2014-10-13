@@ -5,7 +5,7 @@
 - [Official Vert.x documentation](http://vertx.io/docs.html)
 - [`io.vertx.ceylon.core` module](https://modules.ceylon-lang.org/modules/io.vertx.ceylon.core/1.0.0/doc)
 - [`io.vertx.ceylon.platform` module](https://modules.ceylon-lang.org/modules/io.vertx.ceylon.platform/1.0.0/doc)
-- [Hxamples](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.1/lang-ceylon-1.0.1-examples.zip) or view them
+- [Examples](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.1/lang-ceylon-1.0.1-examples.zip) or view them
 [here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/examples/ceylon/examples).
 - [Module webapp](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.1/lang-ceylon-1.0.1-webapp.zip) or view them
 [here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/examples/ceylon/modules).
