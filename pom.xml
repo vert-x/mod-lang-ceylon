@@ -11,7 +11,7 @@
 
   <groupId>io.vertx</groupId>
   <artifactId>lang-ceylon</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>mod-lang-ceylon</name>
   <inceptionYear>2014</inceptionYear>
   <licenses>
