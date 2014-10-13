@@ -7,7 +7,7 @@
   </formats>
 
   <includeBaseDirectory>true</includeBaseDirectory>
-  <baseDirectory>/</baseDirectory>
+  <baseDirectory>/mods/io.vertx~example-web-app~${project.version}</baseDirectory>
 
   <fileSets>
     <fileSet>

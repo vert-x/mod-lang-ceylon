@@ -437,8 +437,7 @@
             </goals>
             <configuration>
               <descriptor>src/examples/assembly/examples.xml</descriptor>
-              <finalName>examples-${project.version}</finalName>
-              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>lang-ceylon-${project.version}</finalName>
             </configuration>
           </execution>
           <execution>
@@ -449,8 +448,7 @@
             </goals>
             <configuration>
               <descriptor>src/examples/assembly/webapp.xml</descriptor>
-              <finalName>io.vertx~example-web-app~${project.version}</finalName>
-              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>lang-ceylon-${project.version}</finalName>
             </configuration>
           </execution>
         </executions>
