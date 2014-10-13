@@ -10,7 +10,7 @@
 
 We suppose `$VERTX_HOME` points to Vert.x 2.1.2. Edit `$VERTX_HOME/conf/langs.properties` lang configuration:
 
-- declare the Ceylon Verticle Factory with `ceylon=io.vertx~lang-ceylon~1.0.0:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
+- declare the Ceylon Verticle Factory with `ceylon=io.vertx~lang-ceylon~1.0.1:org.vertx.ceylon.platform.impl.CeylonVerticleFactory`
 - declare the file mapping with `.ceylon=ceylon`
 
 Note that the Vert.x lang mod comes with the Ceylon language out of the box. If you want to install Ceylon 1.1
@@ -49,14 +49,18 @@ Run it with the `vertx` command:
 
 ~~~~
 % vertx run HelloWorldServer.ceylon
-Module io.vertx~lang-ceylon~1.0.0 successfully installed
+Module io.vertx~lang-ceylon~1.0.1 successfully installed
 Create temporary source path /var/folders/79/mjy6k9xs6l74_cf_zjg8klgc0000gn/T/vertx4695595712845187618ceylon for /Users/julien/java/mod-lang-ceylon/src/examples/ceylon/examples/httphelloworld/HelloWorldServer.ceylon
-Compiled module app/1.0.0
+Compiled module app878754/1.0.0
 Succeeded in deploying verticle
 ~~~~
 
-You can download more [examples](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.0/lang-ceylon-1.0.0-examples.zip) or view them
+You can download more:
+
+- [examples](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.1/lang-ceylon-1.0.1-examples.zip) or view them
 [here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/examples/ceylon/examples).
+- module [webapp](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.1/lang-ceylon-1.0.1-webapp.zip) or view them
+[here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/examples/ceylon/modules).
 
 ### from a Ceylon module containing a Verticle
 
