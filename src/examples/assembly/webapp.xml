@@ -7,11 +7,11 @@
   </formats>
 
   <includeBaseDirectory>true</includeBaseDirectory>
-  <baseDirectory>/mods/io.vertx~example-web-app~${project.version}</baseDirectory>
+  <baseDirectory>/</baseDirectory>
 
   <fileSets>
     <fileSet>
-      <outputDirectory>/</outputDirectory>
+      <outputDirectory>/mods/io.vertx~example-web-app~${project.version}</outputDirectory>
       <directory>src/examples/ceylon/modules/webapp</directory>
       <includes>
         <include>/**</include>
@@ -22,5 +22,11 @@
       </excludes>
     </fileSet>
   </fileSets>
+
+  <files>
+    <file>
+      <source>src/examples/ceylon/modules/README.md</source>
+    </file>
+  </files>
 
 </assembly>
