@@ -1,6 +1,8 @@
-# Ceylon lang module for Vert.x 2.1.2 and Ceylon 1.1
+# Vert.x 2.x is **deprecated** - use instead https://github.com/vert-x3/vertx-lang-ceylon
 
-## Documentation & examples
+## Ceylon lang module for Vert.x 2.1.2 and Ceylon 1.1
+
+### Documentation & examples
 
 - [Official Vert.x documentation](http://vertx.io/docs.html)
 - [`io.vertx.ceylon.core` module](https://modules.ceylon-lang.org/modules/io.vertx.ceylon.core/1.0.0/doc)
@@ -10,18 +12,18 @@
 - [Module webapp](http://search.maven.org/remotecontent?filepath=io/vertx/lang-ceylon/1.0.1/lang-ceylon-1.0.1-webapp.zip) or view them
 [here](https://github.com/vert-x/mod-lang-ceylon/tree/master/src/examples/ceylon/modules).
 
-## Usage
+### Usage
 
 [Read how to install and use this module](Instructions.md)
 
-## Todo
+### Todo
 
 - Allow to resolve maven repositories ?
 - test a module deployed in a repository
 - allow to have module imports for ceylon script deployment
 - javascript client lib
 
-## Build instructions
+### Build instructions
 
 - build a snapshot of Ceylon 1.1: instructions here https://github.com/ceylon/ceylon-dist
 - deploy a snapshot of the Vert.x Api for Ceylon in your local Ceylon repository
